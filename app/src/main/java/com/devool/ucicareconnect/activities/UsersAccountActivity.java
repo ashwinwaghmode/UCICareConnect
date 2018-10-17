@@ -7,7 +7,8 @@ import com.devool.ucicareconnect.R;
 
 public class UsersAccountActivity extends AppCompatActivity {
 
-    String s;
+    String S;
+    boolean flag = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
