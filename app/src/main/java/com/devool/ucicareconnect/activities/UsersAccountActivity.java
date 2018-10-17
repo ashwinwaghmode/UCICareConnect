@@ -7,6 +7,7 @@ import com.devool.ucicareconnect.R;
 
 public class UsersAccountActivity extends AppCompatActivity {
 
+    String s;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
