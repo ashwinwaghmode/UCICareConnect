@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".activities.SchedulingActivity"
+        android:orientation="vertical"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="234dp"
+            android:orientation="vertical"
+            android:background="#1B3D6D">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textview_bottom_shadow">
+
+                <!--<ImageView
+                    android:layout_marginTop="22dp"
+                    android:id="@+id/img_back_arrow"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/back_arrow"
+                    android:layout_marginLeft="16dp"/>-->
+
+                    <TextView
+                        android:textColor="#6AA2B8"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="Scheduling"
+                        android:gravity="center|left" />
+
+                    <ImageView
+                        android:id="@+id/img_close_button"
+                        android:layout_marginTop="22dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/close"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginLeft="16dp"/>
+
+                </RelativeLayout>
+
+                <!--<ImageView
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/requested_by"
+                    android:layout_centerInParent="true"/>-->
+
+                <TextView
+                    android:id="@+id/tv_request_heading"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Requested by"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginLeft="25dp" />
+
+                <TextView
+                    android:layout_below="@+id/tv_request_heading"
+                    android:textColor="#6AA2B8"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Was this test ordered by UCI or an outside provider?"
+                    android:gravity="center"
+                    android:layout_marginRight="58dp"
+                    android:layout_marginLeft="58dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_uci"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="43dp"
+            android:paddingRight="43dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="25sp"
+            android:text="UCI"
+            android:textSize="20dp"
+            android:textAllCaps="false"
+            android:textColor="#6AA2B8"
+            android:background="@drawable/appointment_btn_corner" />
+
+        <Button
+            android:id="@+id/btn_outside_provider"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="43dp"
+            android:paddingRight="43dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Outside Provider"
+            android:textSize="20dp"
+            android:textAllCaps="false"
+            android:textColor="#6AA2B8"
+            android:background="@drawable/appointment_btn_corner" />
+
+    </LinearLayout>
+
+
+   <!-- <Button
+        android:layout_centerInParent="true"
+        android:layout_above="@id/tv_need_help"
+        android:id="@+id/btn_next"
+        android:layout_width="171dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/appointment_btn_corner"
+        android:text="Next"
+        android:paddingTop="18dp"
+        android:paddingBottom="20dp"
+        android:paddingLeft="43dp"
+        android:paddingRight="43dp"
+        android:textSize="20dp"
+        android:textColor="#6AA2B8"
+        android:textAllCaps="false"
+        android:layout_gravity="center"/>-->
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_need_help"
+        android:layout_width="160dp"
+        android:layout_height="15dp"
+        android:background="@drawable/need_help"
+        android:gravity="center"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="33px"
+        android:textColor="#6AA2B8"
+        android:textSize="14dp"
+        android:layout_gravity="center"/>
+
+</RelativeLayout>

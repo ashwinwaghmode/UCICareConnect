@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".activities.SchedulingActivity"
+        android:orientation="vertical"
+        android:background="#FFFFFF">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="234dp"
+            android:orientation="vertical"
+            android:background="#1B3D6D">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textview_bottom_shadow">
+
+                    <!--<ImageView
+                        android:layout_marginTop="22dp"
+                        android:id="@+id/img_back_arrow"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/back_arrow"
+                        android:layout_marginLeft="16dp"/>-->
+
+                    <!--   <TextView
+                           android:textColor="#6AA2B8"
+                           android:textSize="20dp"
+                           android:textStyle="bold"
+                           android:layout_width="260dp"
+                           android:layout_height="60dp"
+                           android:text="Referrals"
+                           android:gravity="center"
+                           android:layout_centerInParent="true"
+                           android:layout_alignParentTop="true"/>
+
+                       <ImageView
+                           android:layout_marginTop="22dp"
+                           android:layout_width="20dp"
+                           android:layout_height="20dp"
+                           android:background="@drawable/close"
+                           android:layout_alignParentRight="true"
+                           android:layout_marginRight="17dp"
+                           android:layout_marginLeft="16dp"/>-->
+                    <TextView
+                        android:textColor="#6AA2B8"
+                        android:textSize="20dp"
+                        android:textStyle="bold"
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:layout_height="60dp"
+                        android:text="Scheduling"
+                        android:gravity="center|left"/>
+
+                    <ImageView
+                        android:id="@+id/img_close_button"
+                        android:layout_marginTop="22dp"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/close"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginLeft="16dp"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_request_heading"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Specific Requests"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginLeft="25dp" />
+
+                <TextView
+                    android:layout_below="@+id/tv_request_heading"
+                    android:textColor="#6AA2B8"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Any Specific requests that you would like to make?"
+                    android:gravity="center"
+                    android:layout_marginRight="58dp"
+                    android:layout_marginLeft="58dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/edit_specific_request"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:hint="i would like to..."
+            android:textColorHint="#C6BEB5"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:paddingRight="13dp"
+            android:paddingLeft="13dp"
+            android:gravity="center"
+            android:layout_gravity="start"
+            android:lines="3"
+            android:singleLine="true"
+            android:inputType="textMultiLine"
+            android:imeOptions="actionDone"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:textColor="#555759"
+            android:background="@drawable/edit_text_background"/>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_above="@id/tv_need_help"
+        android:id="@+id/btn_save"
+        android:layout_width="171dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/appointment_btn_corner"
+        android:paddingBottom="20dp"
+        android:paddingLeft="43dp"
+        android:paddingRight="43dp"
+        android:paddingTop="18dp"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="#6AA2B8"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_need_help"
+        android:layout_width="160dp"
+        android:layout_height="15dp"
+        android:background="@drawable/need_help"
+        android:gravity="center"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="33px"
+        android:textColor="#6AA2B8"
+        android:textSize="14dp"
+        android:layout_gravity="center"/>
+
+</RelativeLayout>

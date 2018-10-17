@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1B3D6D">
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="70dp"
+            android:layout_width="match_parent"
+            android:layout_height="244dp"
+            android:background="@drawable/uci_profile"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"/>
+
+        <!--<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="75dp">
+            
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rick"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="16dp"/>
+
+            <ImageView
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/brian"
+                android:layout_marginRight="23dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="3dp">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rick_signture"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+            <ImageView
+                android:layout_marginTop="8.21dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/brian_signature"/>
+            </LinearLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rick Gannota"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="CEO, UCI Health"
+                    android:textSize="14dp"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Brian Hervey"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Vice Chancellor"
+                    android:textSize="14dp"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>-->
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hi Jim,"
+            android:gravity="center"
+            android:layout_marginTop="14dp"
+            android:textSize="24dp"
+            android:textColor="#6AA2B8"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to UCI CarConnect+. This premium service is your link to personalized care. Use it to ask important health-related questions, schedule appointments or track your care"
+            android:padding="5dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:gravity="center"
+            android:layout_marginTop="8dp"
+            android:textSize="14dp"
+            android:textColor="#FFFFFF"/>
+
+</LinearLayout>
+
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="42dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/btn_next"
+        android:layout_gravity="center"
+        android:layout_marginTop="43dp"
+        android:layout_width="259dp"
+        android:layout_height="60dp"
+        android:text="Take a Look"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:layout_marginLeft="58dp"
+        android:layout_marginRight="58dp"
+        android:background="@drawable/referral_button_background"/>
+</RelativeLayout>

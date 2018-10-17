@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1B3D6D">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".activities.DashboardActivity">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="62dp">
+
+            <ImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="21dp"
+                android:background="@drawable/user" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="72.91dp"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="13.69dp">
+
+                    <ImageView
+                        android:id="@+id/icon_one"
+                        android:layout_width="23.54dp"
+                        android:layout_height="16.49dp"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/icon" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:layout_width="151dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/uci_logo" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="65.33dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="65.33dp"
+                    android:layout_height="65.33dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ann" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24.07dp"
+                    android:layout_gravity="center"
+                    android:text="Ann"
+                    android:textColor="#6AA2B8"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="65.33dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="65.33dp"
+                    android:layout_height="65.33dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/connie" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24.07dp"
+                    android:layout_gravity="center"
+                    android:text="Connie"
+                    android:textColor="#6AA2B8"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="65.33dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="65.33dp"
+                    android:layout_height="65.33dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/gay" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24.07dp"
+                    android:layout_gravity="center"
+                    android:text="Gay"
+                    android:textColor="#6AA2B8"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="65.33dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="65.33dp"
+                    android:layout_height="65.33dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/kathy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="24.07dp"
+                    android:layout_gravity="center"
+                    android:text="Kathy"
+                    android:textColor="#6AA2B8"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="322dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="Welcome"
+                    android:textColor="#6AA2B8"
+                    android:textSize="23sp" />
+
+
+                <TextView
+                    android:id="@+id/tv_welcome_tittle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:text="@string/how_can_we_help"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp" />
+                <!--<ImageView
+                android:layout_width="322dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/welcome" />-->
+
+
+                <RelativeLayout
+                    android:id="@+id/rel_quick_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@drawable/referral_button_background">
+
+
+                    <ImageView
+                        android:id="@+id/img"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="17dp"
+                        android:background="@drawable/quick_answer" />
+
+
+                    <TextView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="17dp"
+                        android:background="@drawable/circular_count"
+                        android:gravity="center"
+                        android:text="3"
+                        android:textColor="#1B3D6D"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/img"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/quick_answers"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/team_is_available_to_chat"
+                            android:textColor="#6AA2B8"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_scheduling"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/referral_button_background">
+
+
+                    <ImageView
+                        android:id="@+id/img_schdule"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="17dp"
+                        android:background="@drawable/scheduling" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/img_schdule"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/scheduling"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/make_a_new_appt_request"
+                            android:textColor="#6AA2B8"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_my_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/referral_button_background">
+
+
+                    <ImageView
+                        android:id="@+id/img_my_chart"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="17dp"
+                        android:background="@drawable/chart" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/img_my_chart"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/mychart"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/view_health_portal"
+                            android:textColor="#6AA2B8"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rel_referrals"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/referral_button_background">
+
+
+                    <ImageView
+                        android:id="@+id/referrals"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="17dp"
+                        android:background="@drawable/referral" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@id/referrals"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/referrals"
+                            android:textColor="#FFFFFF"
+                            android:textSize="18dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/refer_friends_and_family"
+                            android:textColor="#6AA2B8"
+                            android:textSize="14dp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rel_pop_up"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/layout_curve_background"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/rectangle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24.58dp"
+                    android:layout_height="26dp"
+                    android:layout_marginLeft="19.3dp"
+                    android:background="@drawable/sch" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10.11dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_heading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Appointment Requested!"
+                        android:textColor="#555759"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_subheading"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="We're looking for a suitable slot "
+                        android:textColor="#555759"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_view_event_details"
+            android:layout_width="248dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_corner_button"
+            android:text="@string/view_event_details"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btn_view_referral_details"
+            android:layout_width="248dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/rounded_corner_button"
+            android:text="View Referral Details"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--Dashboard Activity-->
+    <color name="bacgroun_color">#6AA2B8</color>
+
+    <color name="btn_text_color">#FFFFFF</color>
+    <color name="error_color">#808080</color>
+    <color name="text_password_error">#F7EB5F</color>
+
+</resources>

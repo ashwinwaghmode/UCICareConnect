@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "406717071374",
+    "firebase_url": "https://ucicareconnect.firebaseio.com",
+    "project_id": "ucicareconnect",
+    "storage_bucket": "ucicareconnect.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406717071374:android:d664b28d31e59a59",
+        "android_client_info": {
+          "package_name": "com.devool.ucicareconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406717071374-q25fc0m5e8svtil1d5c9l53opoftq3co.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNemjwJC3b4V8WYSpVmpu4T3Nk9LZHkOA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

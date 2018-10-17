@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">UCI Care Connect</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">Skip</string>
+    <string name="add_photo">Add Photo</string>
+    <string name="please_confirm_your_password">Please confirm your password</string>
+    <string name="login">Login</string>
+    <string name="create_your_password">Create Your Password</string>
+    <string name="password">Password</string>
+    <string name="ann">Ann</string>
+    <string name="how_can_we_help">How we can help?</string>
+    <string name="quick_answers">Chat With Us</string>
+    <string name="team_is_available_to_chat">Team is available to chat</string>
+    <string name="scheduling">Scheduling</string>
+    <string name="make_a_new_appt_request">Make a new appt request</string>
+    <string name="mychart">MyChart</string>
+    <string name="view_health_portal">View health portal</string>
+    <string name="referrals">Referrals</string>
+    <string name="refer_friends_and_family">Refer friends and family</string>
+    <string name="physician_appointment">Physician Appointment</string>
+    <string name="friday_aug_24_9_30am_10_30am">Friday Aug 24, 9:30am - 10:30am</string>
+    <string name="view_event_details">View Event Details</string>
+    <string name="enter_activation_code">Enter Activation Code</string>
+    <string name="lost_activation_code">Lost Activation code?</string>
+    <string name="check_your_email_for_your_activation_code">Check your email for your activation code.</string>
+    <string name="signed_up_before">Signed up before?</string>
+    <string name="profile_photo">Profile Photo</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+</resources>

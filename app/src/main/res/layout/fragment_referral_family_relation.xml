@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        tools:context=".activities.SchedulingActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="234dp"
+            android:background="#1B3D6D"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/textview_bottom_shadow">
+
+                    <!-- <ImageView
+                         android:layout_marginTop="22dp"
+                         android:id="@+id/img_back_arrow"
+                         android:layout_width="20dp"
+                         android:layout_height="20dp"
+                         android:background="@drawable/back_arrow"
+                         android:layout_marginLeft="16dp"/>-->
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center|left"
+                        android:text="Referrals"
+                        android:textColor="#6AA2B8"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/img_close_button"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="17dp"
+                        android:layout_marginTop="22dp"
+                        android:background="@drawable/close" />
+
+                </RelativeLayout>
+
+                <!-- <ImageView
+                     android:layout_marginLeft="15dp"
+                     android:layout_marginRight="15dp"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:background="@drawable/family_relation"
+                     android:layout_centerInParent="true"/>-->
+
+                <TextView
+                    android:id="@+id/tv_request_heading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginTop="100dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="Family Relation"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_request_heading"
+                    android:layout_marginLeft="58dp"
+                    android:layout_marginRight="58dp"
+                    android:gravity="center"
+                    android:text="How are they related?"
+                    android:textColor="#6AA2B8"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <EditText
+            android:id="@+id/edit_relation"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_gravity="start"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_background"
+            android:gravity="center"
+            android:hint="Relation"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingBottom="28dp"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:paddingTop="28dp"
+            android:textColor="#555759"
+            android:textColorHint="#C6BEB5"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_above="@id/tv_need_help"
+        android:id="@+id/btn_next"
+        android:layout_width="171dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/appointment_btn_corner"
+        android:paddingBottom="20dp"
+        android:paddingLeft="43dp"
+        android:paddingRight="43dp"
+        android:paddingTop="18dp"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textColor="#6AA2B8"
+        android:textSize="20dp" />
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/tv_need_help"
+        android:layout_width="160dp"
+        android:layout_height="15dp"
+        android:background="@drawable/need_help"
+        android:gravity="center"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="33px"
+        android:textColor="#6AA2B8"
+        android:textSize="14dp"
+        android:layout_gravity="center"/>
+
+</RelativeLayout>

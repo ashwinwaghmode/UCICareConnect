@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1B3D6D"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:background="@drawable/on_demand_service"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"/>
+
+    <TextView
+        android:id="@+id/tv_on_demand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ON - DEMAND"
+        android:layout_gravity="center"
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="center"
+        android:textSize="34dp"
+        android:textColor="#6AA2B8"/>
+
+    <TextView
+        android:id="@+id/tv_service"
+        android:textColor="#6AA2B8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SERVICE"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:gravity="center"
+        android:textSize="34dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:weightSum="3"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@drawable/line"
+            android:layout_marginLeft="15dp"/>
+
+        <ImageView
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:background="@drawable/plus" />
+
+        <ImageView
+            android:layout_marginRight="15dp"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:background="@drawable/line" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_on_demand_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Receive 24/7 access yo our expert team members when you need them most."
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:textSize="18dp"
+        android:padding="5dp"
+        android:layout_marginRight="58dp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginTop="15dp"/>
+
+</LinearLayout>
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_next"
+        android:layout_gravity="center"
+        android:layout_marginBottom="42dp"
+        android:layout_width="171dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="102dp"
+        android:layout_marginLeft="102dp"
+        android:text="Next"
+        android:textSize="20dp"
+        android:textColor="#6AA2B8"
+        android:textAllCaps="false"
+        android:background="@drawable/referral_button_background"/>
+</RelativeLayout>

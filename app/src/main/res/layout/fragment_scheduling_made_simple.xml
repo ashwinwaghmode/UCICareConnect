@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1B3D6D"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="200dp"
+            android:background="@drawable/onboarding_schedule"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp" />
+
+        <TextView
+            android:id="@+id/tv_scheduling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SCHEDULING"
+            android:layout_gravity="center"
+            android:layout_marginTop="19dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center"
+            android:textSize="34dp"
+            android:textColor="#6AA2B8"/>
+
+        <TextView
+            android:id="@+id/tv_made_simple"
+            android:textColor="#6AA2B8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MADE SIMPLE"
+            android:layout_gravity="center"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center"
+            android:textSize="34dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16.5dp"
+            android:weightSum="3"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_weight="1.5"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@drawable/line"
+                android:layout_marginLeft="15dp"/>
+
+            <ImageView
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:background="@drawable/plus" />
+
+            <ImageView
+                android:layout_marginRight="15dp"
+                android:layout_weight="1.5"
+                android:layout_width="0dp"
+                android:layout_height="2dp"
+                android:background="@drawable/line" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/scheduling_made_simple_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choose appointment times that works best with your schedule or connect virtually to save time"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:padding="5dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="15dp"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_next"
+        android:layout_gravity="center"
+        android:layout_marginBottom="42dp"
+        android:layout_width="171dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="102dp"
+        android:layout_marginLeft="102dp"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textSize="20dp"
+        android:textColor="#6AA2B8"
+        android:background="@drawable/referral_button_background"/>
+</RelativeLayout>

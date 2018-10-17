@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.SchedulingActivity"
+    android:background="#1B3D6D">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_bottom_shadow">
+
+           <!-- <ImageView
+                android:layout_marginTop="22dp"
+                android:id="@+id/img_back_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/back_arrow"
+                android:layout_marginLeft="16dp"/>-->
+
+            <TextView
+                android:textColor="#6AA2B8"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_height="60dp"
+                android:text="Scheduling"
+                android:gravity="center|left"/>
+
+            <ImageView
+                android:id="@+id/img_close_button"
+                android:layout_marginTop="22dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/close"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="17dp"
+                android:layout_marginLeft="16dp"/>
+
+          <!--  <ImageView
+                android:layout_marginTop="22dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/close"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="17dp"
+                android:layout_marginLeft="16dp"/>-->
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp">
+
+            <TextView
+                android:layout_width="354dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:gravity="center"
+                android:text="Your Appointment Request"
+                android:textColor="#FFFFFF"
+                android:textSize="14dp" />
+
+            <!--<ImageView
+                android:layout_width="25.5dp"
+                android:layout_height="25.5dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/edit_icon"
+                android:layout_marginRight="14.5dp"/>-->
+        </RelativeLayout>
+
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="195dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="19dp"
+                    android:text="Appointment Type"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/tv_appointment_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#6AA2B8"/>
+
+                <TextView
+                    android:layout_marginTop="18.8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="New Appointment"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/tv_appointment_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#6AA2B8"/>
+
+
+                <TextView
+                    android:layout_marginTop="18.8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Availability"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/tv_availability"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#6AA2B8"/>
+
+                <TextView
+                    android:layout_marginTop="18.8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Time of Day"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/tv_time_of_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#6AA2B8"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_specific_request_title"
+                    android:layout_marginTop="18.8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Specific Requests"
+                    android:textSize="14sp"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_specific_request"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textColor="#6AA2B8"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="195dp"
+        android:background="@drawable/layout_curve_background"
+        android:gravity="center"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_any_specific_request"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingLeft="43dp"
+                android:paddingRight="43dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="Any Specific Requests?"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:textColor="#6AA2B8"
+                android:background="@drawable/appointment_btn_corner" />
+
+            <Button
+                android:id="@+id/btn_send_request"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingLeft="43dp"
+                android:paddingRight="43dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:text="Send Request"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:textColor="#6AA2B8"
+                android:background="@drawable/appointment_btn_corner" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/tv_need_help"
+            android:layout_width="160dp"
+            android:layout_height="15dp"
+            android:background="@drawable/need_help_blue"
+            android:gravity="center"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginBottom="33px"
+            android:textColor="#6AA2B8"
+            android:textSize="14dp"
+            android:layout_gravity="center"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
