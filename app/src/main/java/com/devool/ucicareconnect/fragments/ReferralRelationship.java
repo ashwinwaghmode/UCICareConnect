@@ -49,7 +49,7 @@ public class ReferralRelationship extends Fragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        strReferralname = getArguments().getString("Referral_name");
+//(        strReferralname = getArguments().getString("Referral_name");
 
     }
 
@@ -150,7 +150,7 @@ public class ReferralRelationship extends Fragment implements View.OnClickListen
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             String URL = AppConfig.BASE_URL + AppConfig.POST_CREATE_REFERRAL;
             JSONObject jsonBody = new JSONObject();
-            jsonBody.put("Referral_name", strReferralname);
+            //jsonBody.put("Referral_name", strReferralname);
             jsonBody.put("UserID", sharedpreferences.getString("USER_ID", ""));
             jsonBody.put("Interaction_ID", sharedpreferences.getString("interaction_ID", ""));
             jsonBody.put("Relationship", strRelationship);
@@ -187,7 +187,7 @@ public class ReferralRelationship extends Fragment implements View.OnClickListen
                                     ReferralContactInfoFragment fragment = new ReferralContactInfoFragment();
                                     Bundle args = new Bundle();
                                     args.putString("relationship", strRelationship);
-                                    args.putString("Referral_name", strReferralname);
+                                    //args.putString("Referral_name", strReferralname);
                                     fragment.setArguments(args);
                                     fragmentTransaction.replace(R.id.myContainer, fragment);
                                     fragmentTransaction.commit();
@@ -199,7 +199,7 @@ public class ReferralRelationship extends Fragment implements View.OnClickListen
                                     ReferralFamilyRelationFragment fragment = new ReferralFamilyRelationFragment();
                                     Bundle args = new Bundle();
                                     args.putString("relationship", strRelationship);
-                                    args.putString("Referral_name", strReferralname);
+                                    //args.putString("Referral_name", strReferralname);
                                     fragment.setArguments(args);
                                     fragmentTransaction.replace(R.id.myContainer, fragment);
                                     fragmentTransaction.commit();
@@ -211,7 +211,7 @@ public class ReferralRelationship extends Fragment implements View.OnClickListen
                                     ReferralAssociateName fragment = new ReferralAssociateName();
                                     Bundle args = new Bundle();
                                     args.putString("relationship", strRelationship);
-                                    args.putString("Referral_name", strReferralname);
+                                    //args.putString("Referral_name", strReferralname);
                                     fragment.setArguments(args);
                                     fragmentTransaction.replace(R.id.myContainer, fragment);
                                     fragmentTransaction.commit();

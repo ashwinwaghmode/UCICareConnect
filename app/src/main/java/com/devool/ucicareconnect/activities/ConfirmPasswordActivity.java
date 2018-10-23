@@ -102,9 +102,9 @@ public class ConfirmPasswordActivity extends AppCompatActivity implements View.O
         switch (v.getId()) {
             case R.id.btn_next:
                 if (getIntent().getExtras().getString("password").equalsIgnoreCase(edtConfirmPassword.getText().toString())) {
-                    submitUpdatePassword();
-                    tvConfirPasswordText.setVisibility(View.VISIBLE);
-                    break;
+                        submitUpdatePassword();
+                        tvConfirPasswordText.setVisibility(View.VISIBLE);
+                        break;
                 } else {
                     tvConfirPasswordText.setVisibility(View.VISIBLE);
                     edtConfirmPassword.setBackgroundResource(R.drawable.activation_error_color_background);
@@ -125,7 +125,11 @@ public class ConfirmPasswordActivity extends AppCompatActivity implements View.O
                 RequestQueue requestQueue = Volley.newRequestQueue(ConfirmPasswordActivity.this);
                 String URL = AppConfig.BASE_URL + AppConfig.UPDATE_PASSWORD;
                 JSONObject jsonBody = new JSONObject();
-                jsonBody.put("userID", sharedpreferences.getString("USER_ID", ""));
+                if(getIntent().hasExtra("flag")){
+                    jsonBody.put("userID", getIntent().getExtras().getString("userId"));
+                }else {
+                    jsonBody.put("userID", sharedpreferences.getString("USER_ID", ""));
+                }
                 jsonBody.put("Password", edtConfirmPassword.getText().toString());
 
                 Log.e("USER_ID", sharedpreferences.getString("USER_ID", ""));
@@ -144,11 +148,20 @@ public class ConfirmPasswordActivity extends AppCompatActivity implements View.O
                                 JSONObject object = array.getJSONObject(0);
                                 editor.putString("USER_ID", object.getString("userID"));
                                 editor.commit();
-                                Intent intent = new Intent(ConfirmPasswordActivity.this,ProfileActivity.class);
-                                //intent.putExtra("password", edtCreatePassword.getText().toString());
-                                intent.putExtra("user_name", getIntent().getExtras().getString("user_name"));
-                                startActivity(intent);
-                                //startActivity(new Intent(ConfirmPasswordActivity.this,ProfileActivity.class));
+                                if(getIntent().hasExtra("flag")){
+                                    Intent intent = new Intent(ConfirmPasswordActivity.this,LoginActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    //intent.putExtra("password", edtCreatePassword.getText().toString());
+                                    intent.putExtra("user_name", getIntent().getExtras().getString("user_name"));
+                                    startActivity(intent);
+                                }else {
+                                    Intent intent = new Intent(ConfirmPasswordActivity.this,ProfileActivity.class);
+                                    //intent.putExtra("password", edtCreatePassword.getText().toString());
+                                    intent.putExtra("user_name", getIntent().getExtras().getString("user_name"));
+                                    startActivity(intent);
+                                    //startActivity(new Intent(ConfirmPasswordActivity.this,ProfileActivity.class));
+                                }
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

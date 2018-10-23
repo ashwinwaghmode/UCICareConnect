@@ -192,9 +192,10 @@ public class AppointmentPhysicianRequestFragment extends Fragment implements Vie
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.btn_send_request:
+                btnSendRquest.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnSendRquest.setTextColor(getResources().getColor(R.color.btn_text_color));
                 submitPhysicianRequest();
                 break;
             case R.id.img_close_button:
@@ -204,6 +205,8 @@ public class AppointmentPhysicianRequestFragment extends Fragment implements Vie
                 getActivity().finish();
                 break;
             case R.id.btn_any_specific_request:
+                btnAnySpecificRequest.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnAnySpecificRequest.setTextColor(getResources().getColor(R.color.btn_text_color));
                 android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 AnySpecificRequestFragmrent fragment = new AnySpecificRequestFragmrent();

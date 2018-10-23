@@ -12,6 +12,7 @@ import com.devool.ucicareconnect.R;
 import com.devool.ucicareconnect.fragments.AppoinmentTypeFragment;
 import com.devool.ucicareconnect.fragments.NewAppointmentFragment;
 import com.devool.ucicareconnect.fragments.ReferralNameFragment;
+import com.devool.ucicareconnect.fragments.ReferralRelationship;
 
 public class SchedulingActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -36,7 +37,7 @@ public class SchedulingActivity extends AppCompatActivity implements View.OnClic
         }else if(getIntent().getExtras().getString("Interaction_Type_ID").equalsIgnoreCase("4")){
             android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
             android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            ReferralNameFragment fragment = new ReferralNameFragment();
+            ReferralRelationship fragment = new ReferralRelationship();
             fragmentTransaction.add(R.id.myContainer, fragment);
             fragmentTransaction.commit();
         }

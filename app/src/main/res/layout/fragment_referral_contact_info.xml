@@ -94,6 +94,39 @@
             </RelativeLayout>
         </LinearLayout>
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="120dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edit_referral_name"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:paddingRight="13dp"
+            android:paddingLeft="13dp"
+            android:paddingTop="28dp"
+            android:paddingBottom="28dp"
+            android:hint="Name"
+            android:textColorHint="#C6BEB5"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="start"
+            android:maxLines="1"
+            android:inputType="text"
+            android:imeOptions="actionNext"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:textColor="#555759"
+            android:background="@drawable/edit_text_background"/>
+
 
         <EditText
             android:id="@+id/edit_relaative_contact_name"
@@ -111,7 +144,8 @@
             android:layout_gravity="start"
             android:maxLines="1"
             android:inputType="phone"
-            android:imeOptions="actionDone"
+            android:maxLength="14"
+            android:imeOptions="actionNext"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
@@ -139,8 +173,12 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
             android:textColor="#555759"
-            android:background="@drawable/edit_text_background"/>
+            android:background="@drawable/edit_text_background"
+            android:layout_marginBottom="15dp"/>
+        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
+
 
     <Button
         android:layout_centerInParent="true"

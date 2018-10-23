@@ -222,7 +222,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void checkPasscode()
     {
-
         removeDashToActivationCode();
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         try {
@@ -259,6 +258,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 edtActivationCode.setBackgroundResource(R.drawable.edit_text_background);
                                 tvActivationCodeMsg.setText("Check your email for your activation code.");
                                 tvActivationCodeText.setText("Activation Code");
+                            }
+                            if(object.getString("is_AdminCreated").equalsIgnoreCase("N")){
+                                btnNext.setVisibility(View.GONE);
+                                tvActivationCodeMsg.setText("Activation code already used");
+                                edtActivationCode.setBackgroundResource(R.drawable.activation_error_color_background);
+                                tvActivationCodeText.setText("Activation code already used");
                             }
                         }
                     } catch (JSONException e) {

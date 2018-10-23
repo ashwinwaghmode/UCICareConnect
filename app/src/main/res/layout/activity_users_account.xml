@@ -1,9 +1,344 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.UsersAccountActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rel_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/account_textview_header_shadow">
+
+            <!--<ImageView
+                android:layout_marginTop="22dp"
+                android:id="@+id/img_back_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/back_arrow"
+                android:layout_marginLeft="16dp"/>-->
+<!--
+            <ImageView
+                android:layout_marginTop="22dp"
+                android:id="@+id/img_back_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/back_arrow"
+                android:layout_marginLeft="16dp"/>-->
+
+            <TextView
+                android:id="@+id/tv_heading"
+                android:textColor="#6AA2B8"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="260dp"
+                android:layout_height="60dp"
+                android:text="Account"
+                android:layout_marginLeft="15dp"
+                android:gravity="center|left"/>
+
+            <ImageView
+                android:id="@+id/img_close_button"
+                android:layout_marginTop="22dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/close"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="17dp"
+                android:layout_marginLeft="16dp"/>
+
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:textColor="#6AA2B8"
+            android:textSize="18dp"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:text="Profile"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp" />
+
+        <TextView
+            android:textColor="#C6BEB5"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:text="Name"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:textColor="#555759"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/account_textview_field"/>
+
+        <TextView
+            android:textColor="#C6BEB5"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:text="Email"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_email_address"
+            android:textColor="#555759"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/account_textview_field"/>
+
+        <TextView
+            android:textColor="#C6BEB5"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:text="Phone Number"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_phone_number"
+            android:textColor="#555759"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/account_textview_field"/>
+
+        <TextView
+            android:textColor="#C6BEB5"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:text="Address"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:textColor="#555759"
+            android:textSize="14dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/account_textview_field"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:text="Assistant"
+                android:textColor="#6AA2B8"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Assistant"
+                android:textColor="#555759"
+                android:textSize="14dp" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:layout_weight="1"
+                android:id="@+id/switcher_assistant_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5.0dip"
+                android:checked="false"
+                android:thumb="@drawable/switch_custom_selector"
+                app:track="@drawable/switch_custom_track" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_switcher_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:textColor="#C6BEB5"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:text="Name" />
+
+                <TextView
+                    android:textColor="#555759"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:background="@drawable/account_textview_field"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/ll_switcher_phone_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:textColor="#C6BEB5"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:text="Phone Number" />
+
+                <TextView
+                    android:textColor="#555759"
+                    android:textSize="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:background="@drawable/account_textview_field"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:text="Password"
+                android:textColor="#6AA2B8"
+                android:textSize="18dp" />
+
+            <Button
+                android:layout_marginTop="20dp"
+                android:id="@+id/btn_change_password"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingLeft="43dp"
+                android:paddingRight="43dp"
+                android:layout_marginBottom="18dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="Change Password"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:textColor="#6AA2B8"
+                android:background="@drawable/appointment_btn_corner" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="22dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:text="Notifications"
+                android:textColor="#6AA2B8"
+                android:textSize="18dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Enable Text Notification"
+                    android:textColor="#555759"
+                    android:textSize="14dp" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:layout_weight="1"
+                    android:id="@+id/switcher_assistant_notification"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5.0dip"
+                    android:checked="false"
+                    android:thumb="@drawable/switch_custom_selector"
+                    app:track="@drawable/switch_custom_track" />
+
+            </LinearLayout>
+
+            <Button
+                android:layout_marginTop="30dp"
+                android:id="@+id/btn_sign_out"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:paddingLeft="43dp"
+                android:paddingRight="43dp"
+                android:layout_marginBottom="18dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:text="Sign Out"
+                android:textSize="20dp"
+                android:textAllCaps="false"
+                android:textColor="#6AA2B8"
+                android:background="@drawable/appointment_btn_corner" />
+
+        </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</RelativeLayout>

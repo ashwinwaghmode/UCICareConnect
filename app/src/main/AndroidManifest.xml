@@ -66,10 +66,17 @@
             android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".activities.SchedulingActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activities.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.WelcomeActivityAfterLogin"
             android:screenOrientation="portrait" />
@@ -145,14 +152,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SplashScreen"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".activities.UsersAccountActivity"></activity>
+        <activity android:name=".activities.CancelFollowUpActivity"></activity>
     </application>
 
 </manifest>

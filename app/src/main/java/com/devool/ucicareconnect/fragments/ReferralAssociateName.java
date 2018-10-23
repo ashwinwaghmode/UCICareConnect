@@ -87,7 +87,7 @@ public class ReferralAssociateName extends Fragment implements View.OnClickListe
             JSONObject jsonBody = new JSONObject();
 
            // jsonBody.put("family_relation", "");
-            jsonBody.put("Referral_name", strReferalName);
+            //jsonBody.put("Referral_name", strReferalName);
             jsonBody.put("Association", edtAssociateName.getText().toString());
             jsonBody.put("UserID", sharedpreferences.getString("USER_ID", ""));
             jsonBody.put("Interaction_ID", sharedpreferences.getString("interaction_ID", ""));
@@ -113,7 +113,7 @@ public class ReferralAssociateName extends Fragment implements View.OnClickListe
                                 Bundle args = new Bundle();
                                 args.putString("relationship", strRelationship);
                                 args.putString("Association", edtAssociateName.getText().toString());
-                                args.putString("Referral_name", strReferalName);
+                                //args.putString("Referral_name", strReferalName);
                                 fragment.setArguments(args);
                                 fragmentTransaction.replace(R.id.myContainer, fragment);
                                 fragmentTransaction.commit();

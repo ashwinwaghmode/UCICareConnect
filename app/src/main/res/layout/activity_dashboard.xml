@@ -20,6 +20,7 @@
             android:layout_height="62dp">
 
             <ImageView
+                android:id="@+id/img_user_info"
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_alignParentRight="true"

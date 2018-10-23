@@ -1,9 +1,11 @@
 package com.devool.ucicareconnect.fragments;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -33,72 +35,101 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class AppointmentLabRequestFragment extends Fragment implements View.OnClickListener {
+public class FollowupAppointmentRequest extends Fragment implements View.OnClickListener {
 
-    TextView tvAppointmentType, tvNewAppointName, tvAvailability, tvTimeOfDay, tvSpecificRequest, tvSpecificRequestTitle;
-    String strAppointmentType, strMeetPurpose, strAvailability, strDay, strInteractionId, strInteractionDetailId, strUserId, strAnySpecificRequest;
-    Button btnSendRequest, btnAnySpecificRequest;
-    SharedPreferences sharedpreferences;
     public static final String USER_INFO = "user_info";
+    String StrAppointmentType, strDoctorName, strFollowupAvailability, strFollowupTimeofDay, strAnySpecificRequest, strInteractionId, strInteractionDetailId, strUserId;
+    TextView tvAppointmentType, tvDoctorName, tvFollowupAvailability, tvFollowupTimeOfDay, tvSpecificRequest, tvSpecificRequestTitle;
+    Button btnSendRequest, btnAnySpecificRequest;
     ImageView imgCloseButton;
-
-    public static AppointmentLabRequestFragment newInstance(String param1, String param2) {
-        AppointmentLabRequestFragment fragment = new AppointmentLabRequestFragment();
-        Bundle args = new Bundle();
-
-        fragment.setArguments(args);
-        return fragment;
-    }
+    SharedPreferences sharedpreferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            strAppointmentType = getArguments().getString("appointment_type");
-            strMeetPurpose = getArguments().getString("meet_purpose");
-            strAvailability = getArguments().getString("availability");
-            strDay = getArguments().getString("day");
+            StrAppointmentType = getArguments().getString("appointment_type");
+            strDoctorName = getArguments().getString("physician_name");
+            strFollowupAvailability = getArguments().getString("followup_availability");
+            strFollowupTimeofDay = getArguments().getString("followup_time_of_day");
             strAnySpecificRequest = getArguments().getString("Any_Specific_Request");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View row = inflater.inflate(R.layout.fragment_appointment_lab_request, container, false);
+        View row = inflater.inflate(R.layout.fragment_followup_appointment_request, container, false);
         tvAppointmentType = row.findViewById(R.id.tv_appointment_type);
-        tvNewAppointName = row.findViewById(R.id.tv_appointment_name);
-        tvAvailability = row.findViewById(R.id.tv_availability);
-        tvTimeOfDay = row.findViewById(R.id.tv_time_of_day);
+        tvDoctorName = row.findViewById(R.id.tv_doctor_name);
+        tvFollowupAvailability = row.findViewById(R.id.tv_availability);
+        tvFollowupTimeOfDay = row.findViewById(R.id.tv_time_of_day);
         tvSpecificRequest = row.findViewById(R.id.tv_specific_request);
         tvSpecificRequestTitle = row.findViewById(R.id.tv_specific_request_title);
+        btnAnySpecificRequest = row.findViewById(R.id.btn_any_specific_request);
         btnSendRequest = row.findViewById(R.id.btn_send_request);
         imgCloseButton = row.findViewById(R.id.img_close_button);
-        btnAnySpecificRequest = row.findViewById(R.id.btn_any_specific_request);
 
-        tvAppointmentType.setText(strAppointmentType);
-        tvNewAppointName.setText(strMeetPurpose);
-        tvAvailability.setText(strAvailability);
-        tvTimeOfDay.setText(strDay);
+        tvAppointmentType.setText(StrAppointmentType);
+        tvDoctorName.setText(strDoctorName);
+        tvFollowupAvailability.setText(strFollowupAvailability);
+        tvFollowupTimeOfDay.setText(strFollowupTimeofDay);
 
-        if(strAnySpecificRequest!=null && !strAnySpecificRequest.isEmpty()){
+
+        if (strAnySpecificRequest != null && !strAnySpecificRequest.isEmpty()) {
             tvSpecificRequest.setVisibility(View.VISIBLE);
             tvSpecificRequestTitle.setVisibility(View.VISIBLE);
             tvSpecificRequest.setText(strAnySpecificRequest);
-        }else {
+        } else {
             tvSpecificRequest.setVisibility(View.GONE);
             tvSpecificRequestTitle.setVisibility(View.GONE);
         }
-
-        btnSendRequest.setOnClickListener(this);
-        imgCloseButton.setOnClickListener(this);
-        btnAnySpecificRequest.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
         strInteractionId = sharedpreferences.getString("interaction_ID", "");
         strUserId = sharedpreferences.getString("USER_ID", "");
 
+        btnSendRequest.setOnClickListener(this);
+        imgCloseButton.setOnClickListener(this);
+        btnAnySpecificRequest.setOnClickListener(this);
         return row;
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_any_specific_request:
+                btnAnySpecificRequest.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnAnySpecificRequest.setTextColor(getResources().getColor(R.color.btn_text_color));
+                btnAnySpecificRequest.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnAnySpecificRequest.setTextColor(getResources().getColor(R.color.btn_text_color));
+                android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                AnySpecificRequestFragmrent fragment = new AnySpecificRequestFragmrent();
+                Bundle args = new Bundle();
+                args.putString("appointment_type", StrAppointmentType);
+                args.putString("physician_name", strDoctorName);
+                args.putString("followup_availability", strFollowupAvailability);
+                args.putString("followup_time_of_day", strFollowupTimeofDay);
+                args.putString("followup_flag", "followup");
+                fragment.setArguments(args);
+                fragmentTransaction.replace(R.id.myContainer, fragment);
+                fragmentTransaction.commit();
+                fragmentTransaction.addToBackStack(null);
+                break;
+            case R.id.btn_send_request:
+                submitLabRequest();
+                btnSendRequest.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnSendRequest.setTextColor(getResources().getColor(R.color.btn_text_color));
+                break;
+            case R.id.img_close_button:
+                Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                getActivity().finish();
+                break;
+        }
     }
 
     public void submitLabRequest() {
@@ -109,13 +140,11 @@ public class AppointmentLabRequestFragment extends Fragment implements View.OnCl
             jsonBody.put("Interaction_DTL_ID", strInteractionDetailId);
             jsonBody.put("UserID", strUserId);
             jsonBody.put("status_Id", "Y");
-            jsonBody.put("Appointment_Type", strAppointmentType);
+            jsonBody.put("Appointment_Type", StrAppointmentType);
             jsonBody.put("Interaction_ID", strInteractionId);
-            jsonBody.put("Speciality", "3");
-            jsonBody.put("Physicians_Name", "");
-            jsonBody.put("Physicians_Specialty", "");
-            jsonBody.put("Availability", strAvailability);
-            jsonBody.put("Time_of_day", strDay);
+            jsonBody.put("Physicians_Name", strDoctorName);
+            jsonBody.put("Availability", strFollowupAvailability);
+            jsonBody.put("Time_of_day", strFollowupTimeofDay);
             final String requestBody = jsonBody.toString();
 
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -124,16 +153,15 @@ public class AppointmentLabRequestFragment extends Fragment implements View.OnCl
                     Log.e("VOLLEY_PHYSICIAN_RESONS", response);
                     try {
                         JSONArray array = new JSONArray(response);
-                        for (int i =0; i<array.length();i++){
+                        for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(0);
-                            if(object.getString("inMsg").equalsIgnoreCase("Request Saved!!!")) {
+                            if (object.getString("inMsg").equalsIgnoreCase("Request Saved!!!")) {
                                 Intent intent = new Intent(getActivity(), DashboardActivity.class);
-                                intent.putExtra("is_lab_requested_completed", "Lab");
-                                intent.putExtra("request", "Lab");
-                                intent.putExtra("appointment_type", strAppointmentType);
-                                intent.putExtra("Speciality", "Lab");
-                                intent.putExtra("Availability", strAvailability);
-                                intent.putExtra("Time_of_day", strDay);
+                                intent.putExtra("followup_request_flag", "followup_request");
+                                intent.putExtra("appointment_type", StrAppointmentType);
+                                intent.putExtra("Physicians_Name", strDoctorName);
+                                intent.putExtra("Availability", strFollowupAvailability);
+                                intent.putExtra("Time_of_day", strFollowupTimeofDay);
                                 intent.putExtra("Any_Specific_Request", strAnySpecificRequest);
                                 startActivity(intent);
                             }
@@ -179,39 +207,5 @@ public class AppointmentLabRequestFragment extends Fragment implements View.OnCl
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_send_request:
-                btnSendRequest.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
-                btnSendRequest.setTextColor(getResources().getColor(R.color.btn_text_color));
-                submitLabRequest();
-                break;
-            case R.id.img_close_button:
-                Intent intent = new Intent(getActivity(), DashboardActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-                getActivity().finish();
-                break;
-            case R.id.btn_any_specific_request:
-                btnAnySpecificRequest.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
-                btnAnySpecificRequest.setTextColor(getResources().getColor(R.color.btn_text_color));
-                android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                AnySpecificRequestFragmrent fragment = new AnySpecificRequestFragmrent();
-                Bundle args = new Bundle();
-                args.putString("appointment_type", strAppointmentType);
-                args.putString("Speciality", strMeetPurpose);
-                args.putString("Availability", strAvailability);
-                args.putString("Time_of_day", strDay);
-                fragment.setArguments(args);
-                fragmentTransaction.replace(R.id.myContainer, fragment);
-                fragmentTransaction.commit();
-                fragmentTransaction.addToBackStack(null);
-                break;
-        }
-
     }
 }

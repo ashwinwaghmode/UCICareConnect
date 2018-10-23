@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
@@ -33,45 +32,63 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class ReferralFamilyRelationFragment extends Fragment implements View.OnClickListener{
+public class FollowupAppointmentFragment extends Fragment implements View.OnClickListener{
 
-    EditText edtRelation;
-    Button btnNext;
-    String strRelationship, strReferralname;
-    ImageView imgCloseButton;
-
-    SharedPreferences sharedpreferences;
+    Button btnDoctorChang, btnDrGomez, btnDrConor;
     public static final String USER_INFO = "user_info";
+    SharedPreferences sharedpreferences;
+    String strInteractionId, strInteractionDetailId, strUserId, strDoctorName, StrAppointmentType;
+    ImageView imgCloseButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        strRelationship = getArguments().getString("relationship");
-        strReferralname = getArguments().getString("Referral_name");
-
+        if (getArguments() != null) {
+            StrAppointmentType = getArguments().getString("appointment_type");
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View row = inflater.inflate(R.layout.fragment_referral_family_relation, container, false);
-        edtRelation = row.findViewById(R.id.edit_relation);
+        View row =  inflater.inflate(R.layout.fragment_followup_appointment, container, false);
+        btnDoctorChang = row.findViewById(R.id.btn_dr_chang);
+        btnDrGomez = row.findViewById(R.id.btn_dr_gomez);
+        btnDrConor = row.findViewById(R.id.btn_dr_conor);
         imgCloseButton = row.findViewById(R.id.img_close_button);
-        btnNext = row.findViewById(R.id.btn_next);
+
+        btnDoctorChang.setOnClickListener(this);
+        btnDrGomez.setOnClickListener(this);
+        btnDrConor.setOnClickListener(this);
+        imgCloseButton.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
-
-        btnNext.setOnClickListener(this);
-        imgCloseButton.setOnClickListener(this);
+        strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
+        strInteractionId = sharedpreferences.getString("interaction_ID", "");
+        strUserId = sharedpreferences.getString("USER_ID", "");
 
         return row;
     }
 
-
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btn_next:
-                submitFamilyRelationship();
+        switch (v.getId()) {
+            case R.id.btn_dr_chang:
+                strDoctorName = btnDoctorChang.getText().toString();
+                btnDoctorChang.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnDoctorChang.setTextColor(getResources().getColor(R.color.btn_text_color));
+                submit();
+                break;
+            case R.id.btn_dr_gomez:
+                strDoctorName = btnDrGomez.getText().toString();
+                btnDrGomez.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnDrGomez.setTextColor(getResources().getColor(R.color.btn_text_color));
+                submit();
+                break;
+            case R.id.btn_dr_conor:
+                strDoctorName = btnDrConor.getText().toString();
+                btnDrConor.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnDrConor.setTextColor(getResources().getColor(R.color.btn_text_color));
+                submit();
                 break;
             case R.id.img_close_button:
                 Intent intent = new Intent(getActivity(), DashboardActivity.class);
@@ -82,48 +99,42 @@ public class ReferralFamilyRelationFragment extends Fragment implements View.OnC
         }
     }
 
-    private void submitFamilyRelationship() {
-
+    public void submit() {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-            String URL = AppConfig.BASE_URL + AppConfig.POST_CREATE_REFERRAL;
+            String URL = AppConfig.BASE_URL + AppConfig.CREATE_REQUEST_HISTORY;
             JSONObject jsonBody = new JSONObject();
-            //jsonBody.put("Referral_name", strReferralname);
-            jsonBody.put("family_relation", edtRelation.getText().toString());
-            jsonBody.put("UserID", sharedpreferences.getString("USER_ID", ""));
-            jsonBody.put("Interaction_ID", sharedpreferences.getString("interaction_ID", ""));
-            jsonBody.put("Is_Confirm", "true");
-            jsonBody.put("Status_Id", "N");
-            jsonBody.put("referral_ID", sharedpreferences.getString("referral_ID", ""));
-            //jsonBody.put("Association", "");
-
-
+            jsonBody.put("Interaction_DTL_ID", strInteractionDetailId);
+            jsonBody.put("UserID", strUserId);
+            jsonBody.put("status_Id", "N");
+            jsonBody.put("Interaction_ID", strInteractionId);
+            jsonBody.put("Physicians_Name", strDoctorName);
             final String requestBody = jsonBody.toString();
+
             StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
+                    Log.e("VOLLEY", response);
                     try {
-                        Log.e("REFERRAL_RESPONSE", response);
                         JSONArray array = new JSONArray(response);
 
-                        for (int i =0; i<array.length();i++){
+                        for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(0);
-                            if(object.getString("inMsg").equalsIgnoreCase("Referral Saved!!!")){
-                                android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            if (object.getString("inMsg").equalsIgnoreCase("Request Saved!!!")) {
+                                android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                ReferralContactInfoFragment fragment = new ReferralContactInfoFragment();
+                                FollowupAppointmentAvailabiltyFragmenet fragment = new FollowupAppointmentAvailabiltyFragmenet();
                                 Bundle args = new Bundle();
-                                args.putString("relationship", strRelationship);
-                                args.putString("family_relation", edtRelation.getText().toString());
-                                //args.putString("Referral_name", strReferralname);
+                                args.putString("appointment_type", StrAppointmentType);
+                                args.putString("physician_name", strDoctorName);
                                 fragment.setArguments(args);
                                 fragmentTransaction.replace(R.id.myContainer, fragment);
                                 fragmentTransaction.commit();
                                 fragmentTransaction.addToBackStack(null);
                             }
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
                     }
                 }
             }, new Response.ErrorListener() {
@@ -150,11 +161,12 @@ public class ReferralFamilyRelationFragment extends Fragment implements View.OnC
                     String responseString = "";
                     if (response != null) {
                         responseString = String.valueOf(response.statusCode);
-
+                        // can get more details such as response.headers
                     }
                     return super.parseNetworkResponse(response);
                 }
             };
+
             requestQueue.add(stringRequest);
         } catch (JSONException e) {
             e.printStackTrace();

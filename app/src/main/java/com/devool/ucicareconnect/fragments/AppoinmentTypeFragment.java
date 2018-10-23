@@ -168,15 +168,27 @@ public class AppoinmentTypeFragment extends Fragment implements View.OnClickList
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(0);
                             if (object.getString("inMsg").equalsIgnoreCase("Request Saved!!!")) {
-                                android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
-                                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                NewAppointmentFragment fragment = new NewAppointmentFragment();
-                                Bundle args = new Bundle();
-                                args.putString("appointment_type", StrAppointmentType);
-                                fragment.setArguments(args);
-                                fragmentTransaction.replace(R.id.myContainer, fragment);
-                                fragmentTransaction.commit();
-                                fragmentTransaction.addToBackStack(null);
+                                if(StrAppointmentType.equals("Follow-up Appointment")){
+                                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    FollowupAppointmentFragment fragment = new FollowupAppointmentFragment();
+                                    Bundle args = new Bundle();
+                                    args.putString("appointment_type", StrAppointmentType);
+                                    fragment.setArguments(args);
+                                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                                    fragmentTransaction.commit();
+                                    fragmentTransaction.addToBackStack(null);
+                                }else {
+                                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    NewAppointmentFragment fragment = new NewAppointmentFragment();
+                                    Bundle args = new Bundle();
+                                    args.putString("appointment_type", StrAppointmentType);
+                                    fragment.setArguments(args);
+                                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                                    fragmentTransaction.commit();
+                                    fragmentTransaction.addToBackStack(null);
+                                }
                             }
                         }
                     } catch (JSONException e1) {

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
 
     TextView tvHeading, tvSubHeading, tvWelcomeTitle;
     Intent i;
+    ImageView imgUserInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         tvHeading = findViewById(R.id.tv_heading);
         tvSubHeading = findViewById(R.id.tv_subheading);
         tvWelcomeTitle = findViewById(R.id.tv_welcome_tittle);
+        imgUserInfo = findViewById(R.id.img_user_info);
 
         relScheduing.setOnClickListener(this);
         relQuickAnswers.setOnClickListener(this);
@@ -68,6 +71,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         relRefrrals.setOnClickListener(this);
         btnEventDetails.setOnClickListener(this);
         btnViewReferralDetails.setOnClickListener(this);
+        imgUserInfo.setOnClickListener(this);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         currentDateandTime = sdf.format(new Date());
@@ -77,6 +81,12 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         i = getIntent();
         strRequest = i.getStringExtra("request");
         strReltionship = i.getStringExtra("Relationship");
+
+        if(getIntent().hasExtra("followup_request_flag")){
+            relPopup.setVisibility(View.VISIBLE);
+            btnViewReferralDetails.setVisibility(View.GONE);
+            btnEventDetails.setVisibility(View.VISIBLE);
+        }
 
         if (getIntent().hasExtra("flag")) {
             btnViewReferralDetails.setVisibility(View.VISIBLE);
@@ -136,41 +146,53 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
                 createDonorInteraction();
                 break;
             case R.id.btn_view_event_details:
-                if (strRequest.equalsIgnoreCase("Lab")) {
-                    Intent i = new Intent(DashboardActivity.this, CancelAppointmentActivity.class);
-                    i.putExtra("request", "Lab");
-                    i.putExtra("appointment_type", getIntent().getExtras().getString("appointment_type"));
-                    i.putExtra("Speciality", getIntent().getExtras().getString("Speciality"));
-                    i.putExtra("Availability", getIntent().getExtras().getString("Availability"));
-                    i.putExtra("Time_of_day", getIntent().getExtras().getString("Time_of_day"));
-                    i.putExtra("Any_Specific_Request", getIntent().getExtras().getString("Any_Specific_Request"));
-                    startActivity(i);
+                if(getIntent().hasExtra("followup_request_flag")){
+                    Intent intent = new Intent(DashboardActivity.this, CancelFollowUpActivity.class);
+                    intent.putExtra("followup_request_flag", "followup_request");
+                    intent.putExtra("appointment_type", getIntent().getExtras().getString("appointment_type"));
+                    intent.putExtra("Physicians_Name", getIntent().getExtras().getString("Physicians_Name"));
+                    intent.putExtra("Availability", getIntent().getExtras().getString("Availability"));
+                    intent.putExtra("Time_of_day", getIntent().getExtras().getString("Time_of_day"));
+                    intent.putExtra("Any_Specific_Request", getIntent().getExtras().getString("Any_Specific_Request"));
+                    startActivity(intent);
                     break;
-                } else if (strRequest.equalsIgnoreCase("Physician")) {
-                    Intent i = new Intent(DashboardActivity.this, CancelAppointmentActivity.class);
-                    i.putExtra("request", "Physician");
-                    i.putExtra("appointment_type", getIntent().getExtras().getString("appointment_type"));
-                    i.putExtra("Speciality", "Physician");
-                    i.putExtra("Physicians_Name", getIntent().getExtras().getString("Physicians_Name"));
-                    i.putExtra("Physicians_Specialty", getIntent().getExtras().getString("Physicians_Specialty"));
-                    i.putExtra("Availability", getIntent().getExtras().getString("Availability"));
-                    i.putExtra("Time_of_day", getIntent().getExtras().getString("Time_of_day"));
-                    i.putExtra("Any_Specific_Request", getIntent().getExtras().getString("Any_Specific_Request"));
-                    startActivity(i);
-                    break;
-                } else if (strRequest.equalsIgnoreCase("Radiology / Diagnostics")) {
-                    Intent i = new Intent(DashboardActivity.this, CancelAppointmentActivity.class);
-                    i.putExtra("request", "Radiology / Diagnostics");
-                    i.putExtra("appointment_type", getIntent().getExtras().getString("appointment_type"));
-                    i.putExtra("Speciality", "Radiology / Diagnostics");
-                    i.putExtra("Availability", getIntent().getExtras().getString("Availability"));
-                    i.putExtra("Time_of_day", getIntent().getExtras().getString("Time_of_day"));
-                    i.putExtra("Requested_By", getIntent().getExtras().getString("Requested_By"));
-                    i.putExtra("OutsideProvider_number", getIntent().getExtras().getString("OutsideProvider_number"));
-                    i.putExtra("Radiology_Type", getIntent().getExtras().getString("Radiology_Type"));
-                    i.putExtra("Any_Specific_Request", getIntent().getExtras().getString("Any_Specific_Request"));
-                    startActivity(i);
-                    break;
+                }else {
+                    if (strRequest.equalsIgnoreCase("Lab")) {
+                        Intent i = new Intent(DashboardActivity.this, CancelAppointmentActivity.class);
+                        i.putExtra("request", "Lab");
+                        i.putExtra("appointment_type", getIntent().getExtras().getString("appointment_type"));
+                        i.putExtra("Speciality", getIntent().getExtras().getString("Speciality"));
+                        i.putExtra("Availability", getIntent().getExtras().getString("Availability"));
+                        i.putExtra("Time_of_day", getIntent().getExtras().getString("Time_of_day"));
+                        i.putExtra("Any_Specific_Request", getIntent().getExtras().getString("Any_Specific_Request"));
+                        startActivity(i);
+                        break;
+                    } else if (strRequest.equalsIgnoreCase("Physician")) {
+                        Intent i = new Intent(DashboardActivity.this, CancelAppointmentActivity.class);
+                        i.putExtra("request", "Physician");
+                        i.putExtra("appointment_type", getIntent().getExtras().getString("appointment_type"));
+                        i.putExtra("Speciality", "Physician");
+                        i.putExtra("Physicians_Name", getIntent().getExtras().getString("Physicians_Name"));
+                        i.putExtra("Physicians_Specialty", getIntent().getExtras().getString("Physicians_Specialty"));
+                        i.putExtra("Availability", getIntent().getExtras().getString("Availability"));
+                        i.putExtra("Time_of_day", getIntent().getExtras().getString("Time_of_day"));
+                        i.putExtra("Any_Specific_Request", getIntent().getExtras().getString("Any_Specific_Request"));
+                        startActivity(i);
+                        break;
+                    } else if (strRequest.equalsIgnoreCase("Radiology / Diagnostics")) {
+                        Intent i = new Intent(DashboardActivity.this, CancelAppointmentActivity.class);
+                        i.putExtra("request", "Radiology / Diagnostics");
+                        i.putExtra("appointment_type", getIntent().getExtras().getString("appointment_type"));
+                        i.putExtra("Speciality", "Radiology / Diagnostics");
+                        i.putExtra("Availability", getIntent().getExtras().getString("Availability"));
+                        i.putExtra("Time_of_day", getIntent().getExtras().getString("Time_of_day"));
+                        i.putExtra("Requested_By", getIntent().getExtras().getString("Requested_By"));
+                        i.putExtra("OutsideProvider_number", getIntent().getExtras().getString("OutsideProvider_number"));
+                        i.putExtra("Radiology_Type", getIntent().getExtras().getString("Radiology_Type"));
+                        i.putExtra("Any_Specific_Request", getIntent().getExtras().getString("Any_Specific_Request"));
+                        startActivity(i);
+                        break;
+                    }
                 }
                 break;
 
@@ -203,6 +225,9 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
                 break;
             }
             break;
+            case R.id.img_user_info:
+                startActivity(new Intent(DashboardActivity.this, UsersAccountActivity.class));
+                break;
         }
 
     }

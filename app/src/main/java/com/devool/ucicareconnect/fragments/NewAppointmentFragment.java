@@ -253,7 +253,7 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
                                     strAppointmentTypeFlag = "1";
                                     android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                    NewAppointmentPhysicianNameFragment fragment = new NewAppointmentPhysicianNameFragment();
+                                    NewAppointmentPhysicianTypeFragment fragment = new NewAppointmentPhysicianTypeFragment();
                                     fragment.setArguments(args);
                                     fragmentTransaction.replace(R.id.myContainer, fragment);
                                     fragmentTransaction.commit();

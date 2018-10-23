@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,14 +38,12 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class ReferralContactInfoFragment extends Fragment implements View.OnClickListener{
+public class ReferralContactInfoFragment extends Fragment implements View.OnClickListener {
 
-    EditText edtRelativePhoneNumber, edtRelativeEmailAddress;
-    Button btnNext;
-
-    SharedPreferences sharedpreferences;
     public static final String USER_INFO = "user_info";
-
+    EditText edtRelativePhoneNumber, edtRelativeEmailAddress, edtReferralName;
+    Button btnNext;
+    SharedPreferences sharedpreferences;
     String strRelationship, strReferralname, strFamilyRelation, strAssociation;
     ImageView imgCloseButton;
 
@@ -49,16 +51,17 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         strRelationship = getArguments().getString("relationship");
-        strReferralname = getArguments().getString("Referral_name");
+        //strReferralname = getArguments().getString("Referral_name");
         strFamilyRelation = getArguments().getString("family_relation");
         strAssociation = getArguments().getString("Association");
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View  row = inflater.inflate(R.layout.fragment_referral_contact_info, container, false);
+        View row = inflater.inflate(R.layout.fragment_referral_contact_info, container, false);
         edtRelativePhoneNumber = row.findViewById(R.id.edit_relaative_contact_name);
         edtRelativeEmailAddress = row.findViewById(R.id.edit_referral_email);
+        edtReferralName = row.findViewById(R.id.edit_referral_name);
         imgCloseButton = row.findViewById(R.id.img_close_button);
 
         btnNext = row.findViewById(R.id.btn_next);
@@ -67,12 +70,14 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
         btnNext.setOnClickListener(this);
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
 
+
+        edtRelativePhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         return row;
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_next:
                 submitContactInfo();
                 break;
@@ -91,23 +96,23 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             String URL = AppConfig.BASE_URL + AppConfig.POST_CREATE_REFERRAL;
             JSONObject jsonBody = new JSONObject();
-            if(strRelationship.equalsIgnoreCase("Friend")) {
+            if (strRelationship.equalsIgnoreCase("Friend")) {
                 //Toast.makeText(getActivity(), "COntact_Friend", Toast.LENGTH_SHORT).show();
-                jsonBody.put("Referral_name", strReferralname);
+                jsonBody.put("Referral_name", edtReferralName.getText().toString());
                 jsonBody.put("family_relation", "");
                 jsonBody.put("Association", "");
                 jsonBody.put("referal_phone", edtRelativePhoneNumber.getText().toString());
                 jsonBody.put("referal_email", edtRelativeEmailAddress.getText().toString());
-            }else if(strRelationship.equalsIgnoreCase("Family")) {
+            } else if (strRelationship.equalsIgnoreCase("Family")) {
                 jsonBody.put("family_relation", strFamilyRelation);
-                jsonBody.put("Referral_name", strReferralname);
-               // Toast.makeText(getActivity(), "COntact_Family", Toast.LENGTH_SHORT).show();
+                jsonBody.put("Referral_name", edtReferralName.getText().toString());
+                // Toast.makeText(getActivity(), "COntact_Family", Toast.LENGTH_SHORT).show();
                 jsonBody.put("Association", "");
                 jsonBody.put("referal_phone", edtRelativePhoneNumber.getText().toString());
                 jsonBody.put("referal_email", edtRelativeEmailAddress.getText().toString());
-            }else if(strRelationship.equalsIgnoreCase("Other Associates")){
-                jsonBody.put("Referral_name", strReferralname);
-               // Toast.makeText(getActivity(), "COntact_Other_ass", Toast.LENGTH_SHORT).show();
+            } else if (strRelationship.equalsIgnoreCase("Other Associates")) {
+                jsonBody.put("Referral_name", edtReferralName.getText().toString());
+                // Toast.makeText(getActivity(), "COntact_Other_ass", Toast.LENGTH_SHORT).show();
                 jsonBody.put("family_relation", "");
                 jsonBody.put("Association", strAssociation);
                 jsonBody.put("referal_phone", edtRelativePhoneNumber.getText().toString());
@@ -139,22 +144,22 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
                         Log.e("REFERRAL_RESPONSE", response);
                         JSONArray array = new JSONArray(response);
 
-                        for (int i =0; i<array.length();i++){
+                        for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(0);
-                            if(object.getString("inMsg").equalsIgnoreCase("Referral Saved!!!")){
+                            if (object.getString("inMsg").equalsIgnoreCase("Referral Saved!!!")) {
                                 android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                 ReferralConfirmationFragment fragment = new ReferralConfirmationFragment();
                                 Bundle args = new Bundle();
-                                if(strRelationship.equalsIgnoreCase("Family")){
+                                if (strRelationship.equalsIgnoreCase("Family")) {
                                     args.putString("family_relation", strFamilyRelation);
-                                }else if(strRelationship.equalsIgnoreCase("Friend")){
+                                } else if (strRelationship.equalsIgnoreCase("Friend")) {
 
-                                }else if(strRelationship.equalsIgnoreCase("Other Associates")){
+                                } else if (strRelationship.equalsIgnoreCase("Other Associates")) {
                                     args.putString("Association", strAssociation);
                                 }
                                 args.putString("relationship", strRelationship);
-                                args.putString("Referral_name", strReferralname);
+                                args.putString("Referral_name", edtReferralName.getText().toString());
                                 args.putString("contact_info", edtRelativePhoneNumber.getText().toString());
                                 args.putString("contact_email", edtRelativeEmailAddress.getText().toString());
 
@@ -184,6 +189,7 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
                 public String getBodyContentType() {
                     return "application/json; charset=utf-8";
                 }
+
                 @Override
                 public byte[] getBody() throws AuthFailureError {
                     try {
@@ -193,6 +199,7 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
                         return null;
                     }
                 }
+
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     String responseString = "";

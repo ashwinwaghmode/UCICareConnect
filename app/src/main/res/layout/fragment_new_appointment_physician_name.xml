@@ -1,147 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context=".activities.SchedulingActivity"
-        android:orientation="vertical"
-        android:background="#FFFFFF">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-        <LinearLayout
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="234dp"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:orientation="vertical"
-            android:background="#1B3D6D">
+            tools:context=".activities.SchedulingActivity"
+            android:id="@+id/ll_parent">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="234dp"
+                android:background="#1B3D6D"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/textview_bottom_shadow">
+                    android:layout_height="match_parent">
 
-                    <!--<ImageView
-                        android:layout_marginTop="22dp"
-                        android:id="@+id/img_back_arrow"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/back_arrow"
-                        android:layout_marginLeft="16dp"/>-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/textview_bottom_shadow">
+
+                        <!--<ImageView
+                            android:layout_marginTop="22dp"
+                            android:id="@+id/img_back_arrow"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/back_arrow"
+                            android:layout_marginLeft="16dp"/>-->
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="15dp"
+                            android:gravity="center|left"
+                            android:text="Scheduling"
+                            android:textColor="#6AA2B8"
+                            android:textSize="20dp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/img_close_button"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginRight="17dp"
+                            android:layout_marginTop="22dp"
+                            android:background="@drawable/close" />
+
+                    </RelativeLayout>
 
                     <TextView
-                        android:textColor="#6AA2B8"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
+                        android:id="@+id/tv_request_heading"
                         android:layout_width="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:layout_height="60dp"
-                        android:text="Scheduling"
-                        android:gravity="center|left"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginTop="100dp"
+                        android:gravity="center"
+                        android:padding="5dp"
+                        android:text="Physician's Name"
+                        android:textColor="#FFFFFF"
+                        android:textSize="14dp" />
 
-                    <ImageView
-                        android:id="@+id/img_close_button"
-                        android:layout_marginTop="22dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/close"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="17dp"
-                        android:layout_marginLeft="16dp"/>
-
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_request_heading"
+                        android:layout_marginLeft="58dp"
+                        android:layout_marginRight="58dp"
+                        android:gravity="center"
+                        android:text="Do you know the physician's name?"
+                        android:textColor="#6AA2B8"
+                        android:textSize="20dp" />
                 </RelativeLayout>
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_request_heading"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Physician's Name"
-                    android:gravity="center"
-                    android:padding="5dp"
-                    android:layout_marginTop="100dp"
-                    android:layout_marginRight="25dp"
-                    android:layout_marginLeft="25dp" />
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_below="@+id/tv_request_heading"
-                    android:textColor="#6AA2B8"
-                    android:textSize="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Do you know the physician's name?"
-                    android:gravity="center"
-                    android:layout_marginRight="58dp"
-                    android:layout_marginLeft="58dp" />
-            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/edit_physician_name"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_gravity="start"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/edit_text_background"
+                android:gravity="center"
+                android:hint="Physician's Name"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingBottom="28dp"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
+                android:paddingTop="28dp"
+                android:textColor="#555759"
+                android:textColorHint="#C6BEB5"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/search"
+                android:layout_gravity="right|center"
+                android:layout_marginRight="30dp"/>
+
+        </FrameLayout>
+            </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
         </LinearLayout>
 
-
-        <EditText
-            android:id="@+id/edit_physician_name"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:paddingRight="13dp"
-            android:paddingLeft="13dp"
-            android:paddingTop="28dp"
-            android:paddingBottom="28dp"
-            android:hint="Physician's Name"
-            android:textColorHint="#C6BEB5"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_gravity="start"
-            android:maxLines="1"
-            android:inputType="text"
-            android:imeOptions="actionDone"
-            android:layout_marginRight="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:textColor="#555759"
-            android:background="@drawable/edit_text_background"/>
-    </LinearLayout>
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_parent"
+        android:layout_above="@+id/btn_next"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:visibility="gone"/>
 
     <Button
-        android:layout_centerInParent="true"
-        android:layout_above="@id/tv_need_help"
         android:id="@+id/btn_next"
-        android:layout_width="171dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_gravity="center"
+        android:layout_above="@id/tv_need_help"
         android:layout_marginBottom="18dp"
         android:background="@drawable/appointment_btn_corner"
         android:paddingBottom="20dp"
         android:paddingLeft="43dp"
         android:paddingRight="43dp"
         android:paddingTop="18dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
         android:text="Next"
         android:textAllCaps="false"
         android:textColor="#6AA2B8"
         android:textSize="20dp" />
 
     <ImageView
-        android:layout_centerInParent="true"
-        android:layout_alignParentBottom="true"
         android:id="@+id/tv_need_help"
         android:layout_width="160dp"
         android:layout_height="15dp"
-        android:background="@drawable/need_help"
-        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="33px"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
-        android:layout_marginBottom="33px"
+        android:background="@drawable/need_help"
+        android:gravity="center"
         android:textColor="#6AA2B8"
-        android:textSize="14dp"
-        android:layout_gravity="center"/>
+        android:textSize="14dp" />
 
 </RelativeLayout>

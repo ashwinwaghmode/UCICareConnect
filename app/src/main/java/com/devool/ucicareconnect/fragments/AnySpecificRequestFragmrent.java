@@ -45,6 +45,8 @@ public class AnySpecificRequestFragmrent extends Fragment implements View.OnClic
 
     EditText edtAnySpecificRequest;
 
+    String StrFolloowupAppointmentType, strFollowupDoctorName, strFollowupAvailability, strFollowupTimeofDay, strFolloupFlag;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,14 @@ public class AnySpecificRequestFragmrent extends Fragment implements View.OnClic
             strRadiologyType = getArguments().getString("Radiology_Type");
             strTestOrder = getArguments().getString("test_order");
             strExamType = getArguments().getString("exam_type");
+
+
+            StrFolloowupAppointmentType = getArguments().getString("appointment_type");
+            strFollowupDoctorName = getArguments().getString("physician_name");
+            strFollowupAvailability = getArguments().getString("followup_availability");
+            strFollowupTimeofDay = getArguments().getString("followup_time_of_day");
+            strFolloupFlag= getArguments().getString("followup_flag");
+
         }
     }
 
@@ -91,11 +101,97 @@ public class AnySpecificRequestFragmrent extends Fragment implements View.OnClic
                 getActivity().finish();
                 break;
             case R.id.btn_save:
-                submitAnySpecificRequest();
-                break;
+                btnSave.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnSave.setTextColor(getResources().getColor(R.color.btn_text_color));
+                if(strFolloupFlag!=null){
+                    submitFollowupRequest();
+                    break;
+                }else {
+                    submitAnySpecificRequest();
+                    break;
+                }
         }
 
     }
+
+    private void submitFollowupRequest() {
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            String URL = AppConfig.BASE_URL + AppConfig.CREATE_REQUEST_HISTORY;
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("Interaction_DTL_ID", strInteractionDetailId);
+            jsonBody.put("UserID", strUserId);
+            jsonBody.put("status_Id", "N");
+            jsonBody.put("Interaction_ID", strInteractionId);
+            jsonBody.put("Any_Specific_Request", edtAnySpecificRequest.getText().toString());
+            final String requestBody = jsonBody.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e("VOLLEY", response);
+                    try {
+                        JSONArray array = new JSONArray(response);
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject object = array.getJSONObject(0);
+                            if (object.getString("inMsg").equalsIgnoreCase("Request Saved!!!")) {
+                                android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                FollowupAppointmentRequest fragment = new FollowupAppointmentRequest();
+                                Bundle args = new Bundle();
+                                args.putString("appointment_type", StrFolloowupAppointmentType);
+                                args.putString("physician_name", strFollowupDoctorName);
+                                args.putString("followup_availability", strFollowupAvailability);
+                                args.putString("followup_time_of_day", strFollowupTimeofDay);
+                                args.putString("Any_Specific_Request", edtAnySpecificRequest.getText().toString());
+                                fragment.setArguments(args);
+                                fragmentTransaction.replace(R.id.myContainer, fragment);
+                                fragmentTransaction.commit();
+                                fragmentTransaction.addToBackStack(null);
+                            }
+                        }
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                        // can get more details such as response.headers
+                    }
+                    return super.parseNetworkResponse(response);
+                }
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void submitAnySpecificRequest() {
         try {

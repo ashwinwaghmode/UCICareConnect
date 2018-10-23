@@ -124,7 +124,7 @@ public class CreatePasswordActivity extends AppCompatActivity implements View.On
             case R.id.btn_next:
                 // PasswordValidator passwordValidator = new PasswordValidator();
                 if (edtCreatePassword.getText().toString().equalsIgnoreCase("")) {
-                     tvCreatePassswordText.setVisibility(View.VISIBLE);
+                    tvCreatePassswordText.setVisibility(View.VISIBLE);
                     edtCreatePassword.setBackgroundResource(R.drawable.activation_error_color_background);
                     tvCreatePassswordText.setText("Something's not right. Please check below.");
                     tvPasswoedRequirementHeading.setTextColor(getResources().getColor(R.color.text_password_error));
@@ -168,8 +168,15 @@ public class CreatePasswordActivity extends AppCompatActivity implements View.On
                     edtCreatePassword.setBackgroundResource(R.drawable.edit_text_background);
                     tvCreatePassswordText.setText("Create Your Password");
                     Intent i = new Intent(CreatePasswordActivity.this, ConfirmPasswordActivity.class);
-                    i.putExtra("password", edtCreatePassword.getText().toString());
-                    i.putExtra("user_name", getIntent().getExtras().getString("user_name"));
+                    if(getIntent().hasExtra("flag")){
+                        i.putExtra("flag",getIntent().getExtras().getString("flag"));
+                        i.putExtra("userId", getIntent().getExtras().getString("userId"));
+                        i.putExtra("password", edtCreatePassword.getText().toString());
+                        //Toast.makeText(this, "WIP", Toast.LENGTH_SHORT).show();
+                    }else {
+                        i.putExtra("password", edtCreatePassword.getText().toString());
+                        i.putExtra("user_name", getIntent().getExtras().getString("user_name"));
+                    }
                     startActivity(i);
                     break;
                 }

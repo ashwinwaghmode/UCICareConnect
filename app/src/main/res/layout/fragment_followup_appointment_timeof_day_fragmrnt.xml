@@ -38,34 +38,15 @@
                         android:background="@drawable/back_arrow"
                         android:layout_marginLeft="16dp"/>-->
 
-                    <!--   <TextView
-                           android:textColor="#6AA2B8"
-                           android:textSize="20dp"
-                           android:textStyle="bold"
-                           android:layout_width="260dp"
-                           android:layout_height="60dp"
-                           android:text="Referrals"
-                           android:gravity="center"
-                           android:layout_centerInParent="true"
-                           android:layout_alignParentTop="true"/>
-
-                       <ImageView
-                           android:layout_marginTop="22dp"
-                           android:layout_width="20dp"
-                           android:layout_height="20dp"
-                           android:background="@drawable/close"
-                           android:layout_alignParentRight="true"
-                           android:layout_marginRight="17dp"
-                           android:layout_marginLeft="16dp"/>-->
                     <TextView
                         android:textColor="#6AA2B8"
                         android:textSize="20dp"
                         android:textStyle="bold"
                         android:layout_width="match_parent"
-                        android:layout_marginLeft="15dp"
                         android:layout_height="60dp"
+                        android:layout_marginLeft="15dp"
                         android:text="Scheduling"
-                        android:gravity="center|left"/>
+                        android:gravity="center|left" />
 
                     <ImageView
                         android:id="@+id/img_close_button"
@@ -76,8 +57,15 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="17dp"
                         android:layout_marginLeft="16dp"/>
-
                 </RelativeLayout>
+
+                <!--<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:background="@drawable/time_of_day"
+                    android:layout_centerInParent="true"/>-->
 
                 <TextView
                     android:id="@+id/tv_request_heading"
@@ -85,7 +73,7 @@
                     android:textSize="14dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Specific Requests"
+                    android:text="Time of Day"
                     android:gravity="center"
                     android:padding="5dp"
                     android:layout_marginTop="100dp"
@@ -98,57 +86,80 @@
                     android:textSize="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Any Specific requests that you would like to make?"
+                    android:text="What time works best for you  ?"
                     android:gravity="center"
                     android:layout_marginRight="58dp"
                     android:layout_marginLeft="58dp" />
             </RelativeLayout>
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/edit_specific_request"
+        <Button
+            android:id="@+id/btn_morning"
             android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:hint="i would like to..."
-            android:textColorHint="#C6BEB5"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:paddingRight="13dp"
-            android:paddingLeft="13dp"
-            android:gravity="center"
-            android:layout_gravity="start"
-            android:lines="3"
-            android:singleLine="true"
-            android:inputType="textMultiLine"
-            android:imeOptions="actionDone"
+            android:layout_height="60dp"
+            android:paddingLeft="43dp"
+            android:paddingRight="43dp"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:textColor="#555759"
-            android:background="@drawable/edit_text_background"/>
+            android:layout_marginTop="25sp"
+            android:text="Morning"
+            android:textSize="20dp"
+            android:textAllCaps="false"
+            android:textColor="#6AA2B8"
+            android:background="@drawable/appointment_btn_corner" />
 
+        <Button
+            android:id="@+id/btn_afternoon"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="43dp"
+            android:paddingRight="43dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Afternoon"
+            android:textSize="20dp"
+            android:textAllCaps="false"
+            android:textColor="#6AA2B8"
+            android:background="@drawable/appointment_btn_corner" />
+
+        <Button
+            android:id="@+id/btn_any_time"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:paddingLeft="43dp"
+            android:paddingRight="43dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:text="Any time"
+            android:textSize="20dp"
+            android:textAllCaps="false"
+            android:textColor="#6AA2B8"
+            android:background="@drawable/appointment_btn_corner" />
     </LinearLayout>
 
-    <Button
+
+    <!--<Button
         android:layout_centerInParent="true"
         android:layout_above="@id/tv_need_help"
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_next"
         android:layout_width="171dp"
         android:layout_height="60dp"
-        android:layout_gravity="center"
         android:layout_marginBottom="18dp"
         android:background="@drawable/appointment_btn_corner"
+        android:text="Next"
+        android:paddingTop="18dp"
         android:paddingBottom="20dp"
         android:paddingLeft="43dp"
         android:paddingRight="43dp"
-        android:paddingTop="18dp"
-        android:text="Save"
-        android:textAllCaps="false"
+        android:textSize="20dp"
         android:textColor="#6AA2B8"
-        android:textSize="20dp" />
+        android:textAllCaps="false"
+        android:layout_gravity="center"/>-->
 
     <ImageView
-        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
         android:id="@+id/tv_need_help"
         android:layout_width="160dp"

@@ -5,13 +5,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -31,7 +36,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class NewAppointmentPhysicianTypeFragment extends Fragment implements View.OnClickListener{
+public class NewAppointmentPhysicianTypeFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
 
     EditText edtPhysicianType;
     Button btnNext;
@@ -40,6 +45,9 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
 
     SharedPreferences sharedpreferences;
     public static final String USER_INFO= "user_info";
+
+    private ListView lv;
+    ArrayAdapter<String> adapter;
 
     public static NewAppointmentPhysicianTypeFragment newInstance(String param1, String param2) {
         NewAppointmentPhysicianTypeFragment fragment = new NewAppointmentPhysicianTypeFragment();
@@ -73,6 +81,41 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
         strInteractionId = sharedpreferences.getString("interaction_ID", "");
         strUserId = sharedpreferences.getString("USER_ID", "");
+
+        String products[] = {"Cardiology", "Neurology"};
+
+        lv = (ListView) row.findViewById(R.id.list_view);
+        adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, R.id.product_name, products);
+        lv.setAdapter(adapter);
+        lv.setOnItemClickListener(this);
+
+        edtPhysicianType.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                if(edtPhysicianType.getText().toString().equals(""))
+                {
+                    lv.setVisibility(View.GONE);
+                }else {
+                    lv.setVisibility(View.VISIBLE);
+                    NewAppointmentPhysicianTypeFragment.this.adapter.getFilter().filter(cs);
+                }
+                // When user changed the Text
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
+
         return row;
     }
 
@@ -84,7 +127,7 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
                 submit();
                 android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                NewAppointmentAvailabiltyFragmenet fragment = new NewAppointmentAvailabiltyFragmenet();
+                NewAppointmentPhysicianNameFragment fragment = new NewAppointmentPhysicianNameFragment();
                 Bundle args = new Bundle();
                 args.putString("meet_purpose", strMeetPurpose);
                 args.putString("physician_name",strPhysicianName);
@@ -105,8 +148,7 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
 
     }
 
-    public void submit()
-    {
+    public void submit() {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
             String URL = AppConfig.BASE_URL+AppConfig.CREATE_REQUEST_HISTORY;
@@ -170,5 +212,10 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        edtPhysicianType.setText((String) parent.getItemAtPosition(position));
     }
 }
