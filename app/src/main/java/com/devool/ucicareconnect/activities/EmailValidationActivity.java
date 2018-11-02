@@ -65,13 +65,17 @@ public class EmailValidationActivity extends AppCompatActivity implements View.O
                         if (!edtEmailAddress.getText().toString().equalsIgnoreCase("") && getIntent().getExtras().getString("strEmail").equalsIgnoreCase(edtEmailAddress.getText().toString())) {
                             emailAddressText.setVisibility(View.VISIBLE);
                             emailAddressText.setText("Email Address");
-                            btnNext.setVisibility(View.VISIBLE);
+                            //btnNext.setVisibility(View.VISIBLE);
+                            btnNext.setEnabled(true);
+                            btnNext.setTextColor(getResources().getColor(R.color.btn_text_color));
                             submitUserEmail();
                         } else {
                             emailAddressText.setVisibility(View.VISIBLE);
                             edtEmailAddress.setBackgroundResource(R.drawable.activation_error_color_background);
                             emailAddressText.setText("Incorrect Email Address");
-                            btnNext.setVisibility(View.GONE);
+                            //btnNext.setVisibility(View.GONE);
+                            btnNext.setEnabled(false);
+                            btnNext.setTextColor(getResources().getColor(R.color.btn_grey_color));
                             break;
                         }
                         break;
@@ -107,8 +111,6 @@ public class EmailValidationActivity extends AppCompatActivity implements View.O
                 }
             }
         });
-
-        appyfontForAllViews();
     }
 
     private void appyfontForAllViews() {
@@ -165,12 +167,16 @@ public class EmailValidationActivity extends AppCompatActivity implements View.O
                                 JSONObject object = array.getJSONObject(0);
                                 //Toast.makeText(LoginActivity.this, object.getString("inMsg"), Toast.LENGTH_SHORT).show();
                                 if (object.getString("email").equalsIgnoreCase("")) {
-                                    btnNext.setVisibility(View.GONE);
+                                    //btnNext.setVisibility(View.GONE);
                                     //tvActivationCodeMsg.setText("Please double-check your code and try agaain. if it's still not working, just tap the link above to reset");
                                     edtEmailAddress.setBackgroundResource(R.drawable.activation_error_color_background);
                                     emailAddressText.setText("Incorrect Email Address");
+                                    btnNext.setTextColor(getResources().getColor(R.color.btn_grey_color));
+                                    btnNext.setEnabled(false);
                                 } else {
-                                    btnNext.setVisibility(View.VISIBLE);
+                                    btnNext.setTextColor(getResources().getColor(R.color.btn_text_color));
+                                    btnNext.setEnabled(true);
+                                    //btnNext.setVisibility(View.VISIBLE);
                                     // tvActivationCodeMsg.setText("");
                                     edtEmailAddress.setBackgroundResource(R.drawable.edit_text_background);
                                     //emailAddressText.setText("Email Address");

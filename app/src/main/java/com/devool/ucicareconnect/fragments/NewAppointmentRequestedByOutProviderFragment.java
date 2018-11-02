@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,6 +75,8 @@ public class NewAppointmentRequestedByOutProviderFragment extends Fragment imple
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
         strInteractionId = sharedpreferences.getString("interaction_ID", "");
         strUserId = sharedpreferences.getString("USER_ID", "");
+
+        edtProviderPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
         return row;
     }

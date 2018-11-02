@@ -139,6 +139,7 @@ public class ReferralCompletedFragment extends Fragment implements View.OnClickL
                             JSONObject object = array.getJSONObject(0);
                             if(object.getString("inMsg").equalsIgnoreCase("Referral Saved!!!")){
                                 Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.putExtra("flag", "referral");
                                 intent.putExtra("Referral_name", strReferralname);
                                 intent.putExtra("family_relation", strFamilyRelation);
@@ -147,6 +148,7 @@ public class ReferralCompletedFragment extends Fragment implements View.OnClickL
                                 intent.putExtra("referal_phone", strContactInfo);
                                 intent.putExtra("referal_email", strEmailAddress);
                                 startActivity(intent);
+                                getActivity().finish();
                             }
                         }
                     } catch (JSONException e) {
@@ -197,6 +199,8 @@ public class ReferralCompletedFragment extends Fragment implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_send_request:
+                btnSendRequest.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnSendRequest.setTextColor(getResources().getColor(R.color.btn_text_color));
                 submitLabRequest();
                 break;
             case R.id.img_close_button:

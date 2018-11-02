@@ -132,7 +132,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="10dp"
-            android:text="Any time"
+            android:text="No Preference"
             android:textSize="20dp"
             android:textAllCaps="false"
             android:textColor="#6AA2B8"

@@ -220,12 +220,15 @@
                     android:layout_height="22dp"
                     android:text="Name" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/tv_assistant_name"
                     android:textColor="#555759"
                     android:textSize="14dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:gravity="center"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
                     android:background="@drawable/account_textview_field"/>
 
             </LinearLayout>
@@ -247,11 +250,16 @@
                     android:layout_height="22dp"
                     android:text="Phone Number" />
 
-                <TextView
+                <EditText
+                    android:id="@+id/tv_assistant_phone_number"
                     android:textColor="#555759"
                     android:textSize="14dp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:maxLength="14"
+                    android:inputType="phone"
                     android:gravity="center"
                     android:background="@drawable/account_textview_field"/>
 

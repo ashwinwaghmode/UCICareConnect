@@ -71,6 +71,8 @@ public class ReferralFamilyRelationFragment extends Fragment implements View.OnC
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_next:
+                btnNext.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnNext.setTextColor(getResources().getColor(R.color.btn_text_color));
                 submitFamilyRelationship();
                 break;
             case R.id.img_close_button:

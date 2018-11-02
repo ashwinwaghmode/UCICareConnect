@@ -3,8 +3,10 @@ package com.devool.ucicareconnect.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneNumberUtils;
@@ -72,15 +74,77 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
 
 
         edtRelativePhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
+        edtReferralName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtReferralName.setBackgroundResource(R.drawable.edit_text_background);
+                if (edtReferralName.getText().toString().equalsIgnoreCase("")) {
+                    edtReferralName.setBackgroundResource(R.drawable.edit_text_background);
+                    edtRelativePhoneNumber.setBackgroundResource(R.drawable.edit_text_background);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edtRelativePhoneNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtRelativePhoneNumber.setBackgroundResource(R.drawable.edit_text_background);
+                if (edtRelativePhoneNumber.getText().toString().equalsIgnoreCase("")) {
+                    edtRelativePhoneNumber.setBackgroundResource(R.drawable.edit_text_background);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         return row;
+
+
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_next:
-                submitContactInfo();
-                break;
+                if (edtReferralName.getText().toString().equals("") && edtRelativePhoneNumber.getText().toString().equals("")) {
+                    edtReferralName.setBackgroundResource(R.drawable.activation_error_color_background);
+                    edtRelativePhoneNumber.setBackgroundResource(R.drawable.activation_error_color_background);
+                    break;
+                } else if (edtReferralName.getText().toString().equals("")) {
+                    edtReferralName.setBackgroundResource(R.drawable.activation_error_color_background);
+                    break;
+                } else if (edtRelativePhoneNumber.getText().toString().equals("")) {
+                    edtRelativePhoneNumber.setBackgroundResource(R.drawable.activation_error_color_background);
+                    break;
+                } else if(edtRelativePhoneNumber.getText().toString().length()<14){
+                    edtRelativePhoneNumber.setBackgroundResource(R.drawable.activation_error_color_background);
+                    break;
+                } else {
+                    edtRelativePhoneNumber.setBackgroundResource(R.drawable.edit_text_background);
+                    edtReferralName.setBackgroundResource(R.drawable.edit_text_background);
+                    btnNext.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                    btnNext.setTextColor(getResources().getColor(R.color.btn_text_color));
+                    submitContactInfo();
+                    break;
+                }
+
             case R.id.img_close_button:
                 Intent intent = new Intent(getActivity(), DashboardActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

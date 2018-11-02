@@ -3,13 +3,16 @@ package com.devool.ucicareconnect.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -61,8 +64,11 @@ public class SignUpPasswordActivity extends AppCompatActivity implements View.On
         sharedpreferences = getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         btnSignIn.setOnClickListener(this);
         imgBackArrow.setOnClickListener(this);
+        tvForgotPasswordMsg.setOnClickListener(this);
 
         appyfontForAllViews();
+
+        tvForgotPasswordMsg.setPaintFlags(tvForgotPasswordMsg.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         edtSignupPassword.addTextChangedListener(new TextWatcher() {
             @Override
@@ -93,16 +99,33 @@ public class SignUpPasswordActivity extends AppCompatActivity implements View.On
 
             }
         });
+
+        edtSignupPassword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                int result = actionId & EditorInfo.IME_MASK_ACTION;
+                switch (result) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        getLoginUserDetails();
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_sign_in:
-                getLoginUserDetails();
+                Intent intent = new Intent(SignUpPasswordActivity.this, DashboardActivity.class);
+                intent.putExtra("sigin_flag", "SignUp");
+                startActivity(intent);
                 break;
             case R.id.img_back_arrow:
                 onBackPressed();
+                break;
+            case R.id.tv_forgot_password_msg:
+                startActivity(new Intent(SignUpPasswordActivity.this, ForgotPasswordActivity.class));
                 break;
         }
     }
@@ -149,6 +172,8 @@ public class SignUpPasswordActivity extends AppCompatActivity implements View.On
                                 edtSignupPassword.setBackgroundResource(R.drawable.activation_error_color_background);
                                 tvSignUpPasswordText.setText("Invalid User credentials!.");
                                 tvForgotPasswordMsg.setText("Forgot Your Password?");
+                                btnSignIn.setTextColor(getResources().getColor(R.color.btn_grey_color));
+                                btnSignIn.setEnabled(false);
                             }else {
                                 editor.putString("USER_ID", object.getString("userID"));
                                 editor.commit();
@@ -156,10 +181,8 @@ public class SignUpPasswordActivity extends AppCompatActivity implements View.On
                                 edtSignupPassword.setBackgroundResource(R.drawable.edit_text_background);
                                 tvForgotPasswordMsg.setText("");
                                 tvSignUpPasswordText.setText("Enter Your Password");
-                                Intent intent = new Intent(SignUpPasswordActivity.this, DashboardActivity.class);
-                                intent.putExtra("sigin_flag", "SignUp");
-                                startActivity(intent);
-
+                                btnSignIn.setTextColor(getResources().getColor(R.color.btn_text_color));
+                                btnSignIn.setEnabled(true);
                             }
                         }
                     } catch (JSONException e) {

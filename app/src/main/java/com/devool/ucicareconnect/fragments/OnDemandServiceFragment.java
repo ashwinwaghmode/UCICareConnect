@@ -19,6 +19,7 @@ public class OnDemandServiceFragment extends Fragment implements View.OnClickLis
     Button btnNext;
     TextView tvOnDemand, tvService, tvOnDemandDesc;
     Typeface tf;
+    String strUserName;
 
     public static OnDemandServiceFragment newInstance(String param1, String param2) {
         OnDemandServiceFragment fragment = new OnDemandServiceFragment();
@@ -32,7 +33,7 @@ public class OnDemandServiceFragment extends Fragment implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            strUserName = getArguments().getString("user_name");
         }
     }
 
@@ -54,9 +55,19 @@ public class OnDemandServiceFragment extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_next:
-                android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                /*android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 SchedulingMadeSimpleFragment fragment = new SchedulingMadeSimpleFragment();
+                fragmentTransaction.replace(R.id.myContainer, fragment);
+                fragmentTransaction.commit();
+                fragmentTransaction.addToBackStack(null);*/
+
+                android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                ExclusivelyForYouFragment fragment = new ExclusivelyForYouFragment();
+                Bundle args = new Bundle();
+                args.putString("user_name", strUserName);
+                fragment.setArguments(args);
                 fragmentTransaction.replace(R.id.myContainer, fragment);
                 fragmentTransaction.commit();
                 fragmentTransaction.addToBackStack(null);

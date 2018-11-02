@@ -3,13 +3,17 @@ package com.devool.ucicareconnect.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,13 +40,12 @@ import java.io.UnsupportedEncodingException;
 
 public class SignupActivity extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String USER_INFO = "user_info";
     Button btnSignIn;
     EditText edtUserName;
     String strUserId, strUserName = "";
     TextView tvRememberMe, tvForgotUserName, tvUserNameText;
     Typeface tf;
-
-    public static final String USER_INFO = "user_info";
     SharedPreferences sharedpreferences;
 
     CheckBox checkBoxUserName;
@@ -58,10 +61,19 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         edtUserName = findViewById(R.id.edit_user_name);
         checkBoxUserName = findViewById(R.id.check_bx_user_name);
         btnSignIn.setOnClickListener(this);
+        tvForgotUserName.setOnClickListener(this);
+
+        edtUserName.requestFocus();
+        /*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED,InputMethodManager.HIDE_IMPLICIT_ONLY);*/
+        InputMethodManager imgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imgr.showSoftInput(edtUserName, InputMethodManager.SHOW_IMPLICIT);
 
         sharedpreferences = getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
 
         applyfontForAllViews();
+
+        tvForgotUserName.setPaintFlags(tvForgotUserName.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         edtUserName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -72,13 +84,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 edtUserName.setBackgroundResource(R.drawable.edit_text_background);
                 tvUserNameText.setText("Username");
+                tvForgotUserName.setText("Forgot Username?");
                 if (checkBoxUserName.isChecked()) {
                     checkBoxUserName.setChecked(false);
                 }
                 if (edtUserName.getText().toString().equalsIgnoreCase("")) {
-                    tvForgotUserName.setText("Forgot Your Username?");
+                    tvForgotUserName.setText("Forgot Username?");
                 } else {
-                    tvForgotUserName.setText("");
+                    tvForgotUserName.setText("Forgot Username?");
                 }
                 if (edtUserName.getText().toString().equalsIgnoreCase("")) {
                     tvUserNameText.setVisibility(View.GONE);
@@ -94,26 +107,43 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         });
 
         /*if (strUserName != null || !strUserName.equalsIgnoreCase("")) {*/
-            if (!sharedpreferences.contains(null)) {
-                if(strUserName == null) {
-                    edtUserName.setText("");
-                    checkBoxUserName.setChecked(false);
-                }else {
-                    edtUserName.setText(sharedpreferences.getString("USER_NAME", ""));
-                    checkBoxUserName.setChecked(true);
-                }
-            } else {
+        if (!sharedpreferences.contains(null)) {
+            if (strUserName == null) {
                 edtUserName.setText("");
                 checkBoxUserName.setChecked(false);
+            } else {
+                edtUserName.setText(sharedpreferences.getString("USER_NAME", ""));
+                checkBoxUserName.setChecked(true);
             }
-    }
+        } else {
+            edtUserName.setText("");
+            checkBoxUserName.setChecked(false);
+        }
 
+        edtUserName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                int result = actionId & EditorInfo.IME_MASK_ACTION;
+                switch (result) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        getUserLogin();
+                        break;
+                }
+                return false;
+            }
+        });
+
+
+
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_sign_in:
-                getUserLogin();
+                startActivity(new Intent(SignupActivity.this, SignUpPasswordActivity.class));
+                break;
+            case R.id.tv_forgot_user_name:
+                startActivity(new Intent(SignupActivity.this, ForgotUserNameActivity.class));
                 break;
 
         }
@@ -149,7 +179,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                     editor.commit();
                                     strUserName = edtUserName.getText().toString();
                                     checkBoxUserName.setChecked(true);
-                                   // Toast.makeText(SignupActivity.this, "Checm", Toast.LENGTH_SHORT).show();
+                                    // Toast.makeText(SignupActivity.this, "Checm", Toast.LENGTH_SHORT).show();
                                 } else {
                                     editor.remove("USER_NAME");
                                     checkBoxUserName.setChecked(false);
@@ -159,11 +189,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                 edtUserName.setBackgroundResource(R.drawable.edit_text_background);
                                 tvUserNameText.setText("Username");
                                 tvForgotUserName.setText("");
-                                startActivity(new Intent(SignupActivity.this, SignUpPasswordActivity.class));
+                                btnSignIn.setTextColor(getResources().getColor(R.color.btn_text_color));
+                                btnSignIn.setEnabled(true);
                             } else {
+                                btnSignIn.setTextColor(getResources().getColor(R.color.btn_grey_color));
+                                btnSignIn.setEnabled(false);
                                 edtUserName.setBackgroundResource(R.drawable.activation_error_color_background);
                                 tvForgotUserName.setText("Please select another username.");
-                                tvUserNameText.setText("Looks like this username is taken.");
+                                tvUserNameText.setText("Invalid username");
                             }
 
                         }

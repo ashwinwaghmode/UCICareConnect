@@ -4,25 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SplashScreen"
-    android:background="#1B3D6D">
+    tools:context=".activities.SplashScreen">
 
-    <ImageView
+  <!--  <ImageView
         android:id="@+id/logo"
         android:layout_width="85dp"
         android:layout_height="55dp"
         android:background="@drawable/splash_screen_logo"
         android:layout_marginTop="200dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"/>-->
 
     <ImageView
-        android:layout_marginTop="50dp"
-        android:layout_below="@+id/logo"
         android:layout_width="match_parent"
-        android:layout_marginRight="43dp"
-        android:layout_marginLeft="43dp"
-        android:layout_height="33dp"
-        android:background="@drawable/splash_screen_name"
+        android:layout_height="match_parent"
+        android:background="@drawable/landing"
         android:layout_centerInParent="true"/>
 
 </RelativeLayout>

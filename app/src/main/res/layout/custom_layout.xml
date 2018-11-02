@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar android:id="@+id/toolbar_top"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:minHeight="?android:attr/actionBarSize"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:background="#FFFFFF"
+        android:id="@+id/ll_slide_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_close_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right|top"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="17dp"
+            android:background="@drawable/close"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/img_notch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/rectangle" />
+
+
+        <TextView
+            android:id="@+id/tv_heading"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="Events"
+            android:textColor="#6AA2B8"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+</android.support.v7.widget.Toolbar>

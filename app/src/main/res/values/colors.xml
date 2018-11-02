@@ -10,5 +10,6 @@
     <color name="btn_text_color">#FFFFFF</color>
     <color name="error_color">#808080</color>
     <color name="text_password_error">#F7EB5F</color>
+    <color name="btn_grey_color">#707B7C</color>
 
 </resources>

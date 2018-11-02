@@ -136,6 +136,7 @@
             android:layout_height="wrap_content"
             android:text="Hi Jim,"
             android:gravity="center"
+            android:textAllCaps="true"
             android:layout_marginTop="14dp"
             android:textSize="24dp"
             android:textColor="#6AA2B8"/>
@@ -163,7 +164,7 @@
         android:layout_marginTop="43dp"
         android:layout_width="259dp"
         android:layout_height="60dp"
-        android:text="Take a Look"
+        android:text="Next"
         android:textSize="20dp"
         android:textColor="#FFFFFF"
         android:textAllCaps="false"

@@ -18,6 +18,7 @@ public class SchedulingMadeSimpleFragment extends Fragment implements View.OnCli
     Button btnNext;
     TextView tvScheduling, tvMadeSimple, tvMadeSimpleDesc;
     Typeface tf;
+    String strUserName;
 
 
     public static SchedulingMadeSimpleFragment newInstance(String param1, String param2) {
@@ -31,7 +32,7 @@ public class SchedulingMadeSimpleFragment extends Fragment implements View.OnCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
+            strUserName = getArguments().getString("user_name");
         }
     }
 
@@ -55,7 +56,10 @@ public class SchedulingMadeSimpleFragment extends Fragment implements View.OnCli
             case R.id.btn_next:
                 android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ExclusivelyForYouFragment fragment = new ExclusivelyForYouFragment();
+                OnDemandServiceFragment fragment = new OnDemandServiceFragment();
+                Bundle args = new Bundle();
+                args.putString("user_name", strUserName);
+                fragment.setArguments(args);
                 fragmentTransaction.replace(R.id.myContainer, fragment);
                 fragmentTransaction.commit();
                 fragmentTransaction.addToBackStack(null);

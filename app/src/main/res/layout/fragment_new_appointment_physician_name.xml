@@ -75,6 +75,7 @@
                         android:textSize="14dp" />
 
                     <TextView
+                        android:id="@+id/tv_request_subheading"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_request_heading"
@@ -99,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <EditText
+            <AutoCompleteTextView
                 android:id="@+id/edit_physician_name"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"

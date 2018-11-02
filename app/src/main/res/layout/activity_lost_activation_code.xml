@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#1B3D6D">
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textview_bottom_shadow">
+
+            <!--<ImageView
+                android:layout_marginTop="22dp"
+                android:id="@+id/img_back_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/back_arrow"
+                android:layout_marginLeft="16dp"/>-->
+
+            <ImageView
+                android:layout_marginTop="22dp"
+                android:id="@+id/img_back_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/back_arrow"
+                android:layout_marginLeft="16dp"/>
+
+            <TextView
+                android:id="@+id/tv_heading"
+                android:textColor="#6AA2B8"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="260dp"
+                android:layout_height="60dp"
+                android:text="Lost Activation Code"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true"/>
+
+            <!-- <ImageView
+                 android:layout_alignParentRight="true"
+                 android:layout_marginRight="17dp"
+                android:layout_marginTop="22dp"
+                android:id="@+id/img_back_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/close"
+                android:layout_marginLeft="16dp"/>-->
+
+        </RelativeLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp">
+
+            <EditText
+                android:id="@+id/edt_email_address"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:paddingRight="13dp"
+                android:paddingLeft="13dp"
+                android:paddingTop="28dp"
+                android:paddingBottom="28dp"
+                android:hint="Enter Your Email Address"
+                android:textColorHint="#C6BEB5"
+                android:textSize="20dp"
+                android:gravity="center"
+                android:layout_gravity="start"
+                android:maxLines="1"
+                android:inputType="textEmailAddress"
+                android:imeOptions="actionDone"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="#555759"
+                android:background="@drawable/edit_text_background"/>
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_username_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#555759"
+                android:textSize="14dp"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_lost_activation_code"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginLeft="58dp"
+            android:layout_marginRight="58dp"
+            android:layout_marginTop="40px"
+            android:gravity="center"
+            android:text="Retrieve Activation Code"
+            android:textColor="#6AA2B8"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/tv_activation_code_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="58dp"
+            android:layout_marginRight="58dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="18px"
+            android:gravity="center"
+            android:text="Enter the email you signed up with to receive your code."
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_next"
+        android:layout_gravity="center"
+        android:layout_marginBottom="62dp"
+        android:layout_width="259dp"
+        android:layout_height="60dp"
+        android:layout_marginRight="58dp"
+        android:layout_marginLeft="58dp"
+        android:text="Next"
+        android:textSize="20dp"
+        android:textColor="#707B7C"
+        android:enabled="false"
+        android:textAllCaps="false"
+        android:background="@drawable/referral_button_background"/>
+</RelativeLayout>

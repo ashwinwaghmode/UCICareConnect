@@ -141,6 +141,7 @@
             android:gravity="center"
             android:layout_gravity="start"
             android:maxLines="1"
+            android:maxLength="14"
             android:inputType="phone"
             android:imeOptions="actionDone"
             android:layout_marginRight="15dp"

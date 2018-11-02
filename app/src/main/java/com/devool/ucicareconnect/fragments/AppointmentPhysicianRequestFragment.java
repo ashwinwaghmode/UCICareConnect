@@ -136,6 +136,7 @@ public class AppointmentPhysicianRequestFragment extends Fragment implements Vie
                             JSONObject object = array.getJSONObject(0);
                             if(object.getString("inMsg").equalsIgnoreCase("Request Saved!!!")) {
                                 Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.putExtra("is_physician_requested_completed", "Physician");
                                 intent.putExtra("request", "Physician");
                                 intent.putExtra("appointment_type", strAppointmentType);
@@ -146,6 +147,7 @@ public class AppointmentPhysicianRequestFragment extends Fragment implements Vie
                                 intent.putExtra("Time_of_day", strDay);
                                 intent.putExtra("Any_Specific_Request", strAnySpecificRequest);
                                 startActivity(intent);
+                                getActivity().finish();
                             }
                         }
                     } catch (JSONException e) {

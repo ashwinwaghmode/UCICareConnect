@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/rel_pop_up"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:visibility="visible"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rel_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/account_textview_header_shadow">
+
+            <!--<ImageView
+                android:layout_marginTop="22dp"
+                android:id="@+id/img_back_arrow"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/back_arrow"
+                android:layout_marginLeft="16dp"/>-->
+            <!--
+                        <ImageView
+                            android:layout_marginTop="22dp"
+                            android:id="@+id/img_back_arrow"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@drawable/back_arrow"
+                            android:layout_marginLeft="16dp"/>-->
+
+            <TextView
+                android:id="@+id/tv_heading"
+                android:textColor="#6AA2B8"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Instructions"
+                android:gravity="center"/>
+
+            <ImageView
+                android:id="@+id/img_close_button"
+                android:layout_marginTop="22dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/close"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="17dp"
+                android:layout_marginLeft="16dp"/>
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24.58dp"
+                android:layout_height="26dp"
+                android:layout_marginLeft="19.3dp"
+                android:background="@drawable/sch" />
+
+            <LinearLayout
+                android:layout_weight="2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10.11dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_event_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="#555759"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_event_date_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#555759"
+                    android:textSize="14dp" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:text="Dr. Jack"
+                        android:id="@+id/tv_doctor_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#6AA2B8"
+                        android:textSize="14dp" />
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tv_doctor_dept"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#555759"
+                        android:textSize="14dp" />
+
+
+                    <TextView
+                        android:gravity="center"
+                        android:id="@+id/tv_event_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#555759"
+                        android:textSize="14dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_marginRight="19.3dp"
+                android:layout_width="24.58dp"
+                android:layout_height="26dp"
+                android:background="@drawable/phone" />
+
+        </LinearLayout>
+
+
+        <!--<Button
+            android:id="@+id/btn_view_referral_details"
+            android:layout_width="248dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_corner_button"
+            android:text="View Referral Details"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:visibility="visible" />-->
+
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/ll_instruction"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="Meeting Area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#404040"
+                android:textSize="18dp"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We will meet you at valet"
+                android:textColor="#555759"
+                android:textSize="14dp"
+                android:layout_marginTop="5dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="15dp"
+            android:gravity="center">
+
+            <TextView
+                android:text="Please Bring"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#404040"
+                android:textSize="18dp"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:id="@+id/tv_document_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#555759"
+                android:textSize="14dp"
+                android:layout_marginTop="5dp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

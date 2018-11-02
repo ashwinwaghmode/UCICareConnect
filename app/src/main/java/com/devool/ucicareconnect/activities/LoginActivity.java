@@ -49,23 +49,20 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener, View.OnFocusChangeListener {
 
+    public static final String USER_INFO = "user_info";
+    public static final String UserId = "user_id";
+    private static final int REQUEST_PHONE_STATE = 1;
     TextView tvActivationCode, tvActivationCodeText;
     Button btnNext, btnLogin;
     EditText edtActivationCode;
     TextView tvActivationCodeMsg;
-
     String strUserId;
-    public static final String USER_INFO = "user_info";
-    public static final String UserId = "user_id";
-
     SharedPreferences sharedpreferences;
-
     Typeface tf;
     int keyDel = 0;
     String strOriginalString;
-    private static final int REQUEST_PHONE_STATE = 1;
     String device_id, device_token, strEmail;
 
     @Override
@@ -73,7 +70,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         FirebaseApp.initializeApp(this);
-
 
         sharedpreferences = getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
 
@@ -88,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         btnNext.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        tvActivationCode.setOnClickListener(this);
 
         edtActivationCode.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -115,6 +112,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if (edtActivationCode.getText().toString().equalsIgnoreCase("")) {
                     tvActivationCodeText.setVisibility(View.GONE);
+                    tvActivationCodeMsg.setText("Check your email for your activation code.");
                 } else {
                     tvActivationCodeText.setVisibility(View.VISIBLE);
                 }
@@ -152,13 +150,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     return;
                 }
                 device_token = task.getResult().getToken();
-                Log.d("device_token: " , device_token);
+                Log.d("device_token: ", device_token);
             }
         });
     }
 
-    void addDashtoActivationCode()
-    {
+    void addDashtoActivationCode() {
         edtActivationCode.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -170,7 +167,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         });
         if (keyDel == 0) {
             int len = edtActivationCode.getText().length();
-            if(len == 5) {
+            if (len == 5) {
                 edtActivationCode.setText(edtActivationCode.getText() + "-");
                 edtActivationCode.setSelection(edtActivationCode.getText().length());
             }
@@ -180,12 +177,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     void removeDashToActivationCode() {
-       strOriginalString = edtActivationCode.getText().toString().replace("-", "");
+        strOriginalString = edtActivationCode.getText().toString().replace("-", "");
     }
 
     private void appyfontForAllViews() {
         tf = Typeface.createFromAsset(getAssets(), "KievitSlabOT-Bold.otf");
-        edtActivationCode.setTypeface(tf,Typeface.BOLD);
+        edtActivationCode.setTypeface(tf, Typeface.BOLD);
 
         tf = Typeface.createFromAsset(getAssets(), "HelveticaNeueLight.ttf");
         tvActivationCode.setTypeface(tf);
@@ -206,8 +203,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.btn_next:
                 Intent i = new Intent(LoginActivity.this, EmailValidationActivity.class);
                 i.putExtra("user_id", strUserId);
@@ -217,16 +213,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.btn_login:
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class));
                 break;
+            case R.id.tv_lost_activation_code:
+                startActivity(new Intent(LoginActivity.this, LostActivationCodeActivity.class));
+                break;
         }
-        }
+    }
 
-    public void checkPasscode()
-    {
+    public void checkPasscode() {
+        sharedpreferences = getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         removeDashToActivationCode();
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(LoginActivity.this);
-            String URL = AppConfig.BASE_URL+AppConfig.GET_USER_PASSCODE ;
+            String URL = AppConfig.BASE_URL + AppConfig.GET_USER_PASSCODE;
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("Passcode", strOriginalString);
             Log.e("passcode", strOriginalString);
@@ -239,28 +238,49 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     try {
                         Log.e("Passcode_response", response);
                         JSONArray array = new JSONArray(response);
-                        for (int i =0; i<array.length();i++){
+                        for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(0);
                             strUserId = object.getString("userID");
                             editor.putString("USER_ID", strUserId);
-                            editor.putString("USER_NAME", object.getString("userName"));
+                            if (!edtActivationCode.getText().toString().equals("")) {
+                                if (object.getString("userName") != null && !object.getString("inMsg").equalsIgnoreCase("Invalid Passcode!.")) {
+                                    editor.putString("USER_NAME", object.getString("userName"));
+                                } else {
+                                    editor.putString("USER_NAME", sharedpreferences.getString("USER_NAME", ""));
+                                }
+                            } else {
+                                editor.putString("USER_NAME", sharedpreferences.getString("USER_NAME", ""));
+                            }
+
                             editor.commit();
                             //Toast.makeText(LoginActivity.this, object.getString("inMsg"), Toast.LENGTH_SHORT).show();
-                            if(object.getString("inMsg").equalsIgnoreCase("Invalid Passcode!.")) {
-                            btnNext.setVisibility(View.GONE);
-                            tvActivationCodeMsg.setText("Please double-check your code and try agaain. if it's still not working, just tap the link above to reset");
-                            edtActivationCode.setBackgroundResource(R.drawable.activation_error_color_background);
-                            tvActivationCodeText.setText("Incorrect Activation Code");
-                            }else {
+                            if (object.getString("inMsg").equalsIgnoreCase("Invalid Passcode!.")) {
+                                //btnNext.setVisibility(View.GONE);
+                                //btnNext.setBackground(getResources().getDrawable(R.drawable.grey_btn_background));
+                                btnNext.setTextColor(getResources().getColor(R.color.btn_grey_color));
+                                btnNext.setEnabled(false);
+                                tvActivationCodeMsg.setText("Please double-check your code and try again. if it's still not working, just tap the link above to reset");
+                                edtActivationCode.setBackgroundResource(R.drawable.activation_error_color_background);
+                                tvActivationCodeText.setText("Incorrect Activation Code");
+                                tf = Typeface.createFromAsset(getAssets(), "HelveticaNeueLight.ttf");
+                                tvActivationCodeText.setTypeface(tf, Typeface.BOLD);
+                            } else {
                                 strEmail = object.getString("email");
-                                btnNext.setVisibility(View.VISIBLE);
+                                //btnNext.setVisibility(View.VISIBLE);
+                                btnNext.setTextColor(getResources().getColor(R.color.btn_text_color));
+                                //btnNext.setBackground(getResources().getDrawable(R.drawable.referral_button_background));
+                                btnNext.setEnabled(true);
                                 tvActivationCodeMsg.setText("");
                                 edtActivationCode.setBackgroundResource(R.drawable.edit_text_background);
                                 tvActivationCodeMsg.setText("Check your email for your activation code.");
                                 tvActivationCodeText.setText("Activation Code");
+                                tf = Typeface.createFromAsset(getAssets(), "HelveticaNeueLight.ttf");
+                                tvActivationCodeText.setTypeface(tf);
                             }
-                            if(object.getString("is_AdminCreated").equalsIgnoreCase("N")){
-                                btnNext.setVisibility(View.GONE);
+                            if (object.getString("is_AdminCreated").equalsIgnoreCase("N")) {
+                                //btnNext.setVisibility(View.GONE);
+                                //btnNext.setBackground(getResources().getDrawable(R.drawable.grey_btn_background));
+                                btnNext.setEnabled(false);
                                 tvActivationCodeMsg.setText("Activation code already used");
                                 edtActivationCode.setBackgroundResource(R.drawable.activation_error_color_background);
                                 tvActivationCodeText.setText("Activation code already used");
@@ -290,6 +310,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         return null;
                     }
                 }
+
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     String responseString = "";
@@ -325,6 +346,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void getDeviceId() {
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         device_id = telephonyManager.getDeviceId();
-        Log.e("device_id: ",  device_id);
+        Log.e("device_id: ", device_id);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        switch (v.getId()) {
+            case R.id.edit_activation_code:
+                checkPasscode();
+        }
     }
 }

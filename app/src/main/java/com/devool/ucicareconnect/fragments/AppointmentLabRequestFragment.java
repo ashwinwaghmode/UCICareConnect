@@ -128,6 +128,7 @@ public class AppointmentLabRequestFragment extends Fragment implements View.OnCl
                             JSONObject object = array.getJSONObject(0);
                             if(object.getString("inMsg").equalsIgnoreCase("Request Saved!!!")) {
                                 Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.putExtra("is_lab_requested_completed", "Lab");
                                 intent.putExtra("request", "Lab");
                                 intent.putExtra("appointment_type", strAppointmentType);
@@ -136,6 +137,7 @@ public class AppointmentLabRequestFragment extends Fragment implements View.OnCl
                                 intent.putExtra("Time_of_day", strDay);
                                 intent.putExtra("Any_Specific_Request", strAnySpecificRequest);
                                 startActivity(intent);
+                                getActivity().finish();
                             }
                         }
                     } catch (JSONException e) {

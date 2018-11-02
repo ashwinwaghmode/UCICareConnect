@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,7 +42,7 @@ public class UserNameActivity extends AppCompatActivity implements View.OnClickL
     SharedPreferences sharedpreferences;
     public static final String USER_INFO= "user_info" ;
     EditText edtCreateUserName;
-    TextView tvHeading, tvUserNameText;
+    TextView tvHeading, tvUserNameText, tvUserNameMsg;
     Typeface tf;
     ImageView imgBackArrow;
 
@@ -51,6 +53,7 @@ public class UserNameActivity extends AppCompatActivity implements View.OnClickL
         btnNext = findViewById(R.id.btn_next);
         tvHeading = findViewById(R.id.tv_heading);
         tvUserNameText = findViewById(R.id.tv_username_text);
+        tvUserNameMsg = findViewById(R.id.tv_user_name_msg);
         imgBackArrow = findViewById(R.id.img_back_arrow);
 
         btnNext.setOnClickListener(this);
@@ -65,7 +68,9 @@ public class UserNameActivity extends AppCompatActivity implements View.OnClickL
 
             }
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                edtCreateUserName.setBackgroundResource(R.drawable.edit_text_background);
                 tvUserNameText.setText("Username");
+                tvUserNameMsg.setVisibility(View.GONE);
                 if(edtCreateUserName.getText().toString().equalsIgnoreCase("")) {
                     tvUserNameText.setVisibility(View.GONE);
                 }else {
@@ -79,6 +84,24 @@ public class UserNameActivity extends AppCompatActivity implements View.OnClickL
         });
 
         appyfontForAllViews();
+
+        edtCreateUserName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                int result = actionId & EditorInfo.IME_MASK_ACTION;
+                switch (result) {
+                    case EditorInfo.IME_ACTION_DONE:
+                        if(!edtCreateUserName.getText().toString().equals("")){
+                            updateUserInfo();
+                        }else {
+                            btnNext.setTextColor(getResources().getColor(R.color.btn_grey_color));
+                            btnNext.setEnabled(false);
+                        }
+
+                        break;
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -95,13 +118,18 @@ public class UserNameActivity extends AppCompatActivity implements View.OnClickL
         tf = Typeface.createFromAsset(getAssets(), "HelveticaNeueLight.ttf");
         tvUserNameText.setTypeface(tf);
 
+        tf = Typeface.createFromAsset(getAssets(), "HelveticaNeueLight.ttf");
+        tvUserNameMsg.setTypeface(tf);
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_next:
-                updateUserInfo();
+                Intent intent = new Intent(UserNameActivity.this, CreatePasswordActivity.class);
+                intent.putExtra("user_name", edtCreateUserName.getText().toString());
+                startActivity(intent);
                 break;
             case R.id.img_back_arrow:
                 onBackPressed();
@@ -117,6 +145,9 @@ public class UserNameActivity extends AppCompatActivity implements View.OnClickL
                 JSONObject jsonBody = new JSONObject();
                 jsonBody.put("UserID", sharedpreferences.getString("USER_ID", ""));
                 jsonBody.put("UserName", edtCreateUserName.getText().toString());
+                final SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("USER_NAME", edtCreateUserName.getText().toString());
+                editor.commit();
                 //jsonBody.put("Email", edtEmailAddress.getText().toString());
 
                 final String requestBody = jsonBody.toString();
@@ -132,9 +163,20 @@ public class UserNameActivity extends AppCompatActivity implements View.OnClickL
                                 JSONObject object = array.getJSONObject(0);
                                 //Toast.makeText(LoginActivity.this, object.getString("inMsg"), Toast.LENGTH_SHORT).show();
                                 if(object.getString("inMsg").equalsIgnoreCase("UserName Updated!!")) {
-                                   Intent intent = new Intent(UserNameActivity.this, CreatePasswordActivity.class);
-                                    intent.putExtra("user_name", edtCreateUserName.getText().toString());
-                                    startActivity(intent);
+                                    btnNext.setTextColor(getResources().getColor(R.color.btn_text_color));
+                                    btnNext.setEnabled(true);
+                                }
+                                if(object.getString("inMsg").equalsIgnoreCase("UserName Already exists!")){
+                                    tvUserNameText.setText("Looks like this username is taken.");
+                                    edtCreateUserName.setBackgroundResource(R.drawable.activation_error_color_background);
+                                    tvUserNameMsg.setVisibility(View.VISIBLE);
+                                    tvUserNameMsg.setText("Please select another username.");
+                                    btnNext.setTextColor(getResources().getColor(R.color.btn_grey_color));
+                                    btnNext.setEnabled(false);
+                                }else {
+                                    tvUserNameMsg.setVisibility(View.GONE);
+                                    btnNext.setTextColor(getResources().getColor(R.color.btn_text_color));
+                                    btnNext.setEnabled(true);
                                 }
                             }
                         } catch (JSONException e) {

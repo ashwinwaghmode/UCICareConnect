@@ -6,10 +6,12 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -82,6 +84,9 @@ public class AnySpecificRequestFragmrent extends Fragment implements View.OnClic
 
         imgCloseButton.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+
+        edtAnySpecificRequest.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        edtAnySpecificRequest.setRawInputType(InputType.TYPE_CLASS_TEXT);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");

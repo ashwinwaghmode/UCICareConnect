@@ -135,11 +135,12 @@
                 android:layout_marginRight="58dp"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/referral_button_background"
-                android:text="Next"
-                android:textColor="#FFFFFF"
+                android:text="Activate"
+                android:textColor="#707B7C"
                 android:textSize="20dp"
                 android:textAllCaps="false"
-                android:visibility="gone" />
+                android:visibility="visible"
+                android:enabled="false"/>
 
             <Button
                 android:id="@+id/btn_login"

@@ -93,6 +93,21 @@
                 android:textSize="14dp"/>
         </FrameLayout>
 
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_user_name_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="58dp"
+            android:layout_marginRight="58dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="58px"
+            android:gravity="center"
+            android:text="@string/check_your_email_for_your_activation_code"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp" />
+
     </LinearLayout>
 
     <Button
@@ -107,7 +122,8 @@
         android:layout_marginLeft="58dp"
         android:text="Next"
         android:textSize="20dp"
-        android:textColor="#FFFFFF"
+        android:textColor="#707B7C"
+        android:enabled="false"
         android:textAllCaps="false"
         android:background="@drawable/referral_button_background"/>
 </RelativeLayout>

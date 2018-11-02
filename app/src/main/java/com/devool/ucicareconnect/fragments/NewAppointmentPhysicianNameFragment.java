@@ -15,10 +15,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -31,30 +33,36 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.devool.ucicareconnect.R;
 import com.devool.ucicareconnect.activities.DashboardActivity;
+import com.devool.ucicareconnect.helper.DoctorNameHelper;
+import com.devool.ucicareconnect.helper.DoctorSpecialtyHelper;
 import com.devool.ucicareconnect.utils.AppConfig;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
-public class NewAppointmentPhysicianNameFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
+public class NewAppointmentPhysicianNameFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
 
+    public static final String USER_INFO = "user_info";
     Button btnNext;
-    EditText edtPhysicianName;
-    String strMeetPurpose, strAAppointmentType, strInteractionId, strInteractionDetailId, strUserId, strPhysicianType;
-    private ListView lv;
+    AutoCompleteTextView edtPhysicianName;
+    String strMeetPurpose, strAAppointmentType, strInteractionId, strInteractionDetailId, strUserId, strPhysicianType, strSpecialtyId, strPhysicianName;
     ArrayAdapter<String> adapter;
-    ArrayList<HashMap<String, String>> productList;
+    ArrayList<String> doctorSpecialtyList = new ArrayList<>();
+    ArrayList<DoctorNameHelper> doctorSpecialtyItemList = new ArrayList<>();
+    HashMap<String, String> customerListDynamic = new HashMap<>();
 
 
     SharedPreferences sharedpreferences;
-    public static final String USER_INFO= "user_info";
     ImageView imgCloseButton;
+    private ListView lv;
 
     public static NewAppointmentPhysicianNameFragment newInstance(String param1, String param2) {
         NewAppointmentPhysicianNameFragment fragment = new NewAppointmentPhysicianNameFragment();
@@ -68,14 +76,15 @@ public class NewAppointmentPhysicianNameFragment extends Fragment implements Vie
             strMeetPurpose = getArguments().getString("meet_purpose");
             strAAppointmentType = getArguments().getString("appointment_type");
             strPhysicianType = getArguments().getString("physician_type");
+            strSpecialtyId = getArguments().getString("specialty_id");
         }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View row = inflater.inflate(R.layout.fragment_new_appointment_physician_name, container, false);
-        btnNext = (Button)row.findViewById(R.id.btn_next);
-        edtPhysicianName = (EditText)row.findViewById(R.id.edit_physician_name);
+        btnNext = (Button) row.findViewById(R.id.btn_next);
+        edtPhysicianName = (AutoCompleteTextView) row.findViewById(R.id.edit_physician_name);
         imgCloseButton = row.findViewById(R.id.img_close_button);
 
         btnNext.setOnClickListener(this);
@@ -86,40 +95,10 @@ public class NewAppointmentPhysicianNameFragment extends Fragment implements Vie
         strInteractionId = sharedpreferences.getString("interaction_ID", "");
         strUserId = sharedpreferences.getString("USER_ID", "");
 
-        String products[] = {"Dr. Chang - Physician","Dr. Gomez - Physician", "Dr. Conor - Radiologist"};
-
-        lv = (ListView) row.findViewById(R.id.list_view);
-        adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, R.id.product_name, products);
-        lv.setAdapter(adapter);
-        lv.setOnItemClickListener(this);
-
-        edtPhysicianName.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                if(edtPhysicianName.getText().toString().equals(""))
-                {
-                    lv.setVisibility(View.GONE);
-                }else {
-                    lv.setVisibility(View.VISIBLE);
-                    NewAppointmentPhysicianNameFragment.this.adapter.getFilter().filter(cs);
-                }
-                // When user changed the Text
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                          int arg3) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
-
+        doctorSpecialtyList.clear();
+        doctorSpecialtyItemList.clear();
+        edtPhysicianName.setOnItemClickListener(this);
+        getDoctorsName();
         return row;
     }
 
@@ -151,11 +130,10 @@ public class NewAppointmentPhysicianNameFragment extends Fragment implements Vie
 
     }
 
-    public void submit()
-    {
+    public void submit() {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-            String URL = AppConfig.BASE_URL+AppConfig.CREATE_REQUEST_HISTORY;
+            String URL = AppConfig.BASE_URL + AppConfig.CREATE_REQUEST_HISTORY;
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("Interaction_DTL_ID", strInteractionDetailId);
             jsonBody.put("UserID", strUserId);
@@ -165,7 +143,7 @@ public class NewAppointmentPhysicianNameFragment extends Fragment implements Vie
             jsonBody.put("OutsideProvider_number", "");
             jsonBody.put("Availability", "");
             jsonBody.put("Time_of_day", "");
-            jsonBody.put("Physicians_Name", edtPhysicianName.getText().toString());
+            jsonBody.put("Physicians_Name", strPhysicianName);
             //jsonBody.put("Physicians_Specialty", "");
             jsonBody.put("Radiology_Type", "");
             jsonBody.put("Care_Facility_Name", "");
@@ -221,6 +199,63 @@ public class NewAppointmentPhysicianNameFragment extends Fragment implements Vie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        edtPhysicianName.setText((String) parent.getItemAtPosition(position));
+        strPhysicianName = (String) parent.getItemAtPosition(position);
+        Toast.makeText(getActivity(), strPhysicianName, Toast.LENGTH_SHORT).show();
+    }
+
+
+    public void getDoctorsName() {
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        String URL = AppConfig.BASE_URL + AppConfig.GET_DOCTOR_BY_SPECILALTY + "/" + strSpecialtyId;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    Log.e("getDoctorsName", response);
+                    JSONArray array = new JSONArray(response);
+
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject object = array.getJSONObject(i);
+                        DoctorNameHelper helper = new DoctorNameHelper();
+                        helper.setStrDoctorId(object.getString("doctor_ID"));
+                        helper.setStrDoctorName(object.getString("doctor_Name"));
+                        helper.setStrDoctorSpecialtyId(object.getString("doctor_Specialty_ID"));
+                        doctorSpecialtyItemList.add(helper);
+                        doctorSpecialtyList.add(object.getString("doctor_Name"));
+                    }
+                    adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item, R.id.product_name, doctorSpecialtyList);
+                    adapter.notifyDataSetChanged();
+                    edtPhysicianName.setAdapter(adapter);
+                    edtPhysicianName.setThreshold(1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("VOLLEY", error.toString());
+            }
+        }) {
+            @Override
+            public String getBodyContentType() {
+                return "application/json; charset=utf-8";
+            }
+
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                String responseString = "";
+                if (response != null) {
+                    responseString = String.valueOf(response.statusCode);
+                    // can get more details such as response.headers
+                }
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+        requestQueue.add(stringRequest);
+
     }
 }

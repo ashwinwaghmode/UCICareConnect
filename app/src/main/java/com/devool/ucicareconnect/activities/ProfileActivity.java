@@ -202,7 +202,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         imgProfilePhoto.setImageBitmap(bm);
         //imgTravelcam.setVisibility(View.GONE);
         ImageToString = getStringImage(bm);
-        Log.e(" Travel_Camera_image", " is "+ ImageToString);
+        System.out.println(" Travel_Camera_image"+  ImageToString);
     }
 
     private String getStringImage(Bitmap bm)

@@ -151,6 +151,7 @@ public class AppointmentRadiologyRequestFragment extends Fragment implements Vie
                             JSONObject object = array.getJSONObject(0);
                             if(object.getString("inMsg").equalsIgnoreCase("Request Saved!!!")) {
                                 Intent intent = new Intent(getActivity(), DashboardActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.putExtra("is_radiology_requested_completed", "Radiology / Diagnostics");
                                 intent.putExtra("request", "Radiology / Diagnostics");
                                 intent.putExtra("appointment_type", strAppointmentType);
@@ -166,6 +167,7 @@ public class AppointmentRadiologyRequestFragment extends Fragment implements Vie
                                 intent.putExtra("Radiology_Type", strExamType);
                                 intent.putExtra("Any_Specific_Request", strAnySpecificRequest);
                                 startActivity(intent);
+                                getActivity().finish();
                             }
                         }
                     } catch (JSONException e) {

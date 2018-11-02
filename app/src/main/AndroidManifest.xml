@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <supports-screens
         android:anyDensity="true"
@@ -46,6 +47,11 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".utils.AppController"
         android:allowBackup="true"
@@ -67,16 +73,10 @@
         <activity
             android:name=".activities.SchedulingActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.LoginActivity"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.WelcomeActivityAfterLogin"
             android:screenOrientation="portrait" />
@@ -152,9 +152,20 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SplashScreen"
-            android:screenOrientation="portrait"></activity>
-        <activity android:name=".activities.UsersAccountActivity"></activity>
-        <activity android:name=".activities.CancelFollowUpActivity"></activity>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activities.UsersAccountActivity" />
+        <activity android:name=".activities.CancelFollowUpActivity" />
+        <activity android:name=".activities.ApptInstructionActivity" />
+        <activity android:name=".activities.LostActivationCodeActivity" />
+        <activity android:name=".activities.ForgotUserNameActivity" />
+        <activity android:name=".activities.ForgotPasswordActivity" />
+        <activity android:name=".activities.ForgotRequestSentActivity"></activity>
     </application>
 
 </manifest>

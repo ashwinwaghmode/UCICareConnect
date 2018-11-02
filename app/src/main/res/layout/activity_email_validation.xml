@@ -93,7 +93,6 @@
 
     <Button
         android:layout_alignParentBottom="true"
-        android:visibility="gone"
         android:id="@+id/btn_next"
         android:layout_gravity="center"
         android:layout_width="259dp"
@@ -103,8 +102,9 @@
         android:layout_marginRight="58dp"
         android:text="Next"
         android:textSize="20dp"
-        android:textColor="#FFFFFF"
+        android:textColor="#707B7C"
         android:textAllCaps="false"
+        android:enabled="false"
         android:layout_centerInParent="true"
         android:background="@drawable/referral_button_background"/>
 </RelativeLayout>
