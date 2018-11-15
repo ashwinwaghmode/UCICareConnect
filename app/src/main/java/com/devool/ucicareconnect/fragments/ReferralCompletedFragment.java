@@ -43,7 +43,7 @@ public class ReferralCompletedFragment extends Fragment implements View.OnClickL
     TextView tvReferralName, tvRelationship, tvAssociateName, tvFamiyRelation, tvPhoneNumber, tvEmailAddress;
 
     SharedPreferences sharedpreferences;
-    Button btnSendRequest;
+    Button btnSendRequest, btnMakeAnotherReferral;
     ImageView imgCloseButton;
 
     public static final String USER_INFO = "user_info";
@@ -74,9 +74,11 @@ public class ReferralCompletedFragment extends Fragment implements View.OnClickL
         tvEmailAddress = row.findViewById(R.id.tv_email_address);
         btnSendRequest = row.findViewById(R.id.btn_send_request);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        btnMakeAnotherReferral = row.findViewById(R.id.btn_make_another_referral);
 
         btnSendRequest.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        btnMakeAnotherReferral.setOnClickListener(this);
 
         if(strRelationship.equalsIgnoreCase("Friend")){
             tvReferralName.setText(strReferralname);
@@ -209,6 +211,93 @@ public class ReferralCompletedFragment extends Fragment implements View.OnClickL
                 startActivity(intent);
                 getActivity().finish();
                 break;
+            case R.id.btn_make_another_referral:
+                btnMakeAnotherReferral.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
+                btnMakeAnotherReferral.setTextColor(getResources().getColor(R.color.btn_text_color));
+                submitAnotherReferral();
+                break;
+        }
+    }
+
+    public void submitAnotherReferral() {
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+            String URL = AppConfig.BASE_URL + AppConfig.POST_CREATE_REFERRAL;
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("UserID", sharedpreferences.getString("USER_ID", ""));
+            jsonBody.put("Interaction_ID", sharedpreferences.getString("interaction_ID", ""));
+            jsonBody.put("Referral_name", strReferralname);
+            if(strRelationship.equalsIgnoreCase("Family")){
+                jsonBody.put("family_relation", strFamilyRelation);
+                jsonBody.put("Association", "");
+            }else if(strRelationship.equalsIgnoreCase("Other Associates")){
+                jsonBody.put("Association", strAssociation);
+                jsonBody.put("family_relation", "");
+            }
+            jsonBody.put("Relationship", strRelationship);
+            jsonBody.put("referal_phone", strContactInfo);
+            jsonBody.put("referal_email", strEmailAddress);
+            jsonBody.put("Is_Confirm", "true");
+            jsonBody.put("Status_Id", "Y");
+            jsonBody.put("referral_ID", sharedpreferences.getString("referral_ID", ""));
+            final String requestBody = jsonBody.toString();
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.e("Submit_another_referral", response);
+                    try {
+                        JSONArray array = new JSONArray(response);
+                        for (int i =0; i<array.length();i++){
+                            JSONObject object = array.getJSONObject(0);
+                            if(object.getString("inMsg").equalsIgnoreCase("Referral Saved!!!")){
+                                android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                ReferralRelationship fragment = new ReferralRelationship();
+                                fragmentTransaction.replace(R.id.myContainer, fragment);
+                                fragmentTransaction.commit();
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+                        // can get more details such as response.headers
+                    }
+                    return super.parseNetworkResponse(response);
+                }
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 }

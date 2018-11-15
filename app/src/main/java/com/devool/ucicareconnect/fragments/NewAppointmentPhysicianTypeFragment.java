@@ -62,6 +62,7 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
     ArrayList<DoctorNameHelper> doctorSpecialtyItemList = new ArrayList<>();
     TextView tvPhysicianHeading, tvPhysicianSubheading;
     private ListView lv;
+    boolean isNewUser;
 
     public static NewAppointmentPhysicianTypeFragment newInstance(String param1, String param2) {
         NewAppointmentPhysicianTypeFragment fragment = new NewAppointmentPhysicianTypeFragment();
@@ -131,6 +132,10 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
         doctorSpecialtyHelperList.clear();
 
         getDoctorSpecialty();
+
+        isNewUser = sharedpreferences.getBoolean("IS_NEW_USER", false);
+        //isNewUser = false;
+
         return row;
     }
 
@@ -138,7 +143,35 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_next:
-                submit();
+
+                if (isNewUser) {
+                    submit();
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    NewAppointmentAvailabiltyFragmenet fragment = new NewAppointmentAvailabiltyFragmenet();
+                    Bundle args = new Bundle();
+                    args.putString("meet_purpose", strMeetPurpose);
+                    args.putString("appointment_type", strAAppointmentType);
+                    args.putString("physician_name", strPhysiciaanName);
+                    args.putString("physician_type", strPhysicianType);
+                    fragment.setArguments(args);
+                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                    fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
+                }else {
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    NewAppointmentAvailabiltyFragmenet fragment = new NewAppointmentAvailabiltyFragmenet();
+                    Bundle args = new Bundle();
+                    args.putString("meet_purpose", strMeetPurpose);
+                    args.putString("appointment_type", strAAppointmentType);
+                    args.putString("physician_name", strPhysiciaanName);
+                    args.putString("physician_type", strPhysicianType);
+                    fragment.setArguments(args);
+                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                    fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
+                }
                /* android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                 android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 NewAppointmentPhysicianNameFragment fragment = new NewAppointmentPhysicianNameFragment();
@@ -153,18 +186,7 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
                 fragmentTransaction.commit();
                 fragmentTransaction.addToBackStack(null);*/
 
-                android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                NewAppointmentAvailabiltyFragmenet fragment = new NewAppointmentAvailabiltyFragmenet();
-                Bundle args = new Bundle();
-                args.putString("meet_purpose", strMeetPurpose);
-                args.putString("appointment_type", strAAppointmentType);
-                args.putString("physician_name", strPhysiciaanName);
-                args.putString("physician_type", strPhysicianType);
-                fragment.setArguments(args);
-                fragmentTransaction.replace(R.id.myContainer, fragment);
-                fragmentTransaction.commit();
-                fragmentTransaction.addToBackStack(null);
+
                 break;
             case R.id.img_close_button:
                 Intent intent = new Intent(getActivity(), DashboardActivity.class);

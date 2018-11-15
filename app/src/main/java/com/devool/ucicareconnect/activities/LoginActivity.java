@@ -242,6 +242,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             JSONObject object = array.getJSONObject(0);
                             strUserId = object.getString("userID");
                             editor.putString("USER_ID", strUserId);
+                            editor.putBoolean("IS_NEW_USER", object.getBoolean("is_NewUser"));
                             if (!edtActivationCode.getText().toString().equals("")) {
                                 if (object.getString("userName") != null && !object.getString("inMsg").equalsIgnoreCase("Invalid Passcode!.")) {
                                     editor.putString("USER_NAME", object.getString("userName"));
@@ -277,14 +278,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 tf = Typeface.createFromAsset(getAssets(), "HelveticaNeueLight.ttf");
                                 tvActivationCodeText.setTypeface(tf);
                             }
-                            if (object.getString("is_AdminCreated").equalsIgnoreCase("N")) {
+                          /*  if (object.getString("is_AdminCreated").equalsIgnoreCase("N")) {
                                 //btnNext.setVisibility(View.GONE);
                                 //btnNext.setBackground(getResources().getDrawable(R.drawable.grey_btn_background));
                                 btnNext.setEnabled(false);
+                                btnNext.setTextColor(getResources().getColor(R.color.btn_grey_color));
                                 tvActivationCodeMsg.setText("Activation code already used");
                                 edtActivationCode.setBackgroundResource(R.drawable.activation_error_color_background);
                                 tvActivationCodeText.setText("Activation code already used");
-                            }
+                            }*/
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

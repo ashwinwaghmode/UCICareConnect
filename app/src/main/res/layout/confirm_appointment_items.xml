@@ -87,6 +87,7 @@
 
 
             <ImageView
+                android:id="@+id/img_call_btn"
                 android:layout_marginRight="19.3dp"
                 android:layout_width="24.58dp"
                 android:layout_height="26dp"

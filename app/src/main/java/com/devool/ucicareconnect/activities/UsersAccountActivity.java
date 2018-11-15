@@ -3,10 +3,13 @@ package com.devool.ucicareconnect.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
 import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +36,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersAccountActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnClickListener, View.OnFocusChangeListener {
 
@@ -46,6 +52,7 @@ public class UsersAccountActivity extends AppCompatActivity implements CompoundB
     Button btnSignOut, btnChangePassword;
     ImageView imgCloseButton;
     EditText edtAssistantName, edtAssistantPhoneNumber;
+    CircleImageView imgProfileImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +70,7 @@ public class UsersAccountActivity extends AppCompatActivity implements CompoundB
         btnChangePassword = findViewById(R.id.btn_change_password);
         edtAssistantName = findViewById(R.id.tv_assistant_name);
         edtAssistantPhoneNumber = findViewById(R.id.tv_assistant_phone_number);
+        imgProfileImg = findViewById(R.id.img_upload_profile_photo);
 
         switchCompat.setOnCheckedChangeListener(this);
         btnSignOut.setOnClickListener(this);
@@ -123,6 +131,15 @@ public class UsersAccountActivity extends AppCompatActivity implements CompoundB
                         } else if (object.getString("is_Assistant").equals("true")) {
                             switchCompat.setChecked(true);
                         }
+                        //decode base64 string to image
+                        //byte[] imageBytes;
+                        String base64Image = object.getString("profileImage");
+                        /*byte[] decodedString = Base64.decode(base64Image, Base64.URL_SAFE);
+                        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+                        imgProfileImg.setImageBitmap(decodedByte);*/
+
+                        Bitmap b = base64ToBitmap(base64Image);
+                        imgProfileImg.setImageBitmap(b);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -277,5 +294,15 @@ public class UsersAccountActivity extends AppCompatActivity implements CompoundB
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private Bitmap base64ToBitmap(String b64) {
+        try {
+        byte[] imageAsBytes = Base64.decode(b64.getBytes(), Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+        return null;
     }
 }

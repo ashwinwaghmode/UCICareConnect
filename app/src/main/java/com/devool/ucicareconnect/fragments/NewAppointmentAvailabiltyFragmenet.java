@@ -43,6 +43,7 @@ public class NewAppointmentAvailabiltyFragmenet extends Fragment implements View
 
     String strAppointmentType, strMeetPurpose, strExamType, strTestOrder, strAvailability, strPhysicianName, strPhysicianType, strOutsideProvidrName, strProviderPhoneNumber, strInteractionId, strInteractionDetailId, strUserId;
     boolean buttonClicked=false;
+    boolean isNewUser;
 
     SharedPreferences sharedpreferences;
     public static final String USER_INFO= "user_info";
@@ -88,6 +89,8 @@ public class NewAppointmentAvailabiltyFragmenet extends Fragment implements View
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
         strInteractionId = sharedpreferences.getString("interaction_ID", "");
         strUserId = sharedpreferences.getString("USER_ID", "");
+        isNewUser = sharedpreferences.getBoolean("IS_NEW_USER", false);
+        //isNewUser = false;
 
         return row;
 
@@ -113,21 +116,35 @@ public class NewAppointmentAvailabiltyFragmenet extends Fragment implements View
                     btnAsSoonAsPossible.setBackground(getResources().getDrawable(R.drawable.appointment_btn_corner));
                     btnAsSoonAsPossible.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
-
-                if(strMeetPurpose.equalsIgnoreCase("Lab")){
-                    submitLabInfo();
-                    //Toast.makeText(getActivity(), "LAB", Toast.LENGTH_SHORT).show();
-                }else if(strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("UCI")){
-                    submitRadioInfoforUCI();
-                    //Toast.makeText(getActivity(), "UCI", Toast.LENGTH_SHORT).show();
-                }else if(strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("Outside Provider")){
-                    //Toast.makeText(getActivity(), "OUTSIDE PROVIDER", Toast.LENGTH_SHORT).show();
-                    submitRadioInfoforOutsidProvider();
+                if(!isNewUser){
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    NewppointmentTimeofDayFragmrnt fragment = new NewppointmentTimeofDayFragmrnt();
+                    Bundle args = new Bundle();
+                    args.putString("appointment_type", strAppointmentType);
+                    args.putString("meet_purpose", strMeetPurpose);
+                    args.putString("availability", strAvailability);
+                    args.putString("physician_type", strPhysicianType);
+                    args.putString("physician_name", strPhysicianName);
+                    fragment.setArguments(args);
+                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                    fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
                 }else {
-                    submit();
-                    //Toast.makeText(getActivity(), "PHYSICIAN", Toast.LENGTH_SHORT).show();
+                    if(strMeetPurpose.equalsIgnoreCase("Lab")){
+                        submitLabInfo();
+                        //Toast.makeText(getActivity(), "LAB", Toast.LENGTH_SHORT).show();
+                    }else if(strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("UCI")){
+                        submitRadioInfoforUCI();
+                        //Toast.makeText(getActivity(), "UCI", Toast.LENGTH_SHORT).show();
+                    }else if(strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("Outside Provider")){
+                        //Toast.makeText(getActivity(), "OUTSIDE PROVIDER", Toast.LENGTH_SHORT).show();
+                        submitRadioInfoforOutsidProvider();
+                    }else {
+                        submit();
+                        //Toast.makeText(getActivity(), "PHYSICIAN", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
                 break;
             case R.id.btn_next_week:
                 strAvailability = btnNextWeek.getText().toString();
@@ -145,14 +162,30 @@ public class NewAppointmentAvailabiltyFragmenet extends Fragment implements View
                     btnAsSoonAsPossible.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
 
-                if(strMeetPurpose.equalsIgnoreCase("Lab")){
-                    submitLabInfo();
-                }else if(strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("UCI")){
-                    submitRadioInfoforUCI();
-                }else if(strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("Outside Provider")){
-                    submitRadioInfoforOutsidProvider();
+                if(!isNewUser){
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    NewppointmentTimeofDayFragmrnt fragment = new NewppointmentTimeofDayFragmrnt();
+                    Bundle args = new Bundle();
+                    args.putString("appointment_type", strAppointmentType);
+                    args.putString("meet_purpose", strMeetPurpose);
+                    args.putString("availability", strAvailability);
+                    args.putString("physician_type", strPhysicianType);
+                    args.putString("physician_name", strPhysicianName);
+                    fragment.setArguments(args);
+                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                    fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
                 }else {
-                    submit();
+                    if (strMeetPurpose.equalsIgnoreCase("Lab")) {
+                        submitLabInfo();
+                    } else if (strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("UCI")) {
+                        submitRadioInfoforUCI();
+                    } else if (strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("Outside Provider")) {
+                        submitRadioInfoforOutsidProvider();
+                    } else {
+                        submit();
+                    }
                 }
 
                 break;
@@ -172,14 +205,30 @@ public class NewAppointmentAvailabiltyFragmenet extends Fragment implements View
                     btnNextWeek.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
 
-                if(strMeetPurpose.equalsIgnoreCase("Lab")){
-                    submitLabInfo();
-                }else if(strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("UCI")){
-                    submitRadioInfoforUCI();
-                }else if(strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("Outside Provider")){
-                    submitRadioInfoforOutsidProvider();
+                if(!isNewUser){
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    NewppointmentTimeofDayFragmrnt fragment = new NewppointmentTimeofDayFragmrnt();
+                    Bundle args = new Bundle();
+                    args.putString("appointment_type", strAppointmentType);
+                    args.putString("meet_purpose", strMeetPurpose);
+                    args.putString("availability", strAvailability);
+                    args.putString("physician_type", strPhysicianType);
+                    args.putString("physician_name", strPhysicianName);
+                    fragment.setArguments(args);
+                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                    fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
                 }else {
-                    submit();
+                    if (strMeetPurpose.equalsIgnoreCase("Lab")) {
+                        submitLabInfo();
+                    } else if (strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("UCI")) {
+                        submitRadioInfoforUCI();
+                    } else if (strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics") && strTestOrder.equalsIgnoreCase("Outside Provider")) {
+                        submitRadioInfoforOutsidProvider();
+                    } else {
+                        submit();
+                    }
                 }
                 break;
             /*case R.id.btn_next:

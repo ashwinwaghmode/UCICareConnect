@@ -225,7 +225,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_new_appointment"
+                android:id="@+id/btn_make_another_referral"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:paddingLeft="43dp"

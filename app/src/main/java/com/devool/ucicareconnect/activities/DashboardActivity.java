@@ -58,14 +58,14 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
 
     String strRequest, strReltionship;
 
-    TextView tvHeading, tvSubHeading, tvWelcomeTitle,tvHeadingSlider;
+    TextView tvHeading, tvSubHeading, tvWelcomeTitle, tvHeadingSlider;
     Intent i;
     ImageView imgUserInfo, imgClosebtn, imgNotch;
     ArrayList<ContextualModelItems> contextualModelItems = new ArrayList<ContextualModelItems>();
     MultiViewTypeAdapter adapter;
     RecyclerView contextualView;
     Activity activity;
-    TextView tvChatus, tvScheduling,tvMyChart, tvReferral;
+    TextView tvChatus, tvScheduling, tvMyChart, tvReferral;
     SlidingUpPanelLayout layout;
     NestedScrollView myView;
     BottomSheetBehavior bottomSheetBehavior;
@@ -91,8 +91,8 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         //tvSubHeading = findViewById(R.id.tv_subheading);
         tvWelcomeTitle = findViewById(R.id.tv_welcome_tittle);
         imgUserInfo = findViewById(R.id.img_user_info);
-        imgClosebtn= (ImageView)findViewById(R.id.img_close_button);
-        imgNotch =findViewById(R.id.img_notch);
+        imgClosebtn = (ImageView) findViewById(R.id.img_close_button);
+        imgNotch = findViewById(R.id.img_notch);
         llSlideDrawer = findViewById(R.id.ll_slide_drawer);
         tvChatus = findViewById(R.id.tv_sub_heading_chat);
         tvScheduling = findViewById(R.id.tv_sub_heading_scheduling);
@@ -104,7 +104,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         relMyChart.setOnClickListener(this);
         relRefrrals.setOnClickListener(this);
         //btnEventDetails.setOnClickListener(this);
-       // btnViewReferralDetails.setOnClickListener(this);
+        // btnViewReferralDetails.setOnClickListener(this);
         imgUserInfo.setOnClickListener(this);
         imgClosebtn.setOnClickListener(this);
         //layout.setScrollableViewHelper(new NestedScrollableViewHelper());
@@ -150,7 +150,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         getContextualList();
         //relPopup.setVisibility(View.VISIBLE);
 
-        if(getIntent().hasExtra("followup_request_flag")){
+        if (getIntent().hasExtra("followup_request_flag")) {
             //getContextualList();
             relPopup.setVisibility(View.VISIBLE);
             /*btnViewReferralDetails.setVisibility(View.GONE);
@@ -158,7 +158,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         }
 
         if (getIntent().hasExtra("flag")) {
-           // getContextualList();
+            // getContextualList();
             relPopup.setVisibility(View.VISIBLE);
             /*btnViewReferralDetails.setVisibility(View.VISIBLE);
             btnEventDetails.setVisibility(View.GONE);
@@ -168,7 +168,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         }
 
         if (getIntent().hasExtra("signup_flag")) {
-           tvWelcomeTitle.setText("We're happy to assist you with anything at UCI.");
+            tvWelcomeTitle.setText("We're happy to assist you with anything at UCI.");
         }
 
         if (getIntent().hasExtra("sigin_flag")) {
@@ -177,21 +177,21 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
 
         if (getIntent().hasExtra("is_lab_requested_completed")) {
             relPopup.setVisibility(View.VISIBLE);
-           // getContextualList();
+            // getContextualList();
             /*relPopup.setVisibility(View.VISIBLE);
             btnViewReferralDetails.setVisibility(View.GONE);
             btnEventDetails.setVisibility(View.VISIBLE);*/
         }
         if (getIntent().hasExtra("is_physician_requested_completed")) {
             relPopup.setVisibility(View.VISIBLE);
-          //  getContextualList();
+            //  getContextualList();
             /*relPopup.setVisibility(View.VISIBLE);
             btnViewReferralDetails.setVisibility(View.GONE);
             btnEventDetails.setVisibility(View.VISIBLE);*/
         }
         if (getIntent().hasExtra("is_radiology_requested_completed")) {
             relPopup.setVisibility(View.VISIBLE);
-           // getContextualList();
+            // getContextualList();
             /*relPopup.setVisibility(View.VISIBLE);
             btnViewReferralDetails.setVisibility(View.GONE);
             btnEventDetails.setVisibility(View.VISIBLE);*/
@@ -239,22 +239,22 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
 
             @Override
             public void onPanelCollapsed(View view) {
-                Log.e("","panel Collapse");
+                Log.e("", "panel Collapse");
             }
 
             @Override
             public void onPanelExpanded(View view) {
-                Log.e("","panel expand");
+                Log.e("", "panel expand");
             }
 
             @Override
             public void onPanelAnchored(View view) {
-                Log.e("","panel anchored");
+                Log.e("", "panel anchored");
             }
 
             @Override
             public void onPanelHidden(View view) {
-                Log.e("","panel is Hidden");
+                Log.e("", "panel is Hidden");
             }
         };
 
@@ -305,7 +305,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
                 createDonorInteraction();
                 break;
             case R.id.img_close_button:
-                if (bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_EXPANDED) {
+                if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 }
                 break;
@@ -520,15 +520,14 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
                             items.setStrImage(object.getString("photo1"));
 
                             contextualModelItems.add(items);
-                            Log.e("Listahvf", ""+contextualModelItems.size());
+                            Log.e("Listahvf", "" + contextualModelItems.size());
 
                         }
 
-                        if(contextualModelItems.size()>0)
-                        {
+                        if (contextualModelItems.size() > 0) {
                             relPopup.setVisibility(View.VISIBLE);
                             //contextualView.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             relPopup.setVisibility(View.GONE);
                             //contextualView.setVisibility(View.GONE);
                         }
@@ -593,9 +592,9 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
 
     @Override
     public void onBackPressed() {
-        if (bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_EXPANDED) {
+        if (bottomSheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        }else {
+        } else {
             super.onBackPressed();
         }
     }

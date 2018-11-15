@@ -144,7 +144,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome to UCI CarConnect+. This premium service is your link to personalized care. Use it to ask important health-related questions, schedule appointments or track your care"
+            android:text="Welcome to UCI CareConnect+. This premium service is your link to personalized care. Use it to ask important health-related questions, schedule appointments or track your care"
             android:padding="5dp"
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"

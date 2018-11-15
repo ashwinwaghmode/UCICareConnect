@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -38,7 +39,8 @@ import javax.sql.DataSource;
 
 public class MultiViewTypeAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<ContextualModelItems> contextualModelItems;;
+    private ArrayList<ContextualModelItems> contextualModelItems;
+    ;
     private Context context;
     private Activity activity;
 
@@ -93,16 +95,16 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
             if (items != null) {
                 switch (items.getEventTypeId()) {
                     case "3":
-                        if(contextualModelItems.get(i).getEventDescription()!=null){
+                        if (contextualModelItems.get(i).getEventDescription() != null) {
                             ((EventDetailViewHolder) viewHolder).tvEventName.setText(contextualModelItems.get(i).getEventDescription());
                         }
-                        if(contextualModelItems.get(i).getAddress()!=null){
+                        if (contextualModelItems.get(i).getAddress() != null) {
                             ((EventDetailViewHolder) viewHolder).tvEventAddress.setText(contextualModelItems.get(i).getAddress());
                         }
-                        if(contextualModelItems.get(i).getEventDate()!=null){
+                        if (contextualModelItems.get(i).getEventDate() != null) {
                             ((EventDetailViewHolder) viewHolder).tvTime.setText(contextualModelItems.get(i).getEventDate());
                         }
-                        if(contextualModelItems.get(i).getStrImage()!=null) {
+                        if (contextualModelItems.get(i).getStrImage() != null) {
                             Glide.with(activity.getBaseContext()).
                                     load(contextualModelItems.get(i).getStrImage()).
                                     placeholder(R.drawable.loading)
@@ -135,22 +137,22 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                         }
                         break;
                     case "2":
-                        if(contextualModelItems.get(i).getEventDescription()!=null){
+                        if (contextualModelItems.get(i).getEventDescription() != null) {
                             ((ConfirmAppointmentHolder) viewHolder).tvEventName.setText(contextualModelItems.get(i).getEventDescription());
                         }
-                        if(contextualModelItems.get(i).getAddress()!=null){
+                        if (contextualModelItems.get(i).getAddress() != null) {
                             ((ConfirmAppointmentHolder) viewHolder).tvEventAddress.setText(contextualModelItems.get(i).getAddress());
                         }
-                        if(contextualModelItems.get(i).getEventDate()!=null){
+                        if (contextualModelItems.get(i).getEventDate() != null) {
                             ((ConfirmAppointmentHolder) viewHolder).tvDateAndTime.setText(contextualModelItems.get(i).getEventDate());
                         }
-                        if(contextualModelItems.get(i).getPhysiciaanName()!=null){
+                        if (contextualModelItems.get(i).getPhysiciaanName() != null) {
                             ((ConfirmAppointmentHolder) viewHolder).tvDoctorName.setText(contextualModelItems.get(i).getPhysiciaanName());
                         }
-                        if(contextualModelItems.get(i).getTimeRemaining()!=null){
+                        if (contextualModelItems.get(i).getTimeRemaining() != null) {
                             ((ConfirmAppointmentHolder) viewHolder).tvTime.setText(contextualModelItems.get(i).getTimeRemaining());
                         }
-                        if(contextualModelItems.get(i).getStrImage()!=null) {
+                        if (contextualModelItems.get(i).getStrImage() != null) {
                             Glide.with(activity.getBaseContext()).
                                     load(contextualModelItems.get(i).getStrImage()).
                                     placeholder(R.drawable.loading)
@@ -180,35 +182,62 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
         return contextualModelItems.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvHeadiing, tvSubheading;
+        ImageView imgCallBtn;
 
         ViewHolder(View itemView) {
             super(itemView);
+            imgCallBtn = itemView.findViewById(R.id.img_call_btn);
             tvHeadiing = (TextView) itemView.findViewById(R.id.tv_heading);
             tvSubheading = (TextView) itemView.findViewById(R.id.tv_subheading);
+            imgCallBtn.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.img_call_btn:
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:(866) 698-2422"));
+                    context.startActivity(intent);
+                    break;
+
+            }
         }
     }
 
-    class EventDetailViewHolder extends RecyclerView.ViewHolder {
+    class EventDetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvEventName, tvEventAddress, tvTime;
-        ImageView img;
+        ImageView img, imgCallBtn;
         ProgressBar progressBar;
 
         EventDetailViewHolder(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.img);
+            imgCallBtn = itemView.findViewById(R.id.img_call_btn);
             tvEventName = (TextView) itemView.findViewById(R.id.tv_event_name);
             tvEventAddress = (TextView) itemView.findViewById(R.id.tv_event_address);
             tvTime = (TextView) itemView.findViewById(R.id.tv_event_time);
             progressBar = (ProgressBar) itemView.findViewById(R.id.progress);
+            imgCallBtn.setOnClickListener(this);
+        }
 
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.img_call_btn:
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:(866) 698-2422"));
+                    context.startActivity(intent);
+                    break;
+            }
         }
     }
 
-    class ConfirmAppointmentHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    class ConfirmAppointmentHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvEventName, tvEventAddress, tvDateAndTime, tvDoctorName, tvTime;
-        ImageView img;
+        ImageView img, imgCallBtn;
         ProgressBar progressBar;
 
         LinearLayout llInstruction, llReschedule, llCancel;
@@ -216,11 +245,12 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
         ConfirmAppointmentHolder(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.img);
+            imgCallBtn = itemView.findViewById(R.id.img_call_btn);
             tvEventName = (TextView) itemView.findViewById(R.id.tv_event_name);
             tvEventAddress = (TextView) itemView.findViewById(R.id.tv_event_address);
             tvDateAndTime = (TextView) itemView.findViewById(R.id.tv_event_date_time);
             progressBar = (ProgressBar) itemView.findViewById(R.id.progress);
-            tvDoctorName = (TextView)itemView.findViewById(R.id.tv_doctor_name);
+            tvDoctorName = (TextView) itemView.findViewById(R.id.tv_doctor_name);
             tvTime = itemView.findViewById(R.id.tv_appointment_time);
 
             llInstruction = itemView.findViewById(R.id.ll_instruction);
@@ -230,12 +260,12 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
             llInstruction.setOnClickListener(this);
             llReschedule.setOnClickListener(this);
             llCancel.setOnClickListener(this);
-
+            imgCallBtn.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()){
+            switch (v.getId()) {
                 case R.id.ll_instruction:
                     Intent i = new Intent(context, ApptInstructionActivity.class);
                     i.putExtra("event_id", contextualModelItems.get(getAdapterPosition()).getEventId());
@@ -246,6 +276,11 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                     break;
                 case R.id.ll_cancel:
                     Toast.makeText(context, "WIP", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.img_call_btn:
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:(866) 698-2422"));
+                    context.startActivity(intent);
                     break;
             }
 

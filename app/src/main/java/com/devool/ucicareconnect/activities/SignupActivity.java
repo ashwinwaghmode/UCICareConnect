@@ -172,6 +172,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                             if (!object.getString("inMsg").equalsIgnoreCase("Invalid User!.")) {
                                 strUserId = object.getString("userID");
                                 editor.putString("USER_ID", strUserId);
+                                editor.putBoolean("IS_NEW_USER", object.getBoolean("is_NewUser"));
                                 editor.commit();
 
                                 if (checkBoxUserName.isChecked()) {

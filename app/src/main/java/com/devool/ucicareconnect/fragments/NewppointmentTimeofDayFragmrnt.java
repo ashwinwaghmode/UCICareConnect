@@ -44,6 +44,7 @@ public class NewppointmentTimeofDayFragmrnt extends Fragment implements View.OnC
     boolean buttonClicked = false;
     SharedPreferences sharedpreferences;
     ImageView imgCloseButton;
+    boolean isNewUser;
 
     public static NewppointmentTimeofDayFragmrnt newInstance(String param1, String param2) {
         NewppointmentTimeofDayFragmrnt fragment = new NewppointmentTimeofDayFragmrnt();
@@ -88,6 +89,8 @@ public class NewppointmentTimeofDayFragmrnt extends Fragment implements View.OnC
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
         strInteractionId = sharedpreferences.getString("interaction_ID", "");
         strUserId = sharedpreferences.getString("USER_ID", "");
+        isNewUser = sharedpreferences.getBoolean("IS_NEW_USER", false);
+        //isNewUser = false;
 
         return row;
     }
@@ -107,12 +110,29 @@ public class NewppointmentTimeofDayFragmrnt extends Fragment implements View.OnC
                     btnAfternoon.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
 
-                if (strMeetPurpose.equals("Physician")) {
-                    submit();
-                } else if (strMeetPurpose.equals("Lab")) {
-                    submitLabInfo();
-                } else {
-                    submitInfoForUCI();
+                if(!isNewUser) {
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    FirstTimePhysicianNewPatientFragment fragment = new FirstTimePhysicianNewPatientFragment();
+                    Bundle args = new Bundle();
+                    args.putString("appointment_type", strAppointmentType);
+                    args.putString("meet_purpose", strMeetPurpose);
+                    args.putString("availability", strAvailability);
+                    args.putString("day", strDay);
+                    args.putString("physician_name", strPhysicianName);
+                    args.putString("physician_type", strPhysicianType);
+                    fragment.setArguments(args);
+                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                    fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
+                }else {
+                    if (strMeetPurpose.equals("Physician")) {
+                        submit();
+                    } else if (strMeetPurpose.equals("Lab")) {
+                        submitLabInfo();
+                    } else {
+                        submitInfoForUCI();
+                    }
                 }
                 break;
 
@@ -127,12 +147,29 @@ public class NewppointmentTimeofDayFragmrnt extends Fragment implements View.OnC
                 btnAfternoon.setTextColor(getResources().getColor(R.color.btn_text_color));
                 flagAfternoon = true;
 
-                if (strMeetPurpose.equals("Physician")) {
-                    submit();
-                } else if (strMeetPurpose.equals("Lab")) {
-                    submitLabInfo();
-                } else {
-                    submitInfoForUCI();
+                if(!isNewUser) {
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    FirstTimePhysicianNewPatientFragment fragment = new FirstTimePhysicianNewPatientFragment();
+                    Bundle args = new Bundle();
+                    args.putString("appointment_type", strAppointmentType);
+                    args.putString("meet_purpose", strMeetPurpose);
+                    args.putString("availability", strAvailability);
+                    args.putString("day", strDay);
+                    args.putString("physician_name", strPhysicianName);
+                    args.putString("physician_type", strPhysicianType);
+                    fragment.setArguments(args);
+                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                    fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
+                }else {
+                    if (strMeetPurpose.equals("Physician")) {
+                        submit();
+                    } else if (strMeetPurpose.equals("Lab")) {
+                        submitLabInfo();
+                    } else {
+                        submitInfoForUCI();
+                    }
                 }
                 break;
 
@@ -147,12 +184,29 @@ public class NewppointmentTimeofDayFragmrnt extends Fragment implements View.OnC
                     btnAfternoon.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
 
-                if (strMeetPurpose.equals("Physician")) {
-                    submit();
-                } else if (strMeetPurpose.equals("Lab")) {
-                    submitLabInfo();
-                } else {
-                    submitInfoForUCI();
+                if(!isNewUser) {
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    FirstTimePhysicianNewPatientFragment fragment = new FirstTimePhysicianNewPatientFragment();
+                    Bundle args = new Bundle();
+                    args.putString("appointment_type", strAppointmentType);
+                    args.putString("meet_purpose", strMeetPurpose);
+                    args.putString("availability", strAvailability);
+                    args.putString("day", strDay);
+                    args.putString("physician_name", strPhysicianName);
+                    args.putString("physician_type", strPhysicianType);
+                    fragment.setArguments(args);
+                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                    fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
+                }else {
+                    if (strMeetPurpose.equals("Physician")) {
+                        submit();
+                    } else if (strMeetPurpose.equals("Lab")) {
+                        submitLabInfo();
+                    } else {
+                        submitInfoForUCI();
+                    }
                 }
                 break;
             case R.id.img_close_button:

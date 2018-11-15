@@ -37,19 +37,16 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-public class NewAppointmentFragment extends Fragment implements View.OnClickListener{
+public class NewAppointmentFragment extends Fragment implements View.OnClickListener {
 
-    Button btnPhycian, btnRadiology, btnLab,btnNext;
-    boolean flagPhycian=false, flagRadiology=false, flagLab=false;
+    public static final String USER_INFO = "user_info";
+    Button btnPhycian, btnRadiology, btnLab, btnNext;
+    boolean flagPhycian = false, flagRadiology = false, flagLab = false;
     String strAppointmentTypeFlag, strInteractionId, strInteractionDetailId, strUserId;
-
-    boolean flagBtnClicked=false;
-
-    String strAAppointmentType,strMeetPurpose;
-
+    boolean flagBtnClicked = false;
+    boolean isNewUser;
+    String strAAppointmentType, strMeetPurpose;
     SharedPreferences sharedpreferences;
-    public static final String USER_INFO= "user_info";
-
     ImageView imgCloseButton;
 
     public static NewAppointmentFragment newInstance(String param1, String param2) {
@@ -68,9 +65,9 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
 
         View row = inflater.inflate(R.layout.fragment_new_appointment, container, false);
 
-        btnPhycian = (Button)row.findViewById(R.id.btn_physician);
-        btnRadiology = (Button)row.findViewById(R.id.btn_radiology);
-        btnLab = (Button)row.findViewById(R.id.btn_lab);
+        btnPhycian = (Button) row.findViewById(R.id.btn_physician);
+        btnRadiology = (Button) row.findViewById(R.id.btn_radiology);
+        btnLab = (Button) row.findViewById(R.id.btn_lab);
         imgCloseButton = row.findViewById(R.id.img_close_button);
         //btnNext = (Button)row.findViewById(R.id.btn_next);
 
@@ -83,6 +80,9 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
         strInteractionId = sharedpreferences.getString("interaction_ID", "");
+        isNewUser = sharedpreferences.getBoolean("IS_NEW_USER", false);
+        //isNewUser = false;
+        //Toast.makeText(getActivity(), ""+isNewUser, Toast.LENGTH_SHORT).show();
         strUserId = sharedpreferences.getString("USER_ID", "");
 
         return row;
@@ -91,21 +91,35 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_physician:
                 strMeetPurpose = btnPhycian.getText().toString();
-                submit();
+                if (isNewUser) {
+                    submit();
+                } else {
+                    android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
+                    android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    NewAppointmentPhysicianTypeFragment fragment = new NewAppointmentPhysicianTypeFragment();
+                    Bundle args = new Bundle();
+                    args.putString("appointment_type", strAAppointmentType);
+                    args.putString("meet_purpose", strMeetPurpose);
+                    fragment.setArguments(args);
+                    fragmentTransaction.replace(R.id.myContainer, fragment);
+                    fragmentTransaction.commit();
+                    fragmentTransaction.addToBackStack(null);
+                }
+
                 btnPhycian.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
                 btnPhycian.setTextColor(getResources().getColor(R.color.btn_text_color));
-                flagPhycian=true;
+                flagPhycian = true;
                 //flagBtnClicked=true;
 
-                if(flagRadiology) {
+                if (flagRadiology) {
                     btnRadiology.setBackground(getResources().getDrawable(R.drawable.appointment_btn_corner));
                     btnRadiology.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
 
-                if(flagLab) {
+                if (flagLab) {
                     btnLab.setBackground(getResources().getDrawable(R.drawable.appointment_btn_corner));
                     btnLab.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
@@ -115,13 +129,13 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
                 submit();
                 btnRadiology.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
                 btnRadiology.setTextColor(getResources().getColor(R.color.btn_text_color));
-                flagRadiology=true;
+                flagRadiology = true;
                 //flagBtnClicked=true;
-                if(flagPhycian) {
+                if (flagPhycian) {
                     btnPhycian.setBackground(getResources().getDrawable(R.drawable.appointment_btn_corner));
                     btnPhycian.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
-                if(flagLab) {
+                if (flagLab) {
                     btnLab.setBackground(getResources().getDrawable(R.drawable.appointment_btn_corner));
                     btnLab.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
@@ -131,13 +145,13 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
                 submit();
                 btnLab.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
                 btnLab.setTextColor(getResources().getColor(R.color.btn_text_color));
-                flagLab=true;
+                flagLab = true;
                 //flagBtnClicked=true;
-                if(flagPhycian) {
+                if (flagPhycian) {
                     btnPhycian.setBackground(getResources().getDrawable(R.drawable.appointment_btn_corner));
                     btnPhycian.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
-                if(flagRadiology) {
+                if (flagRadiology) {
                     btnRadiology.setBackground(getResources().getDrawable(R.drawable.appointment_btn_corner));
                     btnRadiology.setTextColor(getResources().getColor(R.color.bacgroun_color));
                 }
@@ -204,21 +218,20 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
         flagBtnClicked = false;
     }*/
 
-    public void submit()
-    {
+    public void submit() {
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-            String URL = AppConfig.BASE_URL+AppConfig.CREATE_REQUEST_HISTORY;
+            String URL = AppConfig.BASE_URL + AppConfig.CREATE_REQUEST_HISTORY;
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("Interaction_DTL_ID", strInteractionDetailId);
             jsonBody.put("UserID", strUserId);
             jsonBody.put("status_Id", "N");
             jsonBody.put("Interaction_ID", strInteractionId);
-            if(strMeetPurpose.equals("Physician")){
+            if (strMeetPurpose.equals("Physician")) {
                 jsonBody.put("Speciality", "1");
-            }else if(strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics")){
+            } else if (strMeetPurpose.equalsIgnoreCase("Radiology / Diagnostics")) {
                 jsonBody.put("Speciality", "2");
-            }else{
+            } else {
                 jsonBody.put("Speciality", "3");
             }
             jsonBody.put("Requested_By", "");
@@ -249,7 +262,7 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
                                 Bundle args = new Bundle();
                                 args.putString("appointment_type", strAAppointmentType);
                                 args.putString("meet_purpose", strMeetPurpose);
-                                if(strMeetPurpose.equals("Physician") && strMeetPurpose!=null) {
+                                if (strMeetPurpose.equals("Physician") && strMeetPurpose != null) {
                                     strAppointmentTypeFlag = "1";
                                     android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -259,7 +272,7 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
                                     fragmentTransaction.commit();
                                     fragmentTransaction.addToBackStack(null);
                                     break;
-                                }else if(strMeetPurpose.equals("Lab") && strMeetPurpose!=null) {
+                                } else if (strMeetPurpose.equals("Lab") && strMeetPurpose != null) {
                                     strAppointmentTypeFlag = "3";
                                     android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -269,7 +282,7 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
                                     fragmentTransaction.commit();
                                     fragmentTransaction.addToBackStack(null);
                                     break;
-                                }else{
+                                } else {
                                     strAppointmentTypeFlag = "2";
                                     android.support.v4.app.FragmentManager fragmentManager = getFragmentManager();
                                     android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -282,9 +295,9 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
                                 }
                             }
                         }
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
-                        }
+                    } catch (JSONException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -306,6 +319,7 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
                         return null;
                     }
                 }
+
                 @Override
                 protected Response<String> parseNetworkResponse(NetworkResponse response) {
                     String responseString = "";

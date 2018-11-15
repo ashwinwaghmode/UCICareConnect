@@ -76,6 +76,33 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/img_upload_profile_photo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/profile_photo_elipse"/>
+
+                <TextView
+                    android:id="@+id/tv_add_photo"
+                    android:layout_marginRight="9dp"
+                    android:layout_marginLeft="9dp"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Change Photo"
+                    android:textColor="#FFFFFF"/>
+
+            </RelativeLayout>
+
         <TextView
             android:textColor="#C6BEB5"
             android:textSize="14dp"

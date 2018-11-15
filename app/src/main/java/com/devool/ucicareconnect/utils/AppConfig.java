@@ -1,7 +1,7 @@
 package com.devool.ucicareconnect.utils;
 
 public class AppConfig {
-    public static final String BASE_URL = "http://54.67.48.233:98/api/Master/";
+    public static final String BASE_URL = "http://54.153.126.152:6002/api/Master/";
     public static final String CREATE_REQUEST_HISTORY = "CreateRequestHistory";
     public static final String CREATE_SCHEDULING = "CreateDonorInteraction";
     public static final String GET_USER_PASSCODE = "GetUserfromPassCode";
@@ -17,5 +17,6 @@ public class AppConfig {
     public static final String GET_DOCTOR_SPECIALTY = "GetDoctorSpecialty";
     public static final String GET_DOCTOR_BY_SPECILALTY = "GetDoctorbySpecialty";
     public static final String GET_INSTRUCTION_DETAIL = "GetAppointmentDet";
+    public static final String UPDATE_PROLFILE_IMG = "UpdateProfile";
 
 }
