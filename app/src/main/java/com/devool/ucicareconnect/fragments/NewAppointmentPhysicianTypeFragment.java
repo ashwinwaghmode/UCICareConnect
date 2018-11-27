@@ -3,6 +3,7 @@ package com.devool.ucicareconnect.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -52,7 +53,7 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
     AutoCompleteTextView edtPhysicianType, edtPhysicianame;
     Button btnNext;
     String strMeetPurpose, strPhysicianName, strAAppointmentType, strInteractionId, strInteractionDetailId, strUserId, strSpecialtyId, strPhysicianType, strPhysiciaanName;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
     SharedPreferences sharedpreferences;
     ArrayAdapter adapter, doctorAdapter;
     ArrayList<DoctorSpecialtyHelper> doctorSpecialtyHelperList = new ArrayList<>();
@@ -98,6 +99,8 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
         tvPhysicianSubheading = row.findViewById(R.id.tv_request_subheading);
         btnNext = (Button) row.findViewById(R.id.btn_next);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
         edtPhysicianType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -122,6 +125,8 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
 
         btnNext.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
@@ -193,6 +198,11 @@ public class NewAppointmentPhysicianTypeFragment extends Fragment implements Vie
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
 

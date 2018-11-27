@@ -3,6 +3,7 @@ package com.devool.ucicareconnect.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -43,7 +44,7 @@ public class NewppointmentTimeofDayFragmrnt extends Fragment implements View.OnC
     String strAppointmentType, strMeetPurpose, strExamType, strTestOrder, strAvailability, strDay, strPhysicianName, strPhysicianType, strOutsideProvidrName, strProviderPhoneNumber, strInteractionId, strInteractionDetailId, strUserId;
     boolean buttonClicked = false;
     SharedPreferences sharedpreferences;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
     boolean isNewUser;
 
     public static NewppointmentTimeofDayFragmrnt newInstance(String param1, String param2) {
@@ -78,12 +79,16 @@ public class NewppointmentTimeofDayFragmrnt extends Fragment implements View.OnC
         btnNxt = (Button) row.findViewById(R.id.btn_next);
         btnAnyTime = row.findViewById(R.id.btn_any_time);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
         btnMorning.setOnClickListener(this);
         btnAfternoon.setOnClickListener(this);
 //        btnNxt.setOnClickListener(this);
         btnAnyTime.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
@@ -214,6 +219,11 @@ public class NewppointmentTimeofDayFragmrnt extends Fragment implements View.OnC
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
 
             /*case R.id.btn_next:

@@ -12,4 +12,11 @@
     <color name="text_password_error">#F7EB5F</color>
     <color name="btn_grey_color">#707B7C</color>
 
+    <color name="pn_red">#d02129</color>
+    <color name="pn_blue">#1B3D6D</color>
+    <color name="white">#FFF</color>
+
+    <color name="primary_dark">#689F38</color>
+    <color name="primary_light">#DCEDC8</color>
+    <color name="primary">#8BC34A</color>
 </resources>

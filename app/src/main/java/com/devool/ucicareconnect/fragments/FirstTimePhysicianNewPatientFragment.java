@@ -18,7 +18,7 @@ import com.devool.ucicareconnect.activities.DashboardActivity;
 public class FirstTimePhysicianNewPatientFragment extends Fragment implements View.OnClickListener{
 
     Button btnyes, btnNo;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
     String strpatient, strAppointmentType, strMeetPurpose, strAvailability, strDay, strPhysicianName, strPhysicianType;
 
     @Override
@@ -40,10 +40,14 @@ public class FirstTimePhysicianNewPatientFragment extends Fragment implements Vi
         btnyes = (Button) row.findViewById(R.id.btn_yes);
         btnNo = (Button) row.findViewById(R.id.btn_no);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
         btnyes.setOnClickListener(this);
         btnNo.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
         return row;
     }
 
@@ -95,6 +99,11 @@ public class FirstTimePhysicianNewPatientFragment extends Fragment implements Vi
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

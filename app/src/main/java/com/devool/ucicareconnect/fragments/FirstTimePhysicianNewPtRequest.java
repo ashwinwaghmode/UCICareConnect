@@ -17,7 +17,7 @@ import com.devool.ucicareconnect.R;
 import com.devool.ucicareconnect.activities.DashboardActivity;
 
 public class FirstTimePhysicianNewPtRequest extends Fragment implements View.OnClickListener{
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
     LinearLayout llPhysicianName, llFacilityName, llFacilityPhoneNumber, llFacilityAddress, llFacilityAnySpecificRequest;
     TextView tvAppointmentType, tvNewAppointment, tvPhysicianName, tvPhysicianType, tvAvaliability,tvTimeOfDay, tvSpecificRequest, tvFacilityPhysicianName, tvFacilityname, tvFacilityPhoneNumber, tvFacilityAddress, tvNewPatientmdRecords, tvNewpatientAssistance;
 
@@ -68,6 +68,8 @@ public class FirstTimePhysicianNewPtRequest extends Fragment implements View.OnC
         tvNewpatientAssistance = row.findViewById(R.id.tv_assistance);
 
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
         btnAnySpecificRequest =row.findViewById(R.id.btn_any_specific_request);
         btnSendRequest = row.findViewById(R.id.btn_send_request);
 
@@ -121,6 +123,8 @@ public class FirstTimePhysicianNewPtRequest extends Fragment implements View.OnC
         imgCloseButton.setOnClickListener(this);
         btnAnySpecificRequest.setOnClickListener(this);
         btnSendRequest.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         return row;
     }
@@ -174,6 +178,11 @@ public class FirstTimePhysicianNewPtRequest extends Fragment implements View.OnC
                 fragmentTransaction.replace(R.id.myContainer, fragment);
                 fragmentTransaction.commit();
                 fragmentTransaction.addToBackStack(null);
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

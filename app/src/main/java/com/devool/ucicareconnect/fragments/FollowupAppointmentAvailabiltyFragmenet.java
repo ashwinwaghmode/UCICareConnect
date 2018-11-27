@@ -37,7 +37,7 @@ public class FollowupAppointmentAvailabiltyFragmenet extends Fragment implements
 
     Button btnThisWeek, btnNextWeek, btnSoonPossible;
     String StrAppointmentType, strDoctorName, strUserId, strInteractionId, strInteractionDetailId, strFollowupAvailability;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
 
     public static final String USER_INFO = "user_info";
     SharedPreferences sharedpreferences;
@@ -58,11 +58,15 @@ public class FollowupAppointmentAvailabiltyFragmenet extends Fragment implements
         btnNextWeek = row.findViewById(R.id.btn_next_week);
         btnSoonPossible = row.findViewById(R.id.btn_as_soon_as_possible);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
         btnThisWeek.setOnClickListener(this);
         btnNextWeek.setOnClickListener(this);
         btnSoonPossible.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
@@ -98,6 +102,11 @@ public class FollowupAppointmentAvailabiltyFragmenet extends Fragment implements
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

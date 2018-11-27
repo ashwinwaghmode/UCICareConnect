@@ -48,7 +48,7 @@ public class AppoinmentTypeFragment extends Fragment implements View.OnClickList
     String StrAppointmentType, strInteractionId, strInteractionDetailId, strUserId;
     boolean buttonPressed = false;
     SharedPreferences sharedpreferences;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,11 +64,15 @@ public class AppoinmentTypeFragment extends Fragment implements View.OnClickList
         btnNewAppointment = (Button) row.findViewById(R.id.btn_new_appointment);
         brnAppointmentFollowup = (Button) row.findViewById(R.id.btn_followp_aappointment);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
         //btnNext = (Button) row.findViewById(R.id.btn_next);
 
         btnNewAppointment.setOnClickListener(this);
         brnAppointmentFollowup.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
         //btnNext.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
@@ -128,6 +132,11 @@ public class AppoinmentTypeFragment extends Fragment implements View.OnClickList
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
 

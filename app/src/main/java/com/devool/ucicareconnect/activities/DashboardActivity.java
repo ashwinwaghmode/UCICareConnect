@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SlidingPaneLayout;
@@ -34,8 +36,10 @@ import com.android.volley.toolbox.Volley;
 import com.devool.ucicareconnect.R;
 import com.devool.ucicareconnect.adapter.MultiViewTypeAdapter;
 import com.devool.ucicareconnect.helper.ContextualModelItems;
+import com.devool.ucicareconnect.pubnub.LoginActivity;
+import com.devool.ucicareconnect.pubnub.MainActivity;
 import com.devool.ucicareconnect.utils.AppConfig;
-import com.sothree.slidinguppanel.SlidingUpPanelLayout;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +70,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
     RecyclerView contextualView;
     Activity activity;
     TextView tvChatus, tvScheduling, tvMyChart, tvReferral;
-    SlidingUpPanelLayout layout;
+    //SlidingUpPanelLayout layout;
     NestedScrollView myView;
     BottomSheetBehavior bottomSheetBehavior;
 
@@ -141,6 +145,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         currentDateandTime = sdf.format(new Date());
 
         sharedpreferences = getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
+        submitFCMforNotification();
 
         i = getIntent();
         strRequest = i.getStringExtra("request");
@@ -198,10 +203,11 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         }
 
         bottomSheetBehavior = BottomSheetBehavior.from(myView);
-        bottomSheetBehavior.setPeekHeight(350);
+        bottomSheetBehavior.setPeekHeight(250);
 
 
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
@@ -230,7 +236,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
 
     }
 
-    private SlidingUpPanelLayout.PanelSlideListener onSlideListener() {
+   /* private SlidingUpPanelLayout.PanelSlideListener onSlideListener() {
         return new SlidingUpPanelLayout.PanelSlideListener() {
             @Override
             public void onPanelSlide(View view, float v) {
@@ -258,7 +264,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
             }
         };
 
-    }
+    }*/
    /* public class NestedScrollableViewHelper extends ScrollableViewHelper {
         public int getScrollableViewScrollPosition(View scrollableView, boolean isSlidingUp) {
             if (contextualView != null) {
@@ -286,8 +292,10 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
                 break;
             case R.id.rel_quick_answer:
                 strInterActionTypeID = "1";
-                Toast.makeText(this, "WIP", Toast.LENGTH_SHORT).show();
-                //relQuickAnswers.setBackgroundResource(R.drawable.scheduling_btn_background);
+               Intent i1 = new Intent(DashboardActivity.this, MainActivity.class);
+               startActivity(i1);
+                relQuickAnswers.setBackgroundResource(R.drawable.scheduling_btn_background);
+                tvChatus.setTextColor(getResources().getColor(R.color.btn_text_color));
                 break;
             case R.id.rel_my_chart:
                 strInterActionTypeID = "3";
@@ -365,7 +373,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
 
             case R.id.btn_view_referral_details:
                 if(strReltionship.equalsIgnoreCase("Friend")){
-                Intent intent = new Intent(DashboardActivity.this, MakeAnotherReferralActivity.class);
+                Intent intent = new Intent(DashboardActivity.this, CancelReferralActivity.class);
                 intent.putExtra("Referral_name", getIntent().getExtras().getString("Referral_name"));
                 intent.putExtra("Relationship", getIntent().getExtras().getString("Relationship"));
                 intent.putExtra("referal_phone", getIntent().getExtras().getString("referal_phone"));
@@ -373,7 +381,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
                 startActivity(intent);
                 break;
             }else if(strReltionship.equalsIgnoreCase("Family")){
-                Intent intent = new Intent(DashboardActivity.this, MakeAnotherReferralActivity.class);
+                Intent intent = new Intent(DashboardActivity.this, CancelReferralActivity.class);
                 intent.putExtra("family_relation", getIntent().getExtras().getString("family_relation"));
                 intent.putExtra("Referral_name", getIntent().getExtras().getString("Referral_name"));
                 intent.putExtra("Relationship", getIntent().getExtras().getString("Relationship"));
@@ -382,7 +390,7 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
                 startActivity(intent);
                 break;
             }else if(strReltionship.equalsIgnoreCase("Other Associates")){
-                Intent intent = new Intent(DashboardActivity.this, MakeAnotherReferralActivity.class);
+                Intent intent = new Intent(DashboardActivity.this, CancelReferralActivity.class);
                 intent.putExtra("Association", getIntent().getExtras().getString("Association"));
                 intent.putExtra("Referral_name", getIntent().getExtras().getString("Referral_name"));
                 intent.putExtra("Relationship", getIntent().getExtras().getString("Relationship"));
@@ -509,14 +517,28 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
                             items.setUserId(object.getString("userId"));
                             items.setEventTypeId(object.getString("eventType_ID"));
                             items.setEventId(object.getString("event_ID"));
-                            items.setEventDate(object.getString("eventDate"));
+                            if(object.isNull("eventDate")) {
+                                items.setEventDate("");
+                            }else {
+                                items.setEventDate(object.getString("eventDate"));
+                            }
                             items.setEventDescription(object.getString("eventDescription"));
                             items.setPhysiciaanName(object.getString("physicianName"));
-                            items.setAddress(object.getString("address"));
+
+                            if(object.isNull("address")){
+                               items.setAddress("");
+                            }else {
+                                items.setAddress(object.getString("address"));
+                            }
                             items.setMobileDate(object.getString("mobileDate"));
                             items.setReqquestString(object.getString("requestString"));
                             items.setTimeRemaining(object.getString("timeRemaining"));
-                            items.setStrLocation(object.getString("location"));
+
+                            if(object.isNull("location")) {
+                                items.setStrLocation("");
+                            }else {
+                                items.setStrLocation(object.getString("location"));
+                            }
                             items.setStrImage(object.getString("photo1"));
 
                             contextualModelItems.add(items);
@@ -579,6 +601,65 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         }
     }
 
+    public void submitFCMforNotification() {
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(DashboardActivity.this);
+            String URL = AppConfig.BASE_URL + AppConfig.UPDATE_DONOR_DEVICES;
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("Token", sharedpreferences.getString("device_token", ""));
+            jsonBody.put("Device_ID", sharedpreferences.getString("device_id", ""));
+            jsonBody.put("Device_Type", "Android");
+            jsonBody.put("Device_Status", "");
+            jsonBody.put("App_Build_Version", "");
+            jsonBody.put("Platform_Version", "");
+            jsonBody.put("Phone_No", "");
+
+            Log.e("FCM", sharedpreferences.getString("device_token", "null"));
+            Log.e("Device_id", sharedpreferences.getString("device_id", ""));
+
+            final String requestBody = jsonBody.toString();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                   Log.e("Notification_response", response);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+
+                    }
+                    return super.parseNetworkResponse(response);
+                }
+            };
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -588,6 +669,8 @@ public class DashboardActivity extends Activity implements View.OnClickListener 
         relRefrrals.setBackgroundResource(R.drawable.referral_button_background);
         tvReferral.setTextColor(getResources().getColor(R.color.bacgroun_color));
 
+        relQuickAnswers.setBackgroundResource(R.drawable.referral_button_background);
+        tvChatus.setTextColor(getResources().getColor(R.color.bacgroun_color));
     }
 
     @Override

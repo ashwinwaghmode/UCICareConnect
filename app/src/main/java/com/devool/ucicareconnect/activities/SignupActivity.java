@@ -150,7 +150,6 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void getUserLogin() {
-
         final SharedPreferences.Editor editor = sharedpreferences.edit();
         try {
             RequestQueue requestQueue = Volley.newRequestQueue(SignupActivity.this);
@@ -186,6 +185,7 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
                                     checkBoxUserName.setChecked(false);
                                     editor.commit();
                                 }
+
                                 tvForgotUserName.setText("");
                                 edtUserName.setBackgroundResource(R.drawable.edit_text_background);
                                 tvUserNameText.setText("Username");
@@ -259,6 +259,14 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         tf = Typeface.createFromAsset(getAssets(), "HelveticaNeueLight.ttf");
         tvForgotUserName.setTypeface(tf);
 
+    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(SignupActivity.this, LoginActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
     }
 }

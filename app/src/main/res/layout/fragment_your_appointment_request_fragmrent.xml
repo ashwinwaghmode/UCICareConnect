@@ -129,7 +129,7 @@
 
     </LinearLayout>
 
-    <Button
+  <!--  <Button
         android:layout_centerInParent="true"
         android:layout_above="@id/tv_need_help"
         android:id="@+id/btn_save"
@@ -160,6 +160,57 @@
         android:layout_marginBottom="33px"
         android:textColor="#6AA2B8"
         android:textSize="14dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"/>-->
+
+    <LinearLayout
+        android:id="@+id/ll_footer"
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="18dp">
+
+
+        <ImageView
+            android:id="@+id/img_btn_chat"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/chat"
+            android:gravity="center"
+            android:textColor="#6AA2B8"
+            android:textSize="14dp"
+            android:layout_gravity="center"/>
+
+        <ImageView
+            android:id="@+id/img_btn_call"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/call"
+            android:gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#6AA2B8"
+            android:textSize="14dp"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/appointment_btn_corner"
+            android:paddingBottom="20dp"
+            android:paddingLeft="43dp"
+            android:paddingRight="43dp"
+            android:paddingTop="18dp"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="#6AA2B8"
+            android:textSize="20dp" />
+
+    </LinearLayout>
 
 </RelativeLayout>

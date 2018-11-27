@@ -125,9 +125,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        String android_id = Settings.Secure.getString(getApplication().getContentResolver(),
+      /*  String android_id = Settings.Secure.getString(getApplication().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-        Log.e("Devic_d", android_id);
+        Log.e("Devic_d", android_id);*/
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED ||
@@ -151,6 +151,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }
                 device_token = task.getResult().getToken();
                 Log.d("device_token: ", device_token);
+                final SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("device_token", device_token);
+                editor.commit();
             }
         });
     }
@@ -245,7 +248,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             editor.putBoolean("IS_NEW_USER", object.getBoolean("is_NewUser"));
                             if (!edtActivationCode.getText().toString().equals("")) {
                                 if (object.getString("userName") != null && !object.getString("inMsg").equalsIgnoreCase("Invalid Passcode!.")) {
-                                    editor.putString("USER_NAME", object.getString("userName"));
+                                    editor.putString("USER_NAME", object.getString("firstName"));
                                 } else {
                                     editor.putString("USER_NAME", sharedpreferences.getString("USER_NAME", ""));
                                 }
@@ -348,7 +351,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void getDeviceId() {
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         device_id = telephonyManager.getDeviceId();
-        Log.e("device_id: ", device_id);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("device_id", device_id);
+        editor.commit();
+        Log.d("device_id: ", device_id);
     }
 
     @Override

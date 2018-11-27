@@ -39,7 +39,7 @@ public class AppointmentPhysicianRequestFragment extends Fragment implements Vie
     TextView tvAppointmentType, tvNewAppointment, tvPhysicianName, tvPhysicianType, tvAvaliability,tvTimeOfDay, tvSpecificRequest, tvSpecificRequestTitle;
     String strAppointmentType, strMeetPurpose, strPhysicianName, strPhysicianType, strAvailability, strDay, strInteractionId, strInteractionDetailId, strUserId, strAnySpecificRequest;
     Button btnSendRquest;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
     Button btnAnySpecificRequest;
 
     SharedPreferences sharedpreferences;
@@ -79,6 +79,8 @@ public class AppointmentPhysicianRequestFragment extends Fragment implements Vie
         tvSpecificRequestTitle = row.findViewById(R.id.tv_specific_request_title);
         btnSendRquest = row.findViewById(R.id.btn_send_request);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
         btnAnySpecificRequest = row.findViewById(R.id.btn_any_specific_request);
 
         tvAppointmentType.setText(strAppointmentType);
@@ -99,6 +101,8 @@ public class AppointmentPhysicianRequestFragment extends Fragment implements Vie
 
         btnSendRquest.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
         btnAnySpecificRequest.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
@@ -223,6 +227,11 @@ public class AppointmentPhysicianRequestFragment extends Fragment implements Vie
                 fragmentTransaction.replace(R.id.myContainer, fragment);
                 fragmentTransaction.commit();
                 fragmentTransaction.addToBackStack(null);
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

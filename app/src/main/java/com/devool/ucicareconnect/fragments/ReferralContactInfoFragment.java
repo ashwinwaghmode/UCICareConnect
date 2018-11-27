@@ -3,6 +3,7 @@ package com.devool.ucicareconnect.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,7 +48,7 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
     Button btnNext;
     SharedPreferences sharedpreferences;
     String strRelationship, strReferralname, strFamilyRelation, strAssociation;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,9 +66,13 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
         edtRelativeEmailAddress = row.findViewById(R.id.edit_referral_email);
         edtReferralName = row.findViewById(R.id.edit_referral_name);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
         btnNext = row.findViewById(R.id.btn_next);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         btnNext.setOnClickListener(this);
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
@@ -150,6 +155,11 @@ public class ReferralContactInfoFragment extends Fragment implements View.OnClic
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

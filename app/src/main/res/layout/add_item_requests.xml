@@ -72,7 +72,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="15dp"
         android:background="@drawable/appointment_btn_corner"
-        android:text="View Event Details"
+        android:text="Event Details"
         android:textAllCaps="false"
         android:textColor="#6AA2B8"
         android:textSize="18dp"

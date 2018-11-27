@@ -110,12 +110,12 @@
                         android:background="@drawable/edit_icon"
                         android:layout_marginRight="14.5dp"/>-->
                 </RelativeLayout>
-
+(
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/rel_curve_layout"
-                    android:layout_marginBottom="111dp">
+                    android:layout_marginBottom="40dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -278,7 +278,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <Button
+   <!-- <Button
         android:layout_centerInParent="true"
         android:layout_above="@id/tv_need_help"
         android:id="@+id/btn_send_request"
@@ -293,7 +293,7 @@
         android:textSize="20dp"
         android:textAllCaps="false"
         android:textColor="#6AA2B8"
-        android:background="@drawable/appointment_btn_corner" />
+        android:background="@drawable/appointment_btn_corner" />-->
 
     <ImageView
         android:layout_centerInParent="true"

@@ -3,6 +3,7 @@ package com.devool.ucicareconnect.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -47,7 +48,7 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
     boolean isNewUser;
     String strAAppointmentType, strMeetPurpose;
     SharedPreferences sharedpreferences;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
 
     public static NewAppointmentFragment newInstance(String param1, String param2) {
         NewAppointmentFragment fragment = new NewAppointmentFragment();
@@ -69,12 +70,16 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
         btnRadiology = (Button) row.findViewById(R.id.btn_radiology);
         btnLab = (Button) row.findViewById(R.id.btn_lab);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
         //btnNext = (Button)row.findViewById(R.id.btn_next);
 
         btnPhycian.setOnClickListener(this);
         btnRadiology.setOnClickListener(this);
         btnLab.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
         //btnNext.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
@@ -208,6 +213,11 @@ public class NewAppointmentFragment extends Fragment implements View.OnClickList
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

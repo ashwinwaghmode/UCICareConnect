@@ -40,7 +40,7 @@ public class AppointmentLabRequestFragment extends Fragment implements View.OnCl
     Button btnSendRequest, btnAnySpecificRequest;
     SharedPreferences sharedpreferences;
     public static final String USER_INFO = "user_info";
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
 
     public static AppointmentLabRequestFragment newInstance(String param1, String param2) {
         AppointmentLabRequestFragment fragment = new AppointmentLabRequestFragment();
@@ -73,6 +73,8 @@ public class AppointmentLabRequestFragment extends Fragment implements View.OnCl
         tvSpecificRequestTitle = row.findViewById(R.id.tv_specific_request_title);
         btnSendRequest = row.findViewById(R.id.btn_send_request);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
         btnAnySpecificRequest = row.findViewById(R.id.btn_any_specific_request);
 
         tvAppointmentType.setText(strAppointmentType);
@@ -91,6 +93,8 @@ public class AppointmentLabRequestFragment extends Fragment implements View.OnCl
 
         btnSendRequest.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
         btnAnySpecificRequest.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
@@ -212,6 +216,11 @@ public class AppointmentLabRequestFragment extends Fragment implements View.OnCl
                 fragmentTransaction.replace(R.id.myContainer, fragment);
                 fragmentTransaction.commit();
                 fragmentTransaction.addToBackStack(null);
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
 

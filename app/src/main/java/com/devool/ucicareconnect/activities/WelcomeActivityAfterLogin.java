@@ -30,8 +30,11 @@ public class WelcomeActivityAfterLogin extends AppCompatActivity implements View
         btnNext.setOnClickListener(this);
 
         sharedpreferences = getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedpreferences.edit();
 
         tvUserName.setText("Hi " + sharedpreferences.getString("USER_NAME", "")+ ",");
+        editor.putString("USER_NAME_FROM_ACTIVATION_CODE", sharedpreferences.getString("USER_NAME", ""));
+        editor.commit();
 
     }
 

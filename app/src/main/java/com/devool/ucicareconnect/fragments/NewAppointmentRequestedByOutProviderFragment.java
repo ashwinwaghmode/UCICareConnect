@@ -3,6 +3,7 @@ package com.devool.ucicareconnect.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -40,7 +41,7 @@ public class NewAppointmentRequestedByOutProviderFragment extends Fragment imple
     Button btnNext;
     String strTestOrder, strMeetPurpose, strAppointmentType, strExamType, strInteractionId, strInteractionDetailId, strUserId;
     SharedPreferences sharedpreferences;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
 
     public static NewAppointmentRequestedByOutProviderFragment newInstance(String param1, String param2) {
         NewAppointmentRequestedByOutProviderFragment fragment = new NewAppointmentRequestedByOutProviderFragment();
@@ -67,9 +68,13 @@ public class NewAppointmentRequestedByOutProviderFragment extends Fragment imple
         edtProviderPhoneNumber = row.findViewById(R.id.edit_provider_phone_nnumber);
         imgCloseButton = row.findViewById(R.id.img_close_button);
         btnNext = row.findViewById(R.id.btn_next);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
         btnNext.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         strInteractionDetailId = sharedpreferences.getString("interaction_DTL_ID", "");
@@ -107,6 +112,11 @@ public class NewAppointmentRequestedByOutProviderFragment extends Fragment imple
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

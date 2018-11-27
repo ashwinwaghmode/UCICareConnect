@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:id="@+id/rel_pop_up"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:visibility="visible"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,92 +54,102 @@
 
         </RelativeLayout>
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="24.58dp"
-                android:layout_height="26dp"
-                android:layout_marginLeft="19.3dp"
-                android:background="@drawable/sch" />
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rel_header">
 
             <LinearLayout
-                android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10.11dp"
-                android:layout_marginRight="5dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_event_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=""
-                    android:textColor="#555759"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_event_date_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="#555759"
-                    android:textSize="14dp" />
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp">
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:textStyle="bold"
-                        android:gravity="center"
-                        android:text="Dr. Jack"
-                        android:id="@+id/tv_doctor_name"
+                    <ImageView
+                        android:layout_width="24.58dp"
+                        android:layout_height="26dp"
+                        android:layout_marginLeft="19.3dp"
+                        android:background="@drawable/sch" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#6AA2B8"
-                        android:textSize="14dp" />
+                        android:layout_marginLeft="10.11dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="2"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/tv_doctor_dept"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="#555759"
-                        android:textSize="14dp" />
+                        <TextView
+                            android:id="@+id/tv_event_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="#555759"
+                            android:textSize="14dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_event_date_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#555759"
+                            android:textSize="14dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="17dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_doctor_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Dr. Jack"
+                                android:textColor="#6AA2B8"
+                                android:textSize="14dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_doctor_dept"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textColor="#555759"
+                                android:textSize="14dp" />
 
 
-                    <TextView
-                        android:gravity="center"
-                        android:id="@+id/tv_event_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="#555759"
-                        android:textSize="14dp" />
+                            <TextView
+                                android:id="@+id/tv_event_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:textColor="#555759"
+                                android:textSize="14dp" />
 
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+<!--
+                    <ImageView
+                        android:layout_width="24.58dp"
+                        android:layout_height="26dp"
+                        android:layout_marginRight="19.3dp"
+                        android:background="@drawable/phone" />-->
 
                 </LinearLayout>
 
-            </LinearLayout>
 
-
-            <ImageView
-                android:layout_marginRight="19.3dp"
-                android:layout_width="24.58dp"
-                android:layout_height="26dp"
-                android:background="@drawable/phone" />
-
-        </LinearLayout>
-
-
-        <!--<Button
+                <!--<Button
             android:id="@+id/btn_view_referral_details"
             android:layout_width="248dp"
             android:layout_height="40dp"
@@ -156,71 +165,95 @@
             android:visibility="visible" />-->
 
 
+                <LinearLayout
+                    android:id="@+id/ll_instruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/ll_instruction"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="20dp"
-            android:gravity="center">
-
-            <TextView
-                android:text="Meeting Area"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#404040"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="We will meet you at valet"
-                android:textColor="#555759"
-                android:textSize="14dp"
-                android:layout_marginTop="5dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="15dp"
-            android:gravity="center">
-
-            <TextView
-                android:text="Please Bring"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#404040"
-                android:textSize="18dp"
-                android:textStyle="bold"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Meeting Area"
+                        android:textColor="#404040"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
 
-            <TextView
-                android:id="@+id/tv_document_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#555759"
-                android:textSize="14dp"
-                android:layout_marginTop="5dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="We will meet you at valet"
+                        android:textColor="#555759"
+                        android:textSize="14dp" />
 
-        </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Please Bring"
+                        android:textColor="#404040"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
 
+                    <TextView
+                        android:id="@+id/tv_document_detail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="#555759"
+                        android:textSize="14dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Attachments"
+                    android:textColor="#404040"
+                    android:textSize="18dp"
+                    android:textStyle="bold"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/recycler_view_attachement"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/layout_curve_background"
+                    android:clipToPadding="false"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </RelativeLayout>

@@ -219,8 +219,15 @@
                         android:textSize="20sp"
                         android:textColor="#6AA2B8"/>
 
+                <LinearLayout
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="18.8dp"
+                    android:id="@+id/ll_email_address">
+
                     <TextView
-                        android:layout_marginTop="18.8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Email (Optional)"
@@ -233,13 +240,14 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:textColor="#6AA2B8"/>
+                </LinearLayout>
 
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
 
-    <Button
+   <!-- <Button
         android:layout_centerInParent="true"
         android:layout_above="@id/tv_need_help"
         android:id="@+id/btn_send_request"
@@ -255,7 +263,7 @@
         android:textSize="20dp"
         android:textAllCaps="false"
         android:textColor="#6AA2B8"
-        android:background="@drawable/appointment_btn_corner" />
+        android:background="@drawable/appointment_btn_corner" />-->
 
     <ImageView
         android:layout_centerInParent="true"

@@ -1,10 +1,16 @@
 package com.devool.ucicareconnect.activities;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
@@ -17,6 +23,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,12 +38,17 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.devool.ucicareconnect.R;
 import com.devool.ucicareconnect.utils.AppConfig;
+import com.devool.ucicareconnect.utils.PermissionUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -53,6 +65,9 @@ public class UsersAccountActivity extends AppCompatActivity implements CompoundB
     ImageView imgCloseButton;
     EditText edtAssistantName, edtAssistantPhoneNumber;
     CircleImageView imgProfileImg;
+    String userChoosenTask, ImageToString;
+    Bitmap bm;
+    RelativeLayout relImglayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +86,15 @@ public class UsersAccountActivity extends AppCompatActivity implements CompoundB
         edtAssistantName = findViewById(R.id.tv_assistant_name);
         edtAssistantPhoneNumber = findViewById(R.id.tv_assistant_phone_number);
         imgProfileImg = findViewById(R.id.img_upload_profile_photo);
+        relImglayout = findViewById(R.id.rel_image_layout);
 
         switchCompat.setOnCheckedChangeListener(this);
         btnSignOut.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
         btnChangePassword.setOnClickListener(this);
         tvEmailAddress.setOnClickListener(this);
+        imgProfileImg.setOnClickListener(this);
+        relImglayout.setOnClickListener(this);
 
         sharedpreferences = getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
         strUserId = sharedpreferences.getString("USER_ID", "");
@@ -204,6 +222,9 @@ public class UsersAccountActivity extends AppCompatActivity implements CompoundB
             case R.id.tv_email_address:
                 Toast.makeText(this, "WIP", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.img_upload_profile_photo:
+                selectImage();
+                break;
         }
     }
 
@@ -229,7 +250,6 @@ public class UsersAccountActivity extends AppCompatActivity implements CompoundB
                         } else {
                             updateAssistant("", edtAssistantPhoneNumber.getText().toString(), "1");
                         }
-
                     }
                 }
                 break;
@@ -304,5 +324,147 @@ public class UsersAccountActivity extends AppCompatActivity implements CompoundB
            e.printStackTrace();
         }
         return null;
+    }
+
+    private void selectImage() {
+        final CharSequence[] items = {"Choose from Gallery", "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(UsersAccountActivity.this);
+        builder.setTitle("Select Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                boolean result = PermissionUtils.checkPermission(UsersAccountActivity.this);
+                if (items[item].equals("Choose from Gallery")) {
+                    userChoosenTask = "Choose from Gallery";
+                    if (result)
+                        galleryIntent();
+                } else if (items[item].equals("Cancel")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    private void galleryIntent() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"), 5);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PermissionUtils.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (userChoosenTask.equals("Choose from Gallery"))
+                        galleryIntent();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 5)
+                onSelectFromGalleryResult(data);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void onSelectFromGalleryResult(Intent data) {
+        bm = null;
+        if (data != null) {
+            try {
+                bm = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
+                int nh = (int) (bm.getHeight() * (512.0 / bm.getWidth()));
+                Bitmap scaled = Bitmap.createScaledBitmap(bm, 512, nh, true);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                bm.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+                imgProfileImg.setImageBitmap(scaled);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        ImageToString = convertString(bm);
+        submitImage();
+    }
+
+    private String convertString(Bitmap bm) {
+        //Bitmap bm = BitmapFactory.decodeFile(docFilePath);
+        Bitmap imageScaled = Bitmap.createScaledBitmap(bm, 700, 1080, true);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        imageScaled.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+        byte[] data = bos.toByteArray();
+        return android.util.Base64.encodeToString(data, android.util.Base64.DEFAULT);
+    }
+
+
+    public void submitImage() {
+        try {
+            RequestQueue requestQueue = Volley.newRequestQueue(UsersAccountActivity.this);
+            String URL = AppConfig.BASE_URL + AppConfig.UPDATE_PROLFILE_IMG;
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("UserID", strUserId);
+            if (ImageToString != null) {
+                jsonBody.put("ProfileImage", ImageToString);
+            } else {
+                jsonBody.put("ProfileImage", "");
+            }
+
+            Log.e("useid", sharedpreferences.getString("USER_ID", ""));
+            if (ImageToString != null) {
+                Log.e("ProfileImage", ImageToString);
+            } else {
+                Log.e("ProfileImage", "");
+            }
+
+
+            final String requestBody = jsonBody.toString();
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Toast.makeText(UsersAccountActivity.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.e("VOLLEY", error.toString());
+                }
+            }) {
+                @Override
+                public String getBodyContentType() {
+                    return "application/json; charset=utf-8";
+                }
+
+                @Override
+                public byte[] getBody() throws AuthFailureError {
+                    try {
+                        return requestBody == null ? null : requestBody.getBytes("utf-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s", requestBody, "utf-8");
+                        return null;
+                    }
+                }
+
+                @Override
+                protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                    String responseString = "";
+                    if (response != null) {
+                        responseString = String.valueOf(response.statusCode);
+
+                    }
+                    return super.parseNetworkResponse(response);
+                }
+            };
+
+            requestQueue.add(stringRequest);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

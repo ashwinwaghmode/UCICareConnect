@@ -20,7 +20,7 @@ import com.devool.ucicareconnect.activities.DashboardActivity;
 
 public class FirstTimePhysicianNewPtAnySpecificRequest extends Fragment implements View.OnClickListener{
 
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
     Button btnSave;
 
     String strMeetPurpose, strAppointmentType, strAvailability, strpatient, strDay, strPhysicianType, strPhysicianName, strAssistance, strFacilityPhysicianName, strFacilityName, strInteractionDetailId, strUserId, strFacilityphoneNumber, strFacilityAddress, strAnySpecificRequest;
@@ -59,9 +59,13 @@ public class FirstTimePhysicianNewPtAnySpecificRequest extends Fragment implemen
         edtAnySpecificRequest = row.findViewById(R.id.edit_specific_request);
         imgCloseButton = row.findViewById(R.id.img_close_button);
         btnSave = row.findViewById(R.id.btn_save);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
         imgCloseButton.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         edtAnySpecificRequest.setImeOptions(EditorInfo.IME_ACTION_DONE);
         edtAnySpecificRequest.setRawInputType(InputType.TYPE_CLASS_TEXT);
@@ -101,6 +105,11 @@ public class FirstTimePhysicianNewPtAnySpecificRequest extends Fragment implemen
                 fragmentTransaction.replace(R.id.myContainer, fragment);
                 fragmentTransaction.commit();
                 fragmentTransaction.addToBackStack(null);
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

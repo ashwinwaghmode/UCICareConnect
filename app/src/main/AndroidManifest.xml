@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <supports-screens
         android:anyDensity="true"
@@ -67,6 +68,15 @@
             android:required="false" />
 
         <activity
+            android:name=".pubnub.LoginActivity"
+            android:screenOrientation="portrait" />
+
+
+        <activity
+            android:name=".pubnub.MainActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activities.DashboardActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
@@ -76,7 +86,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.LoginActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.WelcomeActivityAfterLogin"
             android:screenOrientation="portrait" />
@@ -148,7 +158,7 @@
             android:name=".activities.CancelAppointmentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.MakeAnotherReferralActivity"
+            android:name=".activities.CancelReferralActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SplashScreen"
@@ -165,7 +175,9 @@
         <activity android:name=".activities.LostActivationCodeActivity" />
         <activity android:name=".activities.ForgotUserNameActivity" />
         <activity android:name=".activities.ForgotPasswordActivity" />
-        <activity android:name=".activities.ForgotRequestSentActivity"></activity>
+        <activity android:name=".activities.ForgotRequestSentActivity" />
+        <activity android:name=".activities.EventDetailsActivity" />
+        <activity android:name=".activities.AppInstructionAttachmentDetailActivity"></activity>
     </application>
 
 </manifest>

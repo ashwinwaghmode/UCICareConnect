@@ -44,7 +44,7 @@ public class ReferralRelationship extends Fragment implements View.OnClickListen
 
     SharedPreferences sharedpreferences;
     public static final String USER_INFO = "user_info";
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,8 @@ public class ReferralRelationship extends Fragment implements View.OnClickListen
         btnOtherAssociates = row.findViewById(R.id.btn_other_associates);
         //btnNext = row.findViewById(R.id.btn_next);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
 
         btnFriend.setOnClickListener(this);
@@ -68,6 +70,8 @@ public class ReferralRelationship extends Fragment implements View.OnClickListen
         btnOtherAssociates.setOnClickListener(this);
         //btnNext.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
 
@@ -140,6 +144,11 @@ public class ReferralRelationship extends Fragment implements View.OnClickListen
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

@@ -191,8 +191,41 @@
         android:textColor="#6AA2B8"
         android:textAllCaps="false"
         android:layout_gravity="center"/>-->
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="18dp">
+
 
     <ImageView
+        android:id="@+id/img_btn_chat"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/chat"
+        android:gravity="center"
+        android:textColor="#6AA2B8"
+        android:textSize="14dp"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:id="@+id/img_btn_call"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/call"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="#6AA2B8"
+        android:textSize="14dp"
+        android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <!--<ImageView
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
         android:id="@+id/tv_need_help"
@@ -205,5 +238,5 @@
         android:layout_marginBottom="33px"
         android:textColor="#6AA2B8"
         android:textSize="14dp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"/>-->
 </RelativeLayout>

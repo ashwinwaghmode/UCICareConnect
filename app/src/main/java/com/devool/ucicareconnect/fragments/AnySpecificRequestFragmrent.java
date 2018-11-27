@@ -38,7 +38,7 @@ import java.io.UnsupportedEncodingException;
 
 public class AnySpecificRequestFragmrent extends Fragment implements View.OnClickListener {
 
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
     Button btnSave;
 
     String strAppointmentType, strSpecialty, strAvailability, strTimeofDay, strPhysicianName, strPhysicianType, strRequestedBy, strOutsideProviderNumber, strRadiologyType, strInteractionId, strInteractionDetailId, strUserId, strTestOrder, strExamType;
@@ -79,11 +79,15 @@ public class AnySpecificRequestFragmrent extends Fragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View row = inflater.inflate(R.layout.fragment_your_appointment_request_fragmrent, container, false);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
         btnSave = row.findViewById(R.id.btn_save);
         edtAnySpecificRequest = row.findViewById(R.id.edit_specific_request);
 
         imgCloseButton.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         edtAnySpecificRequest.setImeOptions(EditorInfo.IME_ACTION_DONE);
         edtAnySpecificRequest.setRawInputType(InputType.TYPE_CLASS_TEXT);
@@ -115,6 +119,11 @@ public class AnySpecificRequestFragmrent extends Fragment implements View.OnClic
                     submitAnySpecificRequest();
                     break;
                 }
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
+                break;
         }
 
     }

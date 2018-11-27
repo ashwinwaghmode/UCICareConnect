@@ -31,6 +31,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.devool.ucicareconnect.R;
 import com.devool.ucicareconnect.activities.ApptInstructionActivity;
+import com.devool.ucicareconnect.activities.CancelAppointmentActivity;
+import com.devool.ucicareconnect.activities.CancelFollowUpActivity;
+import com.devool.ucicareconnect.activities.CancelReferralActivity;
+import com.devool.ucicareconnect.activities.EventDetailsActivity;
 import com.devool.ucicareconnect.helper.ContextualModelItems;
 
 import java.util.ArrayList;
@@ -95,14 +99,20 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
             if (items != null) {
                 switch (items.getEventTypeId()) {
                     case "3":
-                        if (contextualModelItems.get(i).getEventDescription() != null) {
+                        if (contextualModelItems.get(i).getEventDescription() == null) {
+                            ((EventDetailViewHolder) viewHolder).tvEventName.setText("");
+                        }else {
                             ((EventDetailViewHolder) viewHolder).tvEventName.setText(contextualModelItems.get(i).getEventDescription());
                         }
                         if (contextualModelItems.get(i).getAddress() != null) {
                             ((EventDetailViewHolder) viewHolder).tvEventAddress.setText(contextualModelItems.get(i).getAddress());
+                        }else {
+                            ((EventDetailViewHolder) viewHolder).tvEventAddress.setText("");
                         }
                         if (contextualModelItems.get(i).getEventDate() != null) {
                             ((EventDetailViewHolder) viewHolder).tvTime.setText(contextualModelItems.get(i).getEventDate());
+                        }else {
+                            ((EventDetailViewHolder) viewHolder).tvTime.setText("");
                         }
                         if (contextualModelItems.get(i).getStrImage() != null) {
                             Glide.with(activity.getBaseContext()).
@@ -185,13 +195,16 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvHeadiing, tvSubheading;
         ImageView imgCallBtn;
+        Button btnViewEvenetDetails;
 
         ViewHolder(View itemView) {
             super(itemView);
             imgCallBtn = itemView.findViewById(R.id.img_call_btn);
             tvHeadiing = (TextView) itemView.findViewById(R.id.tv_heading);
             tvSubheading = (TextView) itemView.findViewById(R.id.tv_subheading);
+            btnViewEvenetDetails = itemView.findViewById(R.id.btn_view_event_details);
             imgCallBtn.setOnClickListener(this);
+            btnViewEvenetDetails.setOnClickListener(this);
         }
 
         @Override
@@ -202,7 +215,19 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                     intent.setData(Uri.parse("tel:(866) 698-2422"));
                     context.startActivity(intent);
                     break;
-
+                case R.id.btn_view_event_details:
+                    if (contextualModelItems.get(getAdapterPosition()).getEventTypeId().equals("1")) {
+                        Intent i = new Intent(context, CancelAppointmentActivity.class);
+                        i.putExtra("event_id", contextualModelItems.get(getAdapterPosition()).getEventId());
+                        context.startActivity(i);
+                        break;
+                    } else if (contextualModelItems.get(getAdapterPosition()).getEventTypeId().equals("4")) {
+                        Intent i = new Intent(context, CancelReferralActivity.class);
+                        i.putExtra("event_id", contextualModelItems.get(getAdapterPosition()).getEventId());
+                        context.startActivity(i);
+                        break;
+                    }
+                    break;
             }
         }
     }
@@ -211,6 +236,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
         TextView tvEventName, tvEventAddress, tvTime;
         ImageView img, imgCallBtn;
         ProgressBar progressBar;
+        LinearLayout btnEventDetails;
 
         EventDetailViewHolder(View itemView) {
             super(itemView);
@@ -220,7 +246,10 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
             tvEventAddress = (TextView) itemView.findViewById(R.id.tv_event_address);
             tvTime = (TextView) itemView.findViewById(R.id.tv_event_time);
             progressBar = (ProgressBar) itemView.findViewById(R.id.progress);
+            btnEventDetails = itemView.findViewById(R.id.btn_view_event_details);
+
             imgCallBtn.setOnClickListener(this);
+            btnEventDetails.setOnClickListener(this);
         }
 
         @Override
@@ -230,6 +259,11 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                     Intent intent = new Intent(Intent.ACTION_DIAL);
                     intent.setData(Uri.parse("tel:(866) 698-2422"));
                     context.startActivity(intent);
+                    break;
+                case R.id.btn_view_event_details:
+                    Intent i = new Intent(context, EventDetailsActivity.class);
+                    i.putExtra("event_id", contextualModelItems.get(getAdapterPosition()).getEventId());
+                    context.startActivity(i);
                     break;
             }
         }

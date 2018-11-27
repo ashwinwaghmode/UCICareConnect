@@ -38,7 +38,7 @@ public class ReferralFamilyRelationFragment extends Fragment implements View.OnC
     EditText edtRelation;
     Button btnNext;
     String strRelationship, strReferralname;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
 
     SharedPreferences sharedpreferences;
     public static final String USER_INFO = "user_info";
@@ -56,12 +56,16 @@ public class ReferralFamilyRelationFragment extends Fragment implements View.OnC
         View row = inflater.inflate(R.layout.fragment_referral_family_relation, container, false);
         edtRelation = row.findViewById(R.id.edit_relation);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
         btnNext = row.findViewById(R.id.btn_next);
 
         sharedpreferences = getActivity().getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
 
         btnNext.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         return row;
     }
@@ -80,6 +84,11 @@ public class ReferralFamilyRelationFragment extends Fragment implements View.OnC
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

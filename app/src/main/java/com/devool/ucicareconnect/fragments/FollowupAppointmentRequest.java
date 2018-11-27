@@ -41,7 +41,7 @@ public class FollowupAppointmentRequest extends Fragment implements View.OnClick
     String StrAppointmentType, strDoctorName, strFollowupAvailability, strFollowupTimeofDay, strAnySpecificRequest, strInteractionId, strInteractionDetailId, strUserId;
     TextView tvAppointmentType, tvDoctorName, tvFollowupAvailability, tvFollowupTimeOfDay, tvSpecificRequest, tvSpecificRequestTitle;
     Button btnSendRequest, btnAnySpecificRequest;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
     SharedPreferences sharedpreferences;
 
     @Override
@@ -68,6 +68,8 @@ public class FollowupAppointmentRequest extends Fragment implements View.OnClick
         btnAnySpecificRequest = row.findViewById(R.id.btn_any_specific_request);
         btnSendRequest = row.findViewById(R.id.btn_send_request);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
         tvAppointmentType.setText(StrAppointmentType);
         tvDoctorName.setText(strDoctorName);
@@ -92,6 +94,8 @@ public class FollowupAppointmentRequest extends Fragment implements View.OnClick
         btnSendRequest.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
         btnAnySpecificRequest.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
         return row;
     }
 
@@ -128,6 +132,11 @@ public class FollowupAppointmentRequest extends Fragment implements View.OnClick
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

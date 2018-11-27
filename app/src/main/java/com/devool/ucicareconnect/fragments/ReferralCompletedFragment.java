@@ -3,6 +3,7 @@ package com.devool.ucicareconnect.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -44,7 +45,7 @@ public class ReferralCompletedFragment extends Fragment implements View.OnClickL
 
     SharedPreferences sharedpreferences;
     Button btnSendRequest, btnMakeAnotherReferral;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
 
     public static final String USER_INFO = "user_info";
 
@@ -74,10 +75,14 @@ public class ReferralCompletedFragment extends Fragment implements View.OnClickL
         tvEmailAddress = row.findViewById(R.id.tv_email_address);
         btnSendRequest = row.findViewById(R.id.btn_send_request);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
         btnMakeAnotherReferral = row.findViewById(R.id.btn_make_another_referral);
 
         btnSendRequest.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
         btnMakeAnotherReferral.setOnClickListener(this);
 
         if(strRelationship.equalsIgnoreCase("Friend")){
@@ -215,6 +220,11 @@ public class ReferralCompletedFragment extends Fragment implements View.OnClickL
                 btnMakeAnotherReferral.setBackground(getResources().getDrawable(R.drawable.fill_appointment_button_corner));
                 btnMakeAnotherReferral.setTextColor(getResources().getColor(R.color.btn_text_color));
                 submitAnotherReferral();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }

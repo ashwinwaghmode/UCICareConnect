@@ -25,7 +25,7 @@ public class FirstTimePhysicianPatientPreviousFacilityFragment extends Fragment 
 
     EditText edtPhysicianName, edtFacility, edtPhoneNumber, edtFacilityAddress;
     Button btnNext;
-    ImageView imgCloseButton;
+    ImageView imgCloseButton, imgBtnCall, imgBtnChat;
     String strAssistance, strpatient, strAppointmentType, strMeetPurpose, strAvailability, strDay, strPhysicianName, strPhysicianType;
 
     @Override
@@ -53,6 +53,8 @@ public class FirstTimePhysicianPatientPreviousFacilityFragment extends Fragment 
         edtFacilityAddress = row.findViewById(R.id.edit_facility_address);
         btnNext = row.findViewById(R.id.btn_next);
         imgCloseButton = row.findViewById(R.id.img_close_button);
+        imgBtnCall = row.findViewById(R.id.img_btn_call);
+        imgBtnChat = row.findViewById(R.id.img_btn_chat);
 
         edtPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         edtFacilityAddress.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -60,6 +62,8 @@ public class FirstTimePhysicianPatientPreviousFacilityFragment extends Fragment 
 
         btnNext.setOnClickListener(this);
         imgCloseButton.setOnClickListener(this);
+        imgBtnChat.setOnClickListener(this);
+        imgBtnCall.setOnClickListener(this);
 
         edtPhysicianName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -195,6 +199,11 @@ public class FirstTimePhysicianPatientPreviousFacilityFragment extends Fragment 
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 getActivity().finish();
+                break;
+            case R.id.img_btn_call:
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:(866) 698-2422"));
+                startActivity(i);
                 break;
         }
     }
